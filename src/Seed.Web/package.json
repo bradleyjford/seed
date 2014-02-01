@@ -1,0 +1,24 @@
+﻿{
+  "name": "SeedApp",
+  "version": "0.1.0",
+  "description": "Seed Setup",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Bradley Ford",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-recess": "~0.3",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-karma": "~0.4.4",
+    "grunt-html2js": "~0.1.0",
+    "grunt-contrib-watch": "~0.4.0",
+    "grunt-preprocess": "~3.0.1",
+    "grunt-env": "~0.4.0",
+    "grunt-concurrent": "~0.4.3"
+  }
+}
