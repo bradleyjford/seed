@@ -2,7 +2,7 @@
 
 namespace Seed.Api.Security
 {
-    public class SignInSuccessResult : SignInResult
+    public class SignInSuccessResponse : SignInResponse
     {
         public string Message
         {

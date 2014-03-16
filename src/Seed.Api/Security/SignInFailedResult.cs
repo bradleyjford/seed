@@ -3,11 +3,11 @@ using System.Web.Http.ModelBinding;
 
 namespace Seed.Api.Security
 {
-    public class SignInFailedResult : SignInResult
+    public class SignInFailedResponse : SignInResponse
     {
         private readonly ModelStateDictionary _modelState;
 
-        public SignInFailedResult(ModelStateDictionary modelState)
+        public SignInFailedResponse(ModelStateDictionary modelState)
         {
             _modelState = modelState;
         }

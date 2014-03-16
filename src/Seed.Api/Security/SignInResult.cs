@@ -2,7 +2,7 @@
 
 namespace Seed.Api.Security
 {
-    public abstract class SignInResult
+    public abstract class SignInResponse
     {
     }
 }
