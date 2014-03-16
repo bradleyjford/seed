@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         copy: {
             assets: {
                 files: [
-                    { dest: '<%= distDir %>/assets', src: '<%= src.assets %>', expand: true, cwd: 'app/assets/' }
+                    { dest: '<%= distDir %>', src: '<%= src.assets %>', expand: true, cwd: 'app/assets/' }
                 ]
             },
             spaHost: {
@@ -106,7 +106,7 @@ module.exports = function (grunt) {
                     base: 'app/js'
                 },
                 src: ['<%= src.tpl.app %>'],
-                dest: '<%= distDir %>/SeedApp.html.js',
+                dest: '<%= distDir %>/js/SeedApp.html.js',
                 module: 'seedApp.templates'
             },
             uiBootstrap: {
@@ -121,7 +121,7 @@ module.exports = function (grunt) {
         concat: {
             appJs: {
                 src: ['<%= src.appJs %>'],
-                dest: '<%= distDir %>/<%= pkg.name %>.js'
+                dest: '<%= distDir %>/js/<%= pkg.name %>.js'
             },
             angular: {
                 src: [
@@ -144,7 +144,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['<%= concat.appjs.dest %>'],
-                dest: '<%= distDir %>/<%= pkg.name %>.min.js'
+                dest: '<%= distDir %>/js/<%= pkg.name %>.min.js'
             },
             angular: {
                 src: ['<%= concat.angular.dest %>'],
@@ -166,12 +166,12 @@ module.exports = function (grunt) {
         less: {
             bootstrap: {
                 files: {
-                    '<%= distDir %>/assets/css/bootstrap.css': 'app/assets/less/bootstrap/bootstrap.less'
+                    '<%= distDir %>/css/bootstrap.css': 'app/assets/less/bootstrap/bootstrap.less'
                 }
             },
             app: {
                 files: {
-
+                    '<%= distDir %>/css/seed.css': 'app/assets/less/app.less'
                 }
             }
         },
@@ -214,7 +214,8 @@ module.exports = function (grunt) {
             target: {
                 tasks: ['rebuild', 'watch'],
                 options: {
-                  logConcurrentOutput: true
+                  logConcurrentOutput: true,
+                  NODE_ENV: 'dev'
                 }
             }
         }
