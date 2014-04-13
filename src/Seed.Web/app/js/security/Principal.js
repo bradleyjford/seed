@@ -13,6 +13,7 @@ seedApp.security = seedApp.security || { };
         this.isAuthenticated = true;
         this.name = name;
 
+        this.roles.length = 0;
         this.roles.push.apply(this.roles, roles);
     };
 

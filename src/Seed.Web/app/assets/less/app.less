@@ -1,1 +1,34 @@
 @import "_form.less";
+
+.my-animation.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.4s linear all;
+  transition: 0.4s linear all;
+  opacity:0;
+}
+
+.my-animation.ng-leave {
+  /* standard transition code */
+  -webkit-transition: 0.4s linear all;
+  transition: 0.4s linear all;
+  opacity:1;
+}
+.my-animation.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+
+  /* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.my-animation.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity:1;
+}
+
+.my-animation.ng-leave.ng-leave-active {
+  /* standard transition styles */
+  opacity:0;
+}

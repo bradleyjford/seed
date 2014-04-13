@@ -48,12 +48,8 @@ module.exports = function (grunt) {
             js: ['app/js/**/*.js', '!(app/js/app.js)', '!(app/js/*Module.js)'],
             modules: ['app/js/**/*Module.js'],
             assets: [],
-            tpl: { 
-                app: ['app/js/**/*.html'], 
-                uibootstrap: ['app/lib/ui-bootstrap/template/**/*.html'] 
-            },
+            tpl: ['app/js/**/*.html'],
             appJs: ['<%= src.app %>', '<%= src.modules %>', '<%= src.js %>'],
-
             specs: ['test/**/*.spec.js'],
             scenarios: ['test/**/*.scenario.js']
         },
@@ -76,7 +72,13 @@ module.exports = function (grunt) {
             },
             lib: {
                 files: [
-                    { dest: '<%= distDir %>/js', src: '**/*.js', expand: true, cwd: 'app/lib', flatten: true }
+                    { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular' },
+                    { dest: '<%= distDir %>/css', src: ['*.css'], expand: true, cwd: 'bower_components/angular' },
+                    { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-route' },
+                    { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-animate' },
+                    { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-bootstrap' },
+                    { dest: '<%= distDir %>', src: ['**/*'], expand: true, cwd: 'bower_components/bootstrap/dist' },
+                    { dest: '<%= distDir %>/js', src: ['*'], expand: true, cwd: 'bower_components/jquery/dist' }
                 ]
             }
         },
@@ -105,34 +107,17 @@ module.exports = function (grunt) {
                 options: {
                     base: 'app/js'
                 },
-                src: ['<%= src.tpl.app %>'],
+                src: ['<%= src.tpl %>'],
                 dest: '<%= distDir %>/js/SeedApp.html.js',
                 module: 'seedApp.templates'
-            },
-            uiBootstrap: {
-                options: {
-                    base: 'app/lib/ui-bootstrap'
-                },
-                src: 'app/lib/ui-bootstrap/template/**/*.html',
-                dest: '<%= distDir %>/js/ui-bootstrap.html.js',
-                module: 'ui-bootstrap.templates'
             }
         },
         concat: {
             appJs: {
                 src: ['<%= src.appJs %>'],
                 dest: '<%= distDir %>/js/<%= pkg.name %>.js'
-            },
-            angular: {
-                src: [
-                    'app/lib/angular/angular.js',
-                    'app/lib/angular/angular-resource.js',
-                    'app/lib/angular/angular-route.js'
-                ],
-                dest: '<%= distDir %>/js/angular.js'
             }
         },
-
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
@@ -145,30 +130,9 @@ module.exports = function (grunt) {
             dist: {
                 src: ['<%= concat.appjs.dest %>'],
                 dest: '<%= distDir %>/js/<%= pkg.name %>.min.js'
-            },
-            angular: {
-                src: ['<%= concat.angular.dest %>'],
-                dest: '<%= distDir %>/js/angular.min.js'
-            },
-            bootstrap: {
-                src: ['app/lib/bootstrap/bootstrap.js'],
-                dest: '<%= distDir %>/js/bootstrap.min.js'
-            },
-            jquery: {
-                src: ['app/lib/jquery/jquery.js'],
-                dest: '<%= distDir %>/js/jquery.min.js'
-            },
-            uiBootstrap: {
-                src: ['app/lib/ui-bootstrap/ui-bootstrap.js'],
-                dest: '<%= distDir %>/js/ui-bootstrap.min.js'
             }
         },
         less: {
-            bootstrap: {
-                files: {
-                    '<%= distDir %>/css/bootstrap.css': 'app/assets/less/bootstrap/bootstrap.less'
-                }
-            },
             app: {
                 files: {
                     '<%= distDir %>/css/seed.css': 'app/assets/less/app.less'
@@ -185,14 +149,6 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            bootstrapLess: {
-                files: ['app/assets/less/bootstrap/*.less'],
-                tasks: ['less:bootstrap']
-            },
-            uiBootstrapTemplates: {
-                files: ['app/lib/ui-bootstrap/template/**/*.html'],
-                tasks: ['html2js:uiBootstrap']
-            },
             appLess: {
                 files: ['app/assets/less/**.less', '!(app/assets/less/bootstrap/*.less)'],
                 tasks: ['less:app']

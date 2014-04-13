@@ -3,11 +3,12 @@ var seedApp = (function (angular) {
 
     var seedApp = angular.module('seedApp', [
         'ngRoute',
+        'ngAnimate',
         'seedApp.templates',
         'seedApp.security',
         'seedApp.navigation',
         'seedApp.dashboard',
-        'ui-bootstrap.templates',
+        'ui.bootstrap.tpls',
         'ui.bootstrap'
     ]);
 
@@ -29,6 +30,11 @@ var seedApp = (function (angular) {
                 title: 'Sign out'
             });
 
+            $routeProvider.when('/unauthorized', {
+                templateUrl: 'security/Unauthorized.html',
+                title: 'Access denied'
+            });
+
             $routeProvider.when('/', {
                 templateUrl: 'dashboard/Dashboard.html',
                 controller: 'DashboardCtrl',
@@ -41,11 +47,6 @@ var seedApp = (function (angular) {
                 controller: 'TestCtrl',
                 requireRole: 'admin',
                 title: 'Admin'
-            });
-
-            $routeProvider.when('/unauthorized', {
-                templateUrl: 'security/Unauthorized.html',
-                title: 'Access denied'
             });
 
             $routeProvider.otherwise({
