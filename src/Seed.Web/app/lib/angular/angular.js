@@ -222,7 +222,7 @@
 
 
     var /** holds major version number for IE or NaN for real browsers */
-            msie,
+        msie,
         jqLite,           // delay binding since jQuery could be loaded after us.
         jQuery,           // delay binding
         slice = [].slice,
@@ -233,7 +233,7 @@
 
         _angular = window.angular,
         /** @name angular */
-            angular = window.angular || (window.angular = {}),
+        angular = window.angular || (window.angular = {}),
         angularModule,
         nodeName_,
         uid = ['0', '0', '0'];
@@ -1329,12 +1329,12 @@
             modules.unshift('ng');
             var injector = createInjector(modules);
             injector.invoke(['$rootScope', '$rootElement', '$compile', '$injector', '$animate',
-                function (scope, element, compile, injector, animate) {
-                    scope.$apply(function () {
-                        element.data('$injector', injector);
-                        compile(element)(scope);
-                    });
-                }]
+                    function (scope, element, compile, injector, animate) {
+                        scope.$apply(function () {
+                            element.data('$injector', injector);
+                            compile(element)(scope);
+                        });
+                    }]
             );
             return injector;
         };
@@ -2123,7 +2123,7 @@
      */
     function camelCase(name) {
         return name.
-            replace(SPECIAL_CHARS_REGEXP,function (_, separator, letter, offset) {
+            replace(SPECIAL_CHARS_REGEXP, function (_, separator, letter, offset) {
                 return offset ? letter.toUpperCase() : letter;
             }).
             replace(MOZ_HACK_REGEXP, 'Moz$1');
@@ -2304,9 +2304,9 @@
         if (cssClasses && element.setAttribute) {
             forEach(cssClasses.split(' '), function (cssClass) {
                 element.setAttribute('class', trim(
-                    (" " + (element.getAttribute('class') || '') + " ")
-                        .replace(/[\n\t]/g, " ")
-                        .replace(" " + trim(cssClass) + " ", " "))
+                        (" " + (element.getAttribute('class') || '') + " ")
+                            .replace(/[\n\t]/g, " ")
+                            .replace(" " + trim(cssClass) + " ", " "))
                 );
             });
         }
@@ -3740,7 +3740,7 @@
                             'Incorrect injection token! Expected service name as string, got {0}', key);
                     }
                     args.push(
-                        locals && locals.hasOwnProperty(key)
+                            locals && locals.hasOwnProperty(key)
                             ? locals[key]
                             : getService(key)
                     );
@@ -4981,7 +4981,7 @@
      * You can specify `templateUrl` as a string representing the URL or as a function which takes two
      * arguments `tElement` and `tAttrs` (described in the `compile` function api below) and returns
      * a string value representing the url.  In either case, the template URL is passed through {@link
-     * api/ng.$sce#methods_getTrustedResourceUrl $sce.getTrustedResourceUrl}.
+        * api/ng.$sce#methods_getTrustedResourceUrl $sce.getTrustedResourceUrl}.
      *
      *
      * #### `replace`
@@ -5013,7 +5013,7 @@
      * The compile function deals with transforming the template DOM. Since most directives do not do
      * template transformation, it is not used often. Examples that require compile functions are
      * directives that transform template DOM, such as {@link
-     * api/ng.directive:ngRepeat ngRepeat}, or load the contents
+        * api/ng.directive:ngRepeat ngRepeat}, or load the contents
      * asynchronously, such as {@link api/ngRoute.directive:ngView ngView}. The
      * compile function takes the following arguments.
      *
@@ -5953,7 +5953,7 @@
                                 replaceWith(jqCollection, jqLite(sliceArgs($template)), compileNode);
 
                                 childTranscludeFn = compile($template, transcludeFn, terminalPriority,
-                                    replaceDirective && replaceDirective.name, {
+                                        replaceDirective && replaceDirective.name, {
                                         // Don't pass in:
                                         // - controllerDirectives - otherwise we'll create duplicates controllers
                                         // - newIsolateScopeDirective or templateDirective - combining templates with
@@ -6208,7 +6208,7 @@
 
                                     default:
                                         throw $compileMinErr('iscp',
-                                            "Invalid isolate scope definition for directive '{0}'." +
+                                                "Invalid isolate scope definition for directive '{0}'." +
                                                 " Definition: {... {1}: '{2}' ...}",
                                             newIsolateScopeDirective.name, scopeName, definition);
                                 }
@@ -6251,7 +6251,7 @@
                             try {
                                 linkFn = preLinkFns[i];
                                 linkFn(linkFn.isolateScope ? isolateScope : scope, $element, attrs,
-                                    linkFn.require && getControllers(linkFn.require, $element, elementControllers), transcludeFn);
+                                        linkFn.require && getControllers(linkFn.require, $element, elementControllers), transcludeFn);
                             } catch (e) {
                                 $exceptionHandler(e, startingTag($element));
                             }
@@ -6271,7 +6271,7 @@
                             try {
                                 linkFn = postLinkFns[i];
                                 linkFn(linkFn.isolateScope ? isolateScope : scope, $element, attrs,
-                                    linkFn.require && getControllers(linkFn.require, $element, elementControllers), transcludeFn);
+                                        linkFn.require && getControllers(linkFn.require, $element, elementControllers), transcludeFn);
                             } catch (e) {
                                 $exceptionHandler(e, startingTag($element));
                             }
@@ -6557,7 +6557,7 @@
 
                                     if (EVENT_HANDLER_ATTR_REGEXP.test(name)) {
                                         throw $compileMinErr('nodomevents',
-                                            "Interpolations for HTML DOM event attributes are disallowed.  Please use the " +
+                                                "Interpolations for HTML DOM event attributes are disallowed.  Please use the " +
                                                 "ng- versions (such as ng-click instead of onclick) instead.");
                                     }
 
@@ -6815,7 +6815,7 @@
                     if (!(locals && typeof locals.$scope == 'object')) {
                         throw minErr('$controller')('noscp',
                             "Cannot export controller '{0}' as '{1}'! No $scope object provided via `locals`.",
-                            constructor || expression.name, identifier);
+                                constructor || expression.name, identifier);
                     }
 
                     locals.$scope[identifier] = instance;
@@ -7444,7 +7444,7 @@
                  *      XHR object. See {@link https://developer.mozilla.org/en/http_access_control#section_5
                  *      requests with credentials} for more information.
                  *    - **responseType** - `{string}` - see {@link
-                 *      https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType requestType}.
+                    *      https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType requestType}.
                  *
                  * @returns {HttpPromise} Returns a {@link ng.$q promise} object with the
                  *   standard `then` method and two http specific methods: `success` and `error`. The `then`
@@ -8008,7 +8008,7 @@
                         // responseText is the old-school way of retrieving response (supported by IE8 & 9)
                         // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
                         completeRequest(callback,
-                            status || xhr.status,
+                                status || xhr.status,
                             response,
                             responseHeaders);
                     }
@@ -8250,7 +8250,7 @@
                 // the load when auditing for XSS issues.
                 if (trustedContext && parts.length > 1) {
                     throw $interpolateMinErr('noconcat',
-                        "Error while interpolating: {0}\nStrict Contextual Escaping disallows " +
+                            "Error while interpolating: {0}\nStrict Contextual Escaping disallows " +
                             "interpolations that concatenate multiple expressions when a trusted value is " +
                             "required.  See http://docs.angularjs.org/api/ng.$sce", text);
                 }
@@ -11927,7 +11927,7 @@
                             if (dirty && !(ttl--)) {
                                 clearPhase();
                                 throw $rootScopeMinErr('infdig',
-                                    '{0} $digest() iterations reached. Aborting!\n' +
+                                        '{0} $digest() iterations reached. Aborting!\n' +
                                         'Watchers fired in the last 5 iterations: {1}',
                                     TTL, toJson(watchLog));
                             }
@@ -12520,7 +12520,7 @@
      * your own whitelists and blacklists for trusting URLs used for loading AngularJS resources such as
      * templates.  Refer {@link ng.$sceDelegateProvider#methods_resourceUrlWhitelist
      * $sceDelegateProvider.resourceUrlWhitelist} and {@link
-     * ng.$sceDelegateProvider#methods_resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
+        * ng.$sceDelegateProvider#methods_resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
      */
 
     /**
@@ -12531,7 +12531,7 @@
      * The `$sceDelegateProvider` provider allows developers to configure the {@link ng.$sceDelegate
      * $sceDelegate} service.  This allows one to get/set the whitelists and blacklists used to ensure
      * that the URLs used for sourcing Angular templates are safe.  Refer {@link
-     * ng.$sceDelegateProvider#methods_resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist} and
+        * ng.$sceDelegateProvider#methods_resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist} and
      * {@link ng.$sceDelegateProvider#methods_resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
      *
      * For the general details about this service in Angular, read the main page for {@link ng.$sce
@@ -12748,10 +12748,10 @@
              * @description
              * If the passed parameter had been returned by a prior call to {@link ng.$sceDelegate#methods_trustAs
              * `$sceDelegate.trustAs`}, returns the value that had been passed to {@link
-             * ng.$sceDelegate#methods_trustAs `$sceDelegate.trustAs`}.
+                * ng.$sceDelegate#methods_trustAs `$sceDelegate.trustAs`}.
              *
              * If the passed parameter is not a value that had been returned by {@link
-             * ng.$sceDelegate#methods_trustAs `$sceDelegate.trustAs`}, returns it as-is.
+                * ng.$sceDelegate#methods_trustAs `$sceDelegate.trustAs`}, returns it as-is.
              *
              * @param {*} value The result of a prior {@link ng.$sceDelegate#methods_trustAs `$sceDelegate.trustAs`}
              *      call or anything else.
@@ -12894,11 +12894,11 @@
      *
      * In privileged contexts, directives and code will bind to the result of {@link ng.$sce#methods_getTrusted
      * $sce.getTrusted(context, value)} rather than to the value directly.  Directives use {@link
-     * ng.$sce#methods_parse $sce.parseAs} rather than `$parse` to watch attribute bindings, which performs the
+        * ng.$sce#methods_parse $sce.parseAs} rather than `$parse` to watch attribute bindings, which performs the
      * {@link ng.$sce#methods_getTrusted $sce.getTrusted} behind the scenes on non-constant literals.
      *
      * As an example, {@link ng.directive:ngBindHtml ngBindHtml} uses {@link
-     * ng.$sce#methods_parseAsHtml $sce.parseAsHtml(binding expression)}.  Here's the actual code (slightly
+        * ng.$sce#methods_parseAsHtml $sce.parseAsHtml(binding expression)}.  Here's the actual code (slightly
      * simplified):
      *
      * <pre class="prettyprint">
@@ -12946,8 +12946,8 @@
      * templates in `ng-include` from your application's domain without having to even know about SCE.
      * It blocks loading templates from other domains or loading templates over http from an https
      * served document.  You can change these by setting your own custom {@link
-     * ng.$sceDelegateProvider#methods_resourceUrlWhitelist whitelists} and {@link
-     * ng.$sceDelegateProvider#methods_resourceUrlBlacklist blacklists} for matching such URLs.
+        * ng.$sceDelegateProvider#methods_resourceUrlWhitelist whitelists} and {@link
+        * ng.$sceDelegateProvider#methods_resourceUrlBlacklist blacklists} for matching such URLs.
      *
      * This significantly reduces the overhead.  It is far easier to pay the small overhead and have an
      * application that's secure and can be audited to verify that with much more ease than bolting
@@ -13169,7 +13169,7 @@
             // the "expression(javascript expression)" syntax which is insecure.
             if (enabled && $sniffer.msie && $sniffer.msieDocumentMode < 8) {
                 throw $sceMinErr('iequirks',
-                    'Strict Contextual Escaping does not support Internet Explorer version < 9 in quirks ' +
+                        'Strict Contextual Escaping does not support Internet Explorer version < 9 in quirks ' +
                         'mode.  You can fix this by adding the text <!doctype html> to the top of your HTML ' +
                         'document.  See http://docs.angularjs.org/api/ng.$sce for more information.');
             }
@@ -13209,7 +13209,7 @@
              *
              * @description
              * Converts Angular {@link guide/expression expression} into a function.  This is like {@link
-             * ng.$parse $parse} and is identical when the expression is a literal constant.  Otherwise, it
+                * ng.$parse $parse} and is identical when the expression is a literal constant.  Otherwise, it
              * wraps the expression in a call to {@link ng.$sce#methods_getTrusted $sce.getTrusted(*type*,
              * *result*)}
              *
@@ -17296,7 +17296,7 @@
      * @description
      * Creates a binding that will innerHTML the result of evaluating the `expression` into the current
      * element in a secure way.  By default, the innerHTML-ed content will be sanitized using the {@link
-     * ngSanitize.$sanitize $sanitize} service.  To utilize this functionality, ensure that `$sanitize`
+        * ngSanitize.$sanitize $sanitize} service.  To utilize this functionality, ensure that `$sanitize`
      * is available, for example, by including {@link ngSanitize} in your module's dependencies (not in
      * core Angular.)  You may also bypass sanitization for values you know are safe. To do so, bind to
      * an explicitly trusted value via {@link ng.$sce#methods_trustAsHtml $sce.trustAsHtml}.  See the example
@@ -18473,7 +18473,7 @@
      * $sce.getTrustedResourceUrl} on it. To load templates from other domains or protocols
      * you may either {@link ng.$sceDelegateProvider#methods_resourceUrlWhitelist whitelist them} or
      * {@link ng.$sce#methods_trustAsResourceUrl wrap them} as trusted values. Refer to Angular's {@link
-     * ng.$sce Strict Contextual Escaping}.
+        * ng.$sce Strict Contextual Escaping}.
      *
      * In addition, the browser's
      * {@link https://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy_for_XMLHttpRequest
@@ -18667,8 +18667,8 @@
                                     currentScope.$emit('$includeContentLoaded');
                                     scope.$eval(onloadExp);
                                 }).error(function () {
-                                        if (thisChangeId === changeCounter) cleanupLastIncludeContent();
-                                    });
+                                    if (thisChangeId === changeCounter) cleanupLastIncludeContent();
+                                });
                                 scope.$emit('$includeContentRequested');
                             } else {
                                 cleanupLastIncludeContent();
@@ -19983,7 +19983,7 @@
         controller: ['$element', '$transclude', function ($element, $transclude) {
             if (!$transclude) {
                 throw minErr('ngTransclude')('orphan',
-                    'Illegal use of ngTransclude directive in the template! ' +
+                        'Illegal use of ngTransclude directive in the template! ' +
                         'No parent directive that requires a transclusion found. ' +
                         'Element: {0}',
                     startingTag($element));
@@ -20344,7 +20344,7 @@
 
                     if (!(match = optionsExp.match(NG_OPTIONS_REGEXP))) {
                         throw ngOptionsMinErr('iexp',
-                            "Expected expression in form of " +
+                                "Expected expression in form of " +
                                 "'_select_ (as _label_)? for (_key_,)?_value_ in _collection_'" +
                                 " but got '{0}'. Element: {1}",
                             optionsExp, startingTag(selectElement));

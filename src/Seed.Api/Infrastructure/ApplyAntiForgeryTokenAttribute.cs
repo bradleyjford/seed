@@ -2,44 +2,65 @@
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web.Helpers;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Seed.Web.Http.AntiXsrf;
 
 namespace Seed.Api.Infrastructure
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class ApplyAntiForgeryTokenAttribute : ActionFilterAttribute
+    public class ApplyAntiForgeryToken : IActionFilter
     {
-        public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
+        private readonly bool _requireSsl;
+
+        public ApplyAntiForgeryToken(bool requireSsl)
         {
-            if (!actionExecutedContext.Response.IsSuccessStatusCode)
-            {
-                return;
-            }
+            _requireSsl = requireSsl;
+        }
+
+        public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
+        {
+            var result = await continuation();
 
             string newCookieToken, headerToken;
             string oldCookieToken = null;
 
-            var oldCookie = actionExecutedContext.Request.Headers.GetCookies(AntiXsrf.CookieName).FirstOrDefault();
+            var requestCookies = actionContext.Request.Headers.GetCookies(AntiXsrf.CookieName).FirstOrDefault();
 
-            if (oldCookie != null)
+            if (requestCookies != null) 
             {
-                oldCookieToken = oldCookie[AntiXsrf.CookieName].Value;
+                oldCookieToken = requestCookies[AntiXsrf.CookieName].Value;
             }
 
-            AntiForgery.GetTokens(oldCookieToken, out newCookieToken, out headerToken);
+            AntiForgery.GetTokens(actionContext, oldCookieToken, out newCookieToken, out headerToken);
 
             if (newCookieToken != null)
             {
                 var serverCookie = new CookieHeaderValue(AntiXsrf.CookieName, newCookieToken)
-                    {
-                        HttpOnly = true
-                    };
+                {
+                    HttpOnly = true,
+                    Path = "/",
+                    Secure = _requireSsl
+                };
 
-                var clientCookie = new CookieHeaderValue("XSRF-TOKEN", headerToken);
-
-                actionExecutedContext.Response.Headers.AddCookies(new[] { clientCookie, serverCookie });
+                result.Headers.AddCookies(new[] { serverCookie });
             }
+
+            var clientCookie = new CookieHeaderValue("XSRF-TOKEN", headerToken)
+            {
+                Path = "/",
+                Secure = _requireSsl
+            };
+
+            result.Headers.AddCookies(new[] { clientCookie });
+
+            return result;
+        }
+
+        public bool AllowMultiple
+        {
+            get { return false; }
         }
     }
 }

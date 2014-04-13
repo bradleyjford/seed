@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Net;
 using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.Security;
 using Seed.Api.Infrastructure;
 
@@ -17,23 +15,56 @@ namespace Seed.Api.Security
         {
             if (!ModelState.IsValid)
             {
-                return new InvalidModelStateResult(ModelState, this);
+                return BadRequest(ModelState);
+            }
+
+            if (request.UserName != "test")
+            {
+                return BadRequest("Invalid username or password");
             }
 
             FormsAuthentication.SetAuthCookie(request.UserName, false);
 
-            return Ok("Success");
+            var roles = new[] {
+                "admin",
+                "user",
+                "public"
+            };
+
+            var response = new SignInSuccessResponse("Testing User", roles);
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("principal")]
+        public IHttpActionResult Get()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var roles = new[] {
+                    "admin",
+                    "user",
+                    "public"
+                };
+
+                var response = new SignInSuccessResponse("Testing User", roles);
+
+                return Ok(response);
+            }
+
+            return Unauthorized();
         }
 
         [HttpPost]
         [Route("signout")]
-        [Authorize]
-        [ValidateAntiForgeryToken]
         public IHttpActionResult SignOut()
         {
             FormsAuthentication.SignOut();
 
-            return Ok("Success");
+            RequestContext.Principal = User = null;
+
+            return Ok();
         }
 
         [HttpGet]

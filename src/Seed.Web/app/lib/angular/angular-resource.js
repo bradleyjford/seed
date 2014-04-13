@@ -106,7 +106,7 @@
      *
      * @param {Object.<Object>=} actions Hash with declaration of custom action that should extend the
      *   default set of resource actions. The declaration should be created in the format of {@link
-     *   ng.$http#usage_parameters $http.config}:
+        *   ng.$http#usage_parameters $http.config}:
      *
      *       {action1: {method:?, params:?, isArray:?, headers:?, ...},
  *        action2: {method:?, params:?, isArray:?, headers:?, ...},
@@ -143,7 +143,7 @@
      *     XHR object. See {@link https://developer.mozilla.org/en/http_access_control#section_5
      *     requests with credentials} for more information.
      *   - **`responseType`** - `{string}` - see {@link
-     *     https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType requestType}.
+        *     https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType requestType}.
      *   - **`interceptor`** - `{Object=}` - The interceptor object has two optional methods -
      *     `response` and `responseError`. Both `response` and `responseError` interceptors get called
      *     with `http response` object. See {@link ng.$http $http interceptors}.
@@ -525,7 +525,7 @@
                                 // jshint -W018
                                 if (angular.isArray(data) !== (!!action.isArray)) {
                                     throw $resourceMinErr('badcfg', 'Error in resource configuration. Expected ' +
-                                        'response to contain an {0} but got an {1}',
+                                            'response to contain an {0} but got an {1}',
                                         action.isArray ? 'array' : 'object', angular.isArray(data) ? 'array' : 'object');
                                 }
                                 // jshint +W018

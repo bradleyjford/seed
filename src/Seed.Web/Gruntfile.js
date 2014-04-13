@@ -47,7 +47,7 @@ module.exports = function (grunt) {
             app: ['app/js/app.js'],
             js: ['app/js/**/*.js', '!(app/js/app.js)', '!(app/js/*Module.js)'],
             modules: ['app/js/**/*Module.js'],
-            assets: ['app/assets/**', '!(app/assets/**/*.less)'],
+            assets: [],
             tpl: { 
                 app: ['app/js/**/*.html'], 
                 uibootstrap: ['app/lib/ui-bootstrap/template/**/*.html'] 
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         copy: {
             assets: {
                 files: [
-                    { dest: '<%= distDir %>', src: '<%= src.assets %>', expand: true, cwd: 'app/assets/' }
+                    { dest: '<%= distDir %>', src: ['**', '!(**/*.less)'], expand: true, cwd: 'app/assets' }
                 ]
             },
             spaHost: {
@@ -191,14 +191,14 @@ module.exports = function (grunt) {
             },
             uiBootstrapTemplates: {
                 files: ['app/lib/ui-bootstrap/template/**/*.html'],
-                tasks: ['html2js:uibootstrap']
+                tasks: ['html2js:uiBootstrap']
             },
             appLess: {
                 files: ['app/assets/less/**.less', '!(app/assets/less/bootstrap/*.less)'],
                 tasks: ['less:app']
             },
             appJs: {
-                files: ['app/js/**.js'],
+                files: ['app/js/**/*.js'],
                 tasks: ['jshint', 'concat:appJs']
             },
             index: {

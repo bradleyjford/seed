@@ -86,7 +86,7 @@
          *      published to scope under the `controllerAs` name.
          *    - `template` – `{string=|function()=}` – html template as a string or a function that
          *      returns an html template as a string which should be used by {@link
-         *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
+            *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
          *      This property takes precedence over `templateUrl`.
          *
          *      If `template` is a function, it will be called with the following parameters:
@@ -153,7 +153,7 @@
             routes[path] = angular.extend(
                 {reloadOnSearch: true},
                 route,
-                path && pathRegExp(path, route)
+                    path && pathRegExp(path, route)
             );
 
             // create redirection for trailing slashes

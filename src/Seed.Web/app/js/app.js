@@ -1,4 +1,4 @@
-(function (angular) {
+var seedApp = (function (angular) {
     'use strict';
 
     var seedApp = angular.module('seedApp', [
@@ -6,6 +6,7 @@
         'seedApp.templates',
         'seedApp.security',
         'seedApp.navigation',
+        'seedApp.dashboard',
         'ui-bootstrap.templates',
         'ui.bootstrap'
     ]);
@@ -16,44 +17,67 @@
             $locationProvider.html5Mode(false);
             $locationProvider.hashPrefix('!');
 
-            $routeProvider.when('/', {
+            $routeProvider.when('/signin', {
                 templateUrl: 'security/SignIn.html',
-                controller: 'SignInCtrl'
+                controller: 'SignInCtrl',
+                title: 'Sign in'
             });
 
             $routeProvider.when('/signout', {
                 templateUrl: 'security/SignOut.html',
-                controller: 'SignOutCtrl'
+                controller: 'SignOutCtrl',
+                title: 'Sign out'
             });
 
-            $routeProvider.when('/unauthorized', { templateUrl: 'security/Unauthorized.html' });
+            $routeProvider.when('/', {
+                templateUrl: 'dashboard/Dashboard.html',
+                controller: 'DashboardCtrl',
+                requireRole: 'admin',
+                title: 'Dashboard'
+            });
 
-            $routeProvider.when('/test', {
+            $routeProvider.when('/admin', {
                 templateUrl: 'security/SignOut.html',
-                controller: 'TestCtrl'
+                controller: 'TestCtrl',
+                requireRole: 'admin',
+                title: 'Admin'
             });
 
-            $routeProvider.otherwise({ templateUrl: 'common/404.html' });
+            $routeProvider.when('/unauthorized', {
+                templateUrl: 'security/Unauthorized.html',
+                title: 'Access denied'
+            });
+
+            $routeProvider.otherwise({
+                templateUrl: 'common/404.html',
+                title: 'Not found'
+            });
 
             $provide.factory('AuthorizationHttpInterceptor', [
                 '$q', '$location',
-                function ($q, $location) {
-                    return {
-                        responseError: function (rejection) {
-                            if (rejection.status === 401) {
-                                $location.path('/');
-                            }
-                            else if (rejection.status === 403) {
-                                $location.path('/unauthorized');
-                            }
 
-                            return $q.reject(rejection);
+                function ($q, $location) {
+                    var responseError = function (rejection) {
+                        if (rejection.status === 401) {
+                            $location.path('/signin');
                         }
+                        else if (rejection.status === 403) {
+                            $location.path('/unauthorized');
+                        }
+
+                        return $q.reject(rejection);
                     };
-                }]);
+
+                    return {
+                        responseError: responseError
+                    };
+                }
+            ]);
 
             $httpProvider.interceptors.push('AuthorizationHttpInterceptor');
         }]);
 
     angular.module('seedApp.templates', []);
+
+    return seedApp;
 })(angular);

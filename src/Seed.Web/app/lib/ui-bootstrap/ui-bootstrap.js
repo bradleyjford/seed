@@ -322,18 +322,12 @@ angular.module("ui.bootstrap.alert", []).directive('alert', function () {
         templateUrl: 'template/alert/alert.html',
         transclude: true,
         replace: true,
-        controller: ['$scope', function ($scope) {
-            $scope.close = function () {
-                $scope.alertElement.remove();
-            };
+        controller: ['$scope', '$attrs', function ($scope, $attrs) {
+            $scope.closeable = "close" in $attrs;
         }],
         scope: {
-            type: '=',
+            type: '@',
             close: '&'
-        },
-        link: function (scope, iElement, iAttrs) {
-            scope.closeable = "close" in iAttrs;
-            scope.alertElement = iElement;
         }
     };
 });
@@ -2028,13 +2022,13 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                 var endSym = $interpolate.endSymbol();
                 var template =
                     '<' + directiveName + '-popup ' +
-                        'title="' + startSym + 'tt_title' + endSym + '" ' +
-                        'content="' + startSym + 'tt_content' + endSym + '" ' +
-                        'placement="' + startSym + 'tt_placement' + endSym + '" ' +
-                        'animation="tt_animation" ' +
-                        'is-open="tt_isOpen"' +
-                        '>' +
-                        '</' + directiveName + '-popup>';
+                    'title="' + startSym + 'tt_title' + endSym + '" ' +
+                    'content="' + startSym + 'tt_content' + endSym + '" ' +
+                    'placement="' + startSym + 'tt_placement' + endSym + '" ' +
+                    'animation="tt_animation" ' +
+                    'is-open="tt_isOpen"' +
+                    '>' +
+                    '</' + directiveName + '-popup>';
 
                 return {
                     restrict: 'EA',
@@ -2766,9 +2760,9 @@ angular.module('ui.bootstrap.tabs', [])
         function isTabHeading(node) {
             return node.tagName && (
                 node.hasAttribute('tab-heading') ||
-                    node.hasAttribute('data-tab-heading') ||
-                    node.tagName.toLowerCase() === 'tab-heading' ||
-                    node.tagName.toLowerCase() === 'data-tab-heading'
+                node.hasAttribute('data-tab-heading') ||
+                node.tagName.toLowerCase() === 'tab-heading' ||
+                node.tagName.toLowerCase() === 'data-tab-heading'
                 );
         }
     })
@@ -3042,7 +3036,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 var match = input.match(TYPEAHEAD_REGEXP), modelMapper, viewMapper, source;
                 if (!match) {
                     throw new Error(
-                        "Expected typeahead specification in form of '_modelValue_ (as _label_)? for _item_ in _collection_'" +
+                            "Expected typeahead specification in form of '_modelValue_ (as _label_)? for _item_ in _collection_'" +
                             " but got '" + input + "'.");
                 }
 

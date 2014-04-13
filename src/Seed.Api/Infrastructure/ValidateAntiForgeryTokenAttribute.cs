@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Helpers;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using System.Web.Mvc;
+using Seed.Web.Http.AntiXsrf;
 
 namespace Seed.Api.Infrastructure
 {
@@ -43,14 +42,14 @@ namespace Seed.Api.Infrastructure
 
             try
             {
-                AntiForgery.Validate(cookieToken, headerToken);
+                AntiForgery.Validate(actionContext, cookieToken, headerToken);
             }
             catch (HttpAntiForgeryException ex)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                    {
-                        Content = new StringContent(ex.Message)
-                    };
+                {
+                    Content = new StringContent(ex.Message)
+                };
 
                 actionContext.Response = response;
             }

@@ -924,7 +924,7 @@
 
                     var elementData = element.data(NG_ANIMATE_CSS_DATA_KEY);
                     closingAnimationTime = Math.max(closingAnimationTime,
-                        (elementData.maxDelay + elementData.maxDuration) * CLOSING_TIME_BUFFER * ONE_SECOND);
+                            (elementData.maxDelay + elementData.maxDuration) * CLOSING_TIME_BUFFER * ONE_SECOND);
 
                     //by placing a counter we can avoid an accidental
                     //race condition which may close an animation when

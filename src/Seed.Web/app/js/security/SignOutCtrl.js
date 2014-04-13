@@ -2,13 +2,12 @@
     'use strict';
 
     angular.module('seedApp.security')
-        .controller('SignOutCtrl', ['$location', 'AuthenticationSvc', function ($location, AuthenticationSvc) {
-            AuthenticationSvc.signOut()
-                .success($location.path('/signin'));
-        }]);
+        .controller('SignOutCtrl', ['$scope', '$location', 'AuthenticationApi', function ($scope, $location, AuthenticationApi) {
+            AuthenticationApi.signOut()
+                .success(function () {
+                    $scope.user.signOut();
 
-    angular.module('seedApp.security')
-        .controller('TestCtrl', ['$scope', 'AuthenticationSvc', function ($scope, AuthenticationSvc) {
-            AuthenticationSvc.test();
+                    $location.path('/signin');
+                });
         }]);
 })(angular);

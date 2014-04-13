@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Api", "Seed.Api\Seed.Api.csproj", "{FFBE6D09-317D-48D7-B068-5164BDDA0B70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web.SpaHost", "Seed.Web.SpaHost\Seed.Web.SpaHost.csproj", "{C9EDA708-2690-4E50-903D-00387BB25BAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed", "Seed\Seed.csproj", "{EC2E4390-36CE-443C-BECE-416AB548D68F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web.Http.AntiXsrf", "Seed.Web.Http.AntiXsrf\Seed.Web.Http.AntiXsrf.csproj", "{8654F922-DCBD-4060-A34E-E2673AF36E64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +27,10 @@ Global
 		{EC2E4390-36CE-443C-BECE-416AB548D68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC2E4390-36CE-443C-BECE-416AB548D68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC2E4390-36CE-443C-BECE-416AB548D68F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8654F922-DCBD-4060-A34E-E2673AF36E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8654F922-DCBD-4060-A34E-E2673AF36E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8654F922-DCBD-4060-A34E-E2673AF36E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8654F922-DCBD-4060-A34E-E2673AF36E64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

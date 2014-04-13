@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Seed.Security
 {
-    public class SignInCommandHandler
+    public class SignInCommandHandler : ICommandHandler<SignInCommand, bool>
     {
-        public bool ValidateCredentials(string userName, string password)
+        public bool Execute(SignInCommand command)
         {
             return false;
         }

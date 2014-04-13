@@ -8,7 +8,7 @@ namespace Seed.Web.SpaHost.Infrastructure
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class ApplyAntiForgeryTokenAttribute : ActionFilterAttribute
     {
-        private const string CookieName = "__RequestVerificationToken";
+        private const string CookieName = "csrf-token";
 
         public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
         {
@@ -32,15 +32,20 @@ namespace Seed.Web.SpaHost.Infrastructure
             if (newCookieToken != null)
             {
                 var serverCookie = new HttpCookie(CookieName, newCookieToken)
-                    {
-                        HttpOnly = true
-                    };
-
-                var clientCookie = new HttpCookie("XSRF-TOKEN", headerToken);
+                {
+                    HttpOnly = true,
+                    Path = "/"
+                };
 
                 actionExecutedContext.HttpContext.Response.AppendCookie(serverCookie);
-                actionExecutedContext.HttpContext.Response.AppendCookie(clientCookie);
             }
+
+            var clientCookie = new HttpCookie("XSRF-TOKEN", headerToken)
+            {
+                Path = "/"
+            };
+
+            actionExecutedContext.HttpContext.Response.AppendCookie(clientCookie);
         }
     }
 }
