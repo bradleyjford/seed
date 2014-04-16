@@ -1,17 +1,48 @@
+@import (reference) "../../../bower_components/bootstrap/less/bootstrap.less";
 @import "_form.less";
+
+input[data-required], input[required] : after {
+  border: 1px solid red;
+}
+
+
+.loading-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  background-color: #efefef;
+  opacity: 0.5;
+}
+
+.loading-modal img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  margin: auto;
+}
+
+.notification-list {
+  width: 100%;
+}
 
 .my-animation.ng-enter {
   /* standard transition code */
-  -webkit-transition: 0.4s linear all;
-  transition: 0.4s linear all;
-  opacity:0;
+  -webkit-transition: 0.7s linear opacity;
+  transition: 0.7s linear opacity;
+  opacity: 0;
 }
 
 .my-animation.ng-leave {
   /* standard transition code */
   -webkit-transition: 0.4s linear all;
   transition: 0.4s linear all;
-  opacity:1;
+  opacity: 1;
 }
 .my-animation.ng-enter-stagger {
   /* this will have a 100ms delay between each successive leave animation */
@@ -25,9 +56,9 @@
 }
 .my-animation.ng-enter.ng-enter-active {
   /* standard transition styles */
-  opacity:1;
+  opacity: 1;
 }
-
+ 
 .my-animation.ng-leave.ng-leave-active {
   /* standard transition styles */
   opacity:0;

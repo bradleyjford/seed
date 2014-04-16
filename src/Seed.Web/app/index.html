@@ -4,10 +4,13 @@
     <title>{{page.title}} - SeedApp</title>
     <link rel="stylesheet" href="/css/angular-csp.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/toastr.css">
     <link rel="stylesheet" href="/css/seed.css">
 </head>
 
 <body>
+
+<spinner></spinner>
 
 <nav-bar></nav-bar>
 
@@ -21,6 +24,7 @@
 
 <!-- @if NODE_ENV='dev' -->
 <script src="/js/jquery.js"></script>
+<script src="/js/toastr.js"></script>
 
 <script src="/js/angular.js"></script>
 <script src="/js/angular-route.js"></script>
@@ -36,6 +40,7 @@
 
 <!-- @if NODE_ENV='release' -->
 <script src="/js/jquery.min.js"></script>
+<script src="/js/toastr.min.js"></script>
 <script src="/js/angular.min.js"></script>
 <script src="/js/angular-route.min.js"></script>
 <script src="/js/angular-animate.min.js"></script>

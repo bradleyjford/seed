@@ -1,4 +1,4 @@
-var seedApp = (function (angular) {
+var seedApp = (function (angular, toastr) {
     'use strict';
 
     var seedApp = angular.module('seedApp', [
@@ -75,10 +75,72 @@ var seedApp = (function (angular) {
                 }
             ]);
 
+            $provide.factory('HttpEventInterceptor', [
+                '$q', '$rootScope',
+
+                function ($q, $rootScope) {
+                    var request = function (config) {
+                        $rootScope.$broadcast('httpRequest', config);
+
+                        return config || $q.when(config);
+                    };
+
+                    var requestError = function (rejection) {
+                        $rootScope.$broadcast('httpRequestError', rejection);
+
+                        return $q.reject(rejection);
+                    };
+
+                    var response = function (response) {
+                        $rootScope.$broadcast('httpResponse', response);
+
+                        return response || $q.when(response);
+                    };
+
+                    var responseError = function (rejection) {
+                        $rootScope.$broadcast('httpResponseError', rejection);
+
+                        return $q.reject(rejection);
+                    };
+
+                    return {
+                        'request': request,
+                        'requestError': requestError,
+                        'response': response,
+                        'responseError': responseError
+                    };
+                }
+            ]);
+
             $httpProvider.interceptors.push('AuthorizationHttpInterceptor');
+            $httpProvider.interceptors.push('HttpEventInterceptor');
         }]);
 
     angular.module('seedApp.templates', []);
 
+    toastr.options = {
+/* Apply Bootstrap styling to toastr
+        toastClass: 'alert',
+        iconClasses: {
+            error: 'alert-error',
+            info: 'alert-info',
+            success: 'alert-success',
+            warning: 'alert-warning'
+        },
+*/
+        "closeButton": true,
+        "debug": false,
+        "positionClass": "toast-top-full-width",
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
     return seedApp;
-})(angular);
+})(angular, toastr);

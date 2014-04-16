@@ -14,7 +14,7 @@ namespace Seed.Api
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.Filters.Add(new ApplyAntiForgeryToken(true));
-            //config.Filters.Add(new IntroduceLatencyFilter());
+            config.Filters.Add(new IntroduceLatencyFilter());
         }
     }
 }

@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('seedApp.security')
-        .controller('SignInCtrl', ['$scope', '$location', 'AuthenticationApi', 'AlertSvc',
-            function ($scope, $location, AuthenticationApi, AlertSvc) {
+        .controller('SignInCtrl', ['$scope', '$location', 'AuthenticationApi', 'NotificationSvc',
+            function ($scope, $location, AuthenticationApi, NotificationSvc) {
                 $scope.model = {
                     userName: '',
                     password: ''
@@ -21,7 +21,7 @@
                             $location.path('/');
                         })
                         .error(function (data, status, headers, config) {
-                            AlertSvc.danger($scope, data.message);
+                            NotificationSvc.error(data.message);
                         });
                 };
             }

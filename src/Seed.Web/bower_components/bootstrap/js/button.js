@@ -16,7 +16,7 @@
   var Button = function (element, options) {
     this.$element  = $(element)
     this.options   = $.extend({}, Button.DEFAULTS, options)
-    this.isLoading = false
+    this.isBusy = false
   }
 
   Button.DEFAULTS = {
@@ -38,10 +38,10 @@
     // push to event loop to allow forms to submit
     setTimeout($.proxy(function () {
       if (state == 'loadingText') {
-        this.isLoading = true
+        this.isBusy = true
         $el.addClass(d).attr(d, d)
-      } else if (this.isLoading) {
-        this.isLoading = false
+      } else if (this.isBusy) {
+        this.isBusy = false
         $el.removeClass(d).removeAttr(d)
       }
     }, this), 0)
