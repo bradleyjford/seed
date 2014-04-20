@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('seedApp')
-        .factory('NotificationSvc', function () {
+        .factory('NotificationSvc', [function () {
             return {
                 info: function (title, message) {
                     toastr.info(message, title);
@@ -17,5 +17,5 @@
                     toastr.error(message, title);
                 }
             };
-        });
+        }]);
 })(angular, toastr);

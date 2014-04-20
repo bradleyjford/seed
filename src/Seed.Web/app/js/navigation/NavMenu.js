@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('seedApp.navigation')
-        .directive('navMenu', function ($location) {
+        .directive('navMenu', ['$location', function ($location) {
             return {
                 restrict: 'E',
                 scope: false,
@@ -43,5 +43,5 @@
                     });
                 }
             };
-        });
+        }]);
 })(angular);

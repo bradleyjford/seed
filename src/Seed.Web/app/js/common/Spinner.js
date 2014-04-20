@@ -1,36 +1,53 @@
 (function (angular) {
     'use strict';
 
-    angular.module('seedApp')
-        .controller('SpinnerController', ['$scope', function ($scope) {
-            $scope.spinner = {
-                isBusy: false
-            };
+    var module = angular.module('seedApp');
 
-            $scope.$on('httpRequest', function (event, config) {
-                $scope.spinner.isBusy = true;
-            });
+    module.controller('SpinnerController', ['$scope', function ($scope) {
+        $scope.spinner = {
+            isBusy: false,
+            pendingRequests: 0
+        };
 
-            $scope.$on('httpRequestError', function (event, rejection) {
+        $scope.requestStarted = function () {
+            $scope.spinner.pendingRequests++;
+
+            $scope.spinner.isBusy = true;
+        };
+
+        $scope.requestCompleted = function () {
+            $scope.spinner.pendingRequests--;
+
+            if ($scope.spinner.pendingRequests <= 0) {
+                $scope.spinner.pendingRequests = 0;
+
                 $scope.spinner.isBusy = false;
-            });
+            }
+        };
 
-            $scope.$on('httpResponse', function (event, response) {
-                $scope.spinner.isBusy = false;
-            });
+        $scope.$on('httpRequest', function (event, config) {
+            $scope.requestStarted();
+        });
 
-            $scope.$on('httpResponseError', function (event, rejection) {
-                $scope.spinner.isBusy = false;
-            });
-        }]);
+        $scope.$on('httpRequestError', function (event, rejection) {
+            $scope.requestCompleted();
+        });
 
-    angular.module('seedApp')
-        .directive('spinner', [function () {
-            return {
-                restrict: 'EA',
-                templateUrl: 'common/Spinner.html',
-                scope: { },
-                controller: 'SpinnerController'
-            };
-        }]);
+        $scope.$on('httpResponse', function (event, response) {
+            $scope.requestCompleted();
+        });
+
+        $scope.$on('httpResponseError', function (event, rejection) {
+            $scope.requestCompleted();
+        });
+    }]);
+
+    module.directive('spinner', [function () {
+        return {
+            restrict: 'EA',
+            templateUrl: 'common/Spinner.html',
+            scope: { },
+            controller: 'SpinnerController'
+        };
+    }]);
 })(angular);

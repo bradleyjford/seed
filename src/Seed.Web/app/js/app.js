@@ -1,7 +1,7 @@
 var seedApp = (function (angular, toastr) {
     'use strict';
 
-    var seedApp = angular.module('seedApp', [
+    var app = angular.module('seedApp', [
         'ngRoute',
         'ngAnimate',
         'seedApp.templates',
@@ -12,7 +12,7 @@ var seedApp = (function (angular, toastr) {
         'ui.bootstrap'
     ]);
 
-    seedApp.config([
+    app.config([
         '$routeProvider', '$httpProvider', '$locationProvider', '$provide',
         function ($routeProvider, $httpProvider, $locationProvider, $provide) {
             $locationProvider.html5Mode(false);
@@ -119,18 +119,18 @@ var seedApp = (function (angular, toastr) {
     angular.module('seedApp.templates', []);
 
     toastr.options = {
-/* Apply Bootstrap styling to toastr
-        toastClass: 'alert',
+
+
         iconClasses: {
             error: 'alert-error',
             info: 'alert-info',
             success: 'alert-success',
             warning: 'alert-warning'
         },
-*/
+
         "closeButton": true,
         "debug": false,
-        "positionClass": "toast-top-full-width",
+        "positionClass": "toast-bottom-right",
         "onclick": null,
         "showDuration": "300",
         "hideDuration": "1000",
@@ -142,5 +142,5 @@ var seedApp = (function (angular, toastr) {
         "hideMethod": "fadeOut"
     };
 
-    return seedApp;
+    return app;
 })(angular, toastr);

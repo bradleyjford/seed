@@ -1,9 +1,9 @@
 ﻿(function (angular) {
     'use strict';
 
-    var securityModule = angular.module('seedApp.security', ['seedApp', 'seedApp.templates']);
+    var module = angular.module('seedApp.security', ['seedApp', 'seedApp.templates']);
 
-    securityModule.config([
+    module.config([
         '$routeProvider', '$httpProvider', '$locationProvider', '$provide',
         function ($routeProvider, $httpProvider, $locationProvider, $provide) {
 

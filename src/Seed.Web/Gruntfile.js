@@ -13,11 +13,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-concurrent');
 
-    grunt.registerTask('default', ['env:dev', 'timestamp', 'clean', 'html2js', 'jshint', 'preprocess', 'concat', 'copy', 'less']);
-    grunt.registerTask('release', ['env:release', 'clean', 'jshint', 'preprocess', 'html2js', 'concat', 'uglify', 'copy', 'less']);
-
-    grunt.registerTask('rebuild', ['env:dev', 'timestamp', 'clean', 'html2js', 'jshint', 'preprocess', 'concat', 'copy', 'less']);
-
+    grunt.registerTask('default', ['env:dev', 'timestamp', 'clean', 'html2js', 'jshint', 'preprocess', 'uglify', 'copy', 'less']);
+    grunt.registerTask('release', ['env:release', 'timestamp', 'clean', 'html2js', 'jshint', 'preprocess', 'uglify', 'copy', 'less']);
 
     grunt.registerTask('timestamp', function () {
         grunt.log.subhead(Date());
@@ -79,8 +76,11 @@ module.exports = function (grunt) {
                     { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-bootstrap' },
                     { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/toastr' },
                     { dest: '<%= distDir %>/css', src: ['*.css'], expand: true, cwd: 'bower_components/toastr' },
+                    { dest: '<%= distDir %>/css', src: ['*.css'], expand: true, cwd: 'bower_components/animate.css' },
                     { dest: '<%= distDir %>', src: ['**/*'], expand: true, cwd: 'bower_components/bootstrap/dist' },
-                    { dest: '<%= distDir %>/js', src: ['*'], expand: true, cwd: 'bower_components/jquery/dist' }
+                    { dest: '<%= distDir %>/js', src: ['*'], expand: true, cwd: 'bower_components/jquery/dist' },
+                    { dest: '<%= distDir %>/fonts', src: ['*'], expand: true, cwd: 'lib/font-awesome-4.0.3/fonts' },
+                    { dest: '<%= distDir %>/css', src: ['*'], expand: true, cwd: 'lib/font-awesome-4.0.3/css' }
                 ]
             }
         },
@@ -114,24 +114,19 @@ module.exports = function (grunt) {
                 module: 'seedApp.templates'
             }
         },
-        concat: {
-            appJs: {
-                src: ['<%= src.appJs %>'],
-                dest: '<%= distDir %>/js/<%= pkg.name %>.js'
-            }
-        },
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-                report: 'min',
-                sourceMap: 'app/js/<%= pkg.name %>-<%= pkg.version %>.map.js',
-                sourceMapRoot: '/',
-                sourceMapPrefix: 1,
-                sourceMappingURL: '/js/<%= pkg.name %>-<%= pkg.version %>.map.js'
+                sourceMap: true
             },
-            dist: {
-                src: ['<%= concat.appjs.dest %>'],
-                dest: '<%= distDir %>/js/<%= pkg.name %>.min.js'
+            app: {
+                options: {
+                    sourceMapIncludeSources: true
+                },
+                files: {
+
+                    '../../dist/js/SeedApp.min.js': ['<%= src.appJs %>']
+
+                }
             }
         },
         less: {
@@ -157,7 +152,7 @@ module.exports = function (grunt) {
             },
             appJs: {
                 files: ['app/js/**/*.js'],
-                tasks: ['jshint', 'concat:appJs']
+                tasks: ['jshint', 'uglify:app']
             },
             index: {
                 files: ['app/index.html'],

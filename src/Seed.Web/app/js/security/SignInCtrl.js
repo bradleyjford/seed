@@ -1,29 +1,30 @@
 ﻿(function (angular) {
     'use strict';
 
-    angular.module('seedApp.security')
-        .controller('SignInCtrl', ['$scope', '$location', 'AuthenticationApi', 'NotificationSvc',
-            function ($scope, $location, AuthenticationApi, NotificationSvc) {
-                $scope.model = {
-                    userName: '',
-                    password: ''
-                };
+    var module = angular.module('seedApp.security');
 
-                $scope.signIn = function () {
-                    if (!$scope.signin_form.$valid) {
-                        return;
-                    }
+    module.controller('SignInCtrl', ['$scope', '$location', 'AuthenticationApi', 'NotificationSvc',
+        function ($scope, $location, AuthenticationApi, NotificationSvc) {
+            $scope.model = {
+                userName: '',
+                password: ''
+            };
 
-                    AuthenticationApi.signIn($scope.model.userName, $scope.model.password)
-                        .success(function (data) {
-                            $scope.user.signIn(data.userName, data.roles);
+            $scope.signIn = function () {
+                if (!$scope.signin_form.$valid) {
+                    return;
+                }
 
-                            $location.path('/');
-                        })
-                        .error(function (data, status, headers, config) {
-                            NotificationSvc.error(data.message);
-                        });
-                };
-            }
-        ]);
+                AuthenticationApi.signIn($scope.model.userName, $scope.model.password)
+                    .success(function (data) {
+                        $scope.user.signIn(data.userName, data.roles);
+
+                        $location.path('/');
+                    })
+                    .error(function (data, status, headers, config) {
+                        NotificationSvc.error(data.message);
+                    });
+            };
+        }
+    ]);
 })(angular);
