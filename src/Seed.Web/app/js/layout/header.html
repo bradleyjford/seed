@@ -1,5 +1,6 @@
-﻿<div class="navbar navbar-default navbar-static-top" role="navigation">
+﻿<nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
+
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -9,32 +10,27 @@
             </button>
             <a class="navbar-brand" ui-sref="home">Seed</a>
         </div>
+
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li ui-sref-active="active"><a ui-sref="home">Dashboard</a></li>
-                <li><a href="#!/about">Subscriptions</a></li>
-                <li><a href="#!/contact">Users</a></li>
-                <li class="dropdown" s-require-role="admin">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#!/">Action</a></li>
-                    </ul>
-                </li>
+                <li ui-sref-active="active" s-authorize><a ui-sref="subscriptions">Subscriptions</a></li>
+                <li ui-sref-active="active" s-authorize><a ui-sref="users">Users</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-tasks"></span></a>
+                <li class="dropdown" s-authorize="admin" ui-sref-active="active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span> Administration <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Task 1 <progressbar value="60" type="striped"></progressbar></a></li>
-                        <li><a href="#">Task 2</a></li>
+                        <li ui-sref-active="active"><a ui-sref="admin.home">Overview</a></li>
+                        <li ui-sref-active="active"><a ui-sref="admin.users">Users</a></li>
+                        <li ui-sref-active="active"><a ui-sref="admin.notifications">Notifications</a></li>
+                        <li ui-sref-active="active"><a ui-sref="admin.reference-data">Reference data</a></li>
                     </ul>
                 </li>
 
-                <li class="dropdown" ng-show="user.isAuthenticated">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                            class="fa fa-user"></span> {{user.name}}</a>
+                <li class="dropdown" s-authorize>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> {{user.name}}</a>
                     <ul class="dropdown-menu">
                         <li><a href="#!/account"><span class="fa fa-cog"></span> My account</a></li>
                         <li class="divider"></li>
@@ -44,6 +40,5 @@
             </ul>
 
         </div>
-        <!--/.nav-collapse -->
     </div>
-</div>
+</nav>

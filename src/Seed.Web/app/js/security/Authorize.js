@@ -2,7 +2,7 @@
     angular.module('seedApp.security')
 
         // <li s-require-role="admin"><a href="/test">Admin</a></li>
-        .directive('sRequireRole', ['$rootScope', function ($rootScope) {
+        .directive('sAuthorize', ['$rootScope', function ($rootScope) {
             return {
                 restrict: 'A',
                 scope: false,
@@ -10,7 +10,10 @@
                     var originalDisplay = element.css('display');
 
                     $rootScope.$watchCollection('user.roles', function (roles) {
-                        if ($rootScope.user.isInRole(attrs.sRequireRole)) {
+                        if (attrs.sAuthorize === '' && $rootScope.user.isAuthenticated) {
+                            element.css('display', originalDisplay);
+                        }
+                        else if ($rootScope.user.isInRole(attrs.sAuthorize)) {
                             element.css('display', originalDisplay);
                         }
                         else {

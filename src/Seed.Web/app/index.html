@@ -49,30 +49,24 @@
 
 <body>
 
+    <spinner></spinner>
 
+    <header>
+        <div ng-include="'layout/header.html'"></div>
+    </header>
 
-    <div>
-
-        <spinner></spinner>
-
-        <header>
-            <div ng-include="'layout/header.html'"></div>
-        </header>
-
-        <div class="container">
-            <div ui-view>
-                <div id="splash">
-                    <div>
-                        <span class="fa fa-spinner fa-spin"></span>Loading...
-                    </div>
-                </div>
+    <div class="container" ui-view>
+        <div id="splash">
+            <div>
+                <span class="fa fa-spinner fa-spin"></span>Loading...
             </div>
         </div>
-
-        <footer>
-            Footer
-        </footer>
     </div>
+
+    <footer>
+        <div ng-include="'layout/footer.html'"></div>
+    </footer>
+
 
     <script src="/js/jquery.min.js"></script>
 
