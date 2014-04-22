@@ -3,8 +3,8 @@
 
     var module = angular.module('seedApp.security');
 
-    module.controller('SignInCtrl', ['$scope', '$location', 'AuthenticationApi', 'NotificationSvc',
-        function ($scope, $location, AuthenticationApi, NotificationSvc) {
+    module.controller('SignInCtrl', ['$scope', '$state', 'AuthenticationApi', 'NotificationSvc',
+        function ($scope, $state, AuthenticationApi, NotificationSvc) {
             $scope.model = {
                 userName: '',
                 password: ''
@@ -19,7 +19,7 @@
                     .success(function (data) {
                         $scope.user.signIn(data.userName, data.roles);
 
-                        $location.path('/');
+                        $state.go('home');
                     })
                     .error(function (data, status, headers, config) {
                         NotificationSvc.error(data.message);

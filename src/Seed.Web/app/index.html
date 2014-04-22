@@ -1,48 +1,91 @@
-﻿<!doctype html>
-<html id="ng-app" ng-app="seedApp" ng-controller="AppCtrl">
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="seedApp" ng-controller="AppCtrl">
 <head>
-    <title>{{page.title}} - SeedApp</title>
-    <link rel="stylesheet" href="/css/angular-csp.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title ng-bind-template="{{ page.title }} - Seed">Seed</title>
+    <style>
+        #splash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 10000 !important;
+            background-color: #fff;
+            opacity: 1;
+        }
+
+        #splash > div {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 8em;
+            width: 8em;
+        }
+
+        #splash > div > span {
+            font-size: 8em;
+        }
+
+        [ng-cloak] { display: none; }
+    </style>
+
     <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/toastr.min.css">
     <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/toastr.min.css">
     <link rel="stylesheet" href="/css/seed.css">
+
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 
-<spinner></spinner>
 
-<header>
-    <nav-bar></nav-bar>
-</header>
 
-<div class="container">
-    <ul ng-controller="AlertCtrl">
-        <alert class="slideInDown" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.message}}</alert>
-    </ul>
+    <div>
 
-    <div class="ng-view"></div>
-</div>
+        <spinner></spinner>
 
-<footer>
-    Footer
-</footer>
+        <header>
+            <div ng-include="'layout/header.html'"></div>
+        </header>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/toastr.min.js"></script>
+        <div class="container">
+            <div ui-view>
+                <div id="splash">
+                    <div>
+                        <span class="fa fa-spinner fa-spin"></span>Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<script src="/js/angular.min.js"></script>
-<script src="/js/angular-route.min.js"></script>
-<script src="/js/angular-animate.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/ui-bootstrap.min.js"></script>
-<script src="/js/ui-bootstrap-tpls.min.js"></script>
+        <footer>
+            Footer
+        </footer>
+    </div>
 
-<script src="/js/SeedApp.min.js"></script>
-<script src="/js/SeedApp.html.js"></script>
+    <script src="/js/jquery.min.js"></script>
 
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-ui-router.min.js"></script>
+    <script src="/js/angular-animate.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/ui-bootstrap.min.js"></script>
+    <script src="/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="/js/toastr.min.js"></script>
+
+    <script src="/js/SeedApp.min.js"></script>
+    <script src="/js/SeedApp.html.js"></script>
 
 </body>
 </html>

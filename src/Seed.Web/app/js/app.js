@@ -2,68 +2,79 @@ var seedApp = (function (angular, toastr) {
     'use strict';
 
     var app = angular.module('seedApp', [
-        'ngRoute',
+        'ui.router',
         'ngAnimate',
         'seedApp.templates',
         'seedApp.security',
-        'seedApp.navigation',
         'seedApp.dashboard',
         'ui.bootstrap.tpls',
         'ui.bootstrap'
     ]);
 
     app.config([
-        '$routeProvider', '$httpProvider', '$locationProvider', '$provide',
-        function ($routeProvider, $httpProvider, $locationProvider, $provide) {
+        '$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$provide',
+        function ($stateProvider, $urlRouterProvider ,$httpProvider, $locationProvider, $provide) {
             $locationProvider.html5Mode(false);
             $locationProvider.hashPrefix('!');
 
-            $routeProvider.when('/signin', {
-                templateUrl: 'security/SignIn.html',
-                controller: 'SignInCtrl',
-                title: 'Sign in'
-            });
+            $urlRouterProvider.otherwise('/not-found');
 
-            $routeProvider.when('/signout', {
-                templateUrl: 'security/SignOut.html',
-                controller: 'SignOutCtrl',
-                title: 'Sign out'
-            });
+            $stateProvider
+                .state('404', {
+                    url: 'not-found',
+                    templateUrl: 'common/404.html',
+                    data: {
+                        title: 'Not found'
+                    }
+                })
 
-            $routeProvider.when('/unauthorized', {
-                templateUrl: 'security/Unauthorized.html',
-                title: 'Access denied'
-            });
+                .state('403', {
+                    url: '/unauthorized',
+                    templateUrl: 'common/403.html',
+                    data: {
+                        title: 'Unauthorized'
+                    }
+                })
 
-            $routeProvider.when('/', {
-                templateUrl: 'dashboard/Dashboard.html',
-                controller: 'DashboardCtrl',
-                requireRole: 'admin',
-                title: 'Dashboard'
-            });
+                .state('sign-in', {
+                    url: '/sign-in',
+                    templateUrl: 'security/SignIn.html',
+                    controller: 'SignInCtrl',
+                    data: {
+                        title: 'Sign in'
+                    }
+                })
 
-            $routeProvider.when('/admin', {
-                templateUrl: 'security/SignOut.html',
-                controller: 'TestCtrl',
-                requireRole: 'admin',
-                title: 'Admin'
-            });
+                .state('sign-out', {
+                    url: '/sign-out',
+                    templateUrl: 'security/SignOut.html',
+                    controller: 'SignOutCtrl',
+                    data: {
+                        title: 'Sign out'
+                    }
+                })
 
-            $routeProvider.otherwise({
-                templateUrl: 'common/404.html',
-                title: 'Not found'
-            });
+                .state('home', {
+                    url: '/',
+                    templateUrl: 'dashboard/Dashboard.html',
+                    controller: 'DashboardCtrl',
+                    data: {
+                        title: 'Dashboard'
+                    }
+                });
 
             $provide.factory('AuthorizationHttpInterceptor', [
-                '$q', '$location',
+                '$q', '$injector',
 
-                function ($q, $location) {
+                function ($q, $injector) {
+                    var $state = $injector.get('$state');
+
                     var responseError = function (rejection) {
                         if (rejection.status === 401) {
-                            $location.path('/signin');
+                            $state.go('sign-in');
                         }
                         else if (rejection.status === 403) {
-                            $location.path('/unauthorized');
+                            $state.go('403');
                         }
 
                         return $q.reject(rejection);
@@ -112,7 +123,7 @@ var seedApp = (function (angular, toastr) {
                 }
             ]);
 
-            $httpProvider.interceptors.push('AuthorizationHttpInterceptor');
+            //$httpProvider.interceptors.push('AuthorizationHttpInterceptor');
             $httpProvider.interceptors.push('HttpEventInterceptor');
         }]);
 

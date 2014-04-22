@@ -1,4 +1,4 @@
-﻿<div class="navbar navbar-default navbar-static-top" role="navigation" nav-menu="active">
+﻿<div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,11 +7,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Seed</a>
+            <a class="navbar-brand" ui-sref="home">Seed</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#!/">Dashboard</a></li>
+                <li ui-sref-active="active"><a ui-sref="home">Dashboard</a></li>
                 <li><a href="#!/about">Subscriptions</a></li>
                 <li><a href="#!/contact">Users</a></li>
                 <li class="dropdown" s-require-role="admin">
@@ -38,7 +38,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#!/account"><span class="fa fa-cog"></span> My account</a></li>
                         <li class="divider"></li>
-                        <li><a href="#!/signout"><span class="fa fa-power-off"></span> Sign out</a></li>
+                        <li><a ui-sref="sign-out"><span class="fa fa-power-off"></span> Sign out</a></li>
                     </ul>
                 </li>
             </ul>

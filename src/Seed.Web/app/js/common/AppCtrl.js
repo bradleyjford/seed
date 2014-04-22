@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('seedApp')
-        .controller('AppCtrl', ['$rootScope', '$location', 'AuthenticationApi',
-            function ($rootScope, $location, AuthenticationApi) {
+        .controller('AppCtrl', ['$rootScope', '$state', 'AuthenticationApi',
+            function ($rootScope, $state, AuthenticationApi) {
                 if (!$rootScope.page) {
                     $rootScope.page = new seedApp.Page();
                 }
@@ -20,19 +20,19 @@
                 }
 
                 // ensure the current user is in the correct role for the requested route
-                $rootScope.$on('$routeChangeStart', function (event, next) {
+/*                $rootScope.$on('$routeChangeStart', function (event, next) {
                     if (next.requireRole && !$rootScope.user.isInRole(next.requireRole)) {
                         if (!$rootScope.user.isAuthenticated) {
-                            $location.path('/signin');
+                            $state.go('sign-in');
                             return;
                         }
 
-                        $location.path('/unauthorized');
+                        $state.go('403');
                     }
-                });
+                });*/
 
-                $rootScope.$on('$routeChangeSuccess', function (event, current) {
-                    $rootScope.page.title = current.title;
+                $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                    $rootScope.page.title = toState.data.title;
                 });
             }
         ]);
