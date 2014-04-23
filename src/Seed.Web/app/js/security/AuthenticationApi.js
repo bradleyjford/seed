@@ -26,8 +26,6 @@
         return this.$http.get('/api/authentication/test');
     };
 
-    angular.module('seedApp.security')
-        .factory('AuthenticationApi', ['$http', function ($http) {
-            return new AuthenticationApi($http);
-        }]);
+    angular.module('seedApp')
+        .service('AuthenticationApi', ['$http', AuthenticationApi]);
 })(angular);

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="seedApp" ng-controller="AppCtrl">
+<html lang="en" ng-app="seedApp" ng-controller="AppController">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,8 +31,6 @@
         #splash > div > span {
             font-size: 8em;
         }
-
-        [ng-cloak] { display: none; }
     </style>
 
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -51,22 +49,13 @@
 
     <spinner></spinner>
 
-    <header>
-        <div ng-include="'layout/header.html'"></div>
-    </header>
-
-    <div class="container" ui-view>
+    <div ui-view>
         <div id="splash">
             <div>
                 <span class="fa fa-spinner fa-spin"></span>Loading...
             </div>
         </div>
     </div>
-
-    <footer>
-        <div ng-include="'layout/footer.html'"></div>
-    </footer>
-
 
     <script src="/js/jquery.min.js"></script>
 

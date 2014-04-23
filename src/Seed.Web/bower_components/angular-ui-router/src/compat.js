@@ -49,7 +49,7 @@ function $RouteProvider(  $stateProvider,    $urlRouterProvider) {
    * var app = angular.module('app', ['ui.router.compat']);
    *
    * app.config(function ($routeProvider) {
-   *   $routeProvider.when('home', {
+   *   $routeProvider.when('dashboard', {
    *     controller: function () { ... },
    *     templateUrl: 'path/to/template'
    *   });

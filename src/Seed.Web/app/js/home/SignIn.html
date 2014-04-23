@@ -1,0 +1,49 @@
+<style type="text/css">
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .signin_form {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+    .signin_form .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    .signin_form .form-control:focus {
+        z-index: 2;
+    }
+    .signin_form input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .signin_form input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
+
+<div class="container">
+
+    <form class="signin_form" name="signin_form" role="form" ng-submit="signIn()">
+        <div class="alert alert-danger animated bounceIn" ng-show="model.error !== ''">{{ model.error }}</div>
+
+        <h2>Please sign in</h2>
+
+        <input type="text" class="form-control" placeholder="User name" ng-model="model.userName" data-required autofocus>
+        <input type="password" class="form-control" placeholder="Password" ng-model="model.password" data-required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div>

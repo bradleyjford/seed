@@ -1,28 +1,31 @@
 ﻿(function (angular) {
     'use strict';
 
-    var module = angular.module('seedApp.security');
+    var module = angular.module('seedApp');
 
-    module.controller('SignInCtrl', ['$scope', '$state', 'AuthenticationApi', 'NotificationSvc',
-        function ($scope, $state, AuthenticationApi, NotificationSvc) {
+    module.controller('SignInController', ['$scope', '$state', 'AuthenticationApi', 'Principal',
+        function ($scope, $state, AuthenticationApi, Principal) {
             $scope.model = {
                 userName: '',
-                password: ''
+                password: '',
+                error: ''
             };
 
             $scope.signIn = function () {
+                $scope.model.error = '';
+
                 if (!$scope.signin_form.$valid) {
                     return;
                 }
 
                 AuthenticationApi.signIn($scope.model.userName, $scope.model.password)
                     .success(function (data) {
-                        $scope.user.signIn(data.userName, data.roles);
+                        Principal.signIn(data.userName, data.roles);
 
-                        $state.go('home');
+                        $state.go('dashboard.home');
                     })
                     .error(function (data, status, headers, config) {
-                        NotificationSvc.error(data.message);
+                        $scope.model.error = data.message;
                     });
             };
         }

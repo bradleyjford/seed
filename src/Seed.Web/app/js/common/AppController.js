@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('seedApp')
-        .controller('AppCtrl', ['$rootScope', '$state', 'AuthenticationApi',
-            function ($rootScope, $state, AuthenticationApi) {
+        .controller('AppController', ['$rootScope', '$state', 'AuthenticationApi', 'Principal',
+            function ($rootScope, $state, AuthenticationApi, Principal) {
                 if (!$rootScope.page) {
                     $rootScope.page = new seedApp.Page();
                 }
@@ -11,11 +11,15 @@
                 // if the page has been reloaded from the server, obtain the signed in user
                 // principal for rebinding the session
                 if (!$rootScope.user) {
-                    $rootScope.user = new seedApp.security.Principal();
+                    $rootScope.user = Principal;
 
                     AuthenticationApi.get()
                         .success(function (data) {
-                            $rootScope.user.signIn(data.userName, data.roles);
+                            Principal.signIn(data.userName, data.roles);
+
+                            if ($state.current.name === 'sign-in') {
+                                $state.go('dashboard.home');
+                            }
                         });
                 }
 

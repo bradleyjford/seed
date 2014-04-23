@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('seedApp.dashboard')
-        .controller('DashboardCtrl', ['$scope', function ($scope) {
+        .controller('DashboardController', ['$scope', function ($scope) {
 
         }]);
 })(angular);

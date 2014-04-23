@@ -1,9 +1,9 @@
-seedApp.security = seedApp.security || { };
-
-(function (ns) {
+(function (angular) {
     'use strict';
 
-    var Principal = function () {
+    var Principal = function ($rootScope) {
+        this.$rootScope = $rootScope;
+
         this.isAuthenticated = false;
         this.name = '';
         this.roles = [];
@@ -15,17 +15,23 @@ seedApp.security = seedApp.security || { };
 
         this.roles.length = 0;
         this.roles.push.apply(this.roles, roles);
+
+        this.$rootScope.$broadcast('seedApp.signIn', this.roles);
     };
 
     Principal.prototype.signOut = function () {
         this.isAuthenticated = false;
         this.name = '';
         this.roles.length = 0;
+
+        this.$rootScope.$broadcast('seedApp.signout');
     };
 
     Principal.prototype.isInRole = function (role) {
         return this.roles.indexOf(role) !== -1;
     };
 
-    ns.Principal = Principal;
-})(seedApp.security);
+    var module = angular.module('seedApp');
+
+    module.service('Principal', ['$rootScope', Principal]);
+})(angular);

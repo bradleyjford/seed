@@ -5,7 +5,6 @@ var seedApp = (function (angular, toastr) {
         'ui.router',
         'ngAnimate',
         'seedApp.templates',
-        'seedApp.security',
         'seedApp.dashboard',
         'ui.bootstrap.tpls',
         'ui.bootstrap'
@@ -21,7 +20,7 @@ var seedApp = (function (angular, toastr) {
 
             $stateProvider
                 .state('404', {
-                    url: 'not-found',
+                    url: '/not-found',
                     templateUrl: 'common/404.html',
                     data: {
                         title: 'Not found'
@@ -37,44 +36,24 @@ var seedApp = (function (angular, toastr) {
                 })
 
                 .state('sign-in', {
-                    url: '/sign-in',
-                    templateUrl: 'security/SignIn.html',
-                    controller: 'SignInCtrl',
+                    url: '/',
+                    templateUrl: 'home/SignIn.html',
+                    controller: 'SignInController',
                     data: {
                         title: 'Sign in'
-                    }
-                })
-
-                .state('sign-out', {
-                    url: '/sign-out',
-                    templateUrl: 'security/SignOut.html',
-                    controller: 'SignOutCtrl',
-                    data: {
-                        title: 'Sign out'
-                    }
-                })
-
-                .state('home', {
-                    url: '/',
-                    templateUrl: 'dashboard/Dashboard.html',
-                    controller: 'DashboardCtrl',
-                    data: {
-                        title: 'Dashboard'
                     }
                 });
 
             $provide.factory('AuthorizationHttpInterceptor', [
-                '$q', '$injector',
+                '$q', '$location',
 
-                function ($q, $injector) {
-                    var $state = $injector.get('$state');
-
+                function ($q, $location) {
                     var responseError = function (rejection) {
                         if (rejection.status === 401) {
-                            $state.go('sign-in');
+                            $location.path('/');
                         }
                         else if (rejection.status === 403) {
-                            $state.go('403');
+                            $location.path('/unauthorized');
                         }
 
                         return $q.reject(rejection);
@@ -88,7 +67,6 @@ var seedApp = (function (angular, toastr) {
 
             $provide.factory('HttpEventInterceptor', [
                 '$q', '$rootScope',
-
                 function ($q, $rootScope) {
                     var request = function (config) {
                         $rootScope.$broadcast('httpRequest', config);
@@ -123,7 +101,7 @@ var seedApp = (function (angular, toastr) {
                 }
             ]);
 
-            //$httpProvider.interceptors.push('AuthorizationHttpInterceptor');
+            $httpProvider.interceptors.push('AuthorizationHttpInterceptor');
             $httpProvider.interceptors.push('HttpEventInterceptor');
         }]);
 

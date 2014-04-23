@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('seedApp')
-        .factory('NotificationSvc', [function () {
+        .factory('ToastNotifier', [function () {
             return {
                 info: function (title, message) {
                     toastr.info(message, title);

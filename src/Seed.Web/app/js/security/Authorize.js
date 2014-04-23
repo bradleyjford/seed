@@ -1,24 +1,28 @@
 (function (angular) {
-    angular.module('seedApp.security')
+    'use strict';
 
-        // <li s-require-role="admin"><a href="/test">Admin</a></li>
-        .directive('sAuthorize', ['$rootScope', function ($rootScope) {
+    angular.module('seedApp')
+
+        .directive('saAuthorize', [function () {
             return {
                 restrict: 'A',
                 scope: false,
                 link: function (scope, element, attrs) {
                     var originalDisplay = element.css('display');
 
-                    $rootScope.$watchCollection('user.roles', function (roles) {
-                        if (attrs.sAuthorize === '' && $rootScope.user.isAuthenticated) {
-                            element.css('display', originalDisplay);
-                        }
-                        else if ($rootScope.user.isInRole(attrs.sAuthorize)) {
+                    scope.$on('seedApp.signIn', function (event, roles) {
+                        if (attrs.saAuthorize === '' ||
+                            roles.indexOf(attrs.saAuthorize) !== -1) {
+
                             element.css('display', originalDisplay);
                         }
                         else {
                             element.css('display', 'none');
                         }
+                    });
+
+                    scope.$on('seedApp.signOut', function (event) {
+                        element.css('display', 'none');
                     });
                 }
             };
