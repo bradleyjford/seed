@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    var module = angular.module('seedApp.admin', ['seedApp', 'seedApp.templates']);
+    var module = angular.module('seedApp.admin', ['seedApp', 'seedApp.templates', 'ngResource']);
 
     module.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
@@ -23,10 +23,15 @@
             .state('admin.users', {
                 url: '/users',
                 views: {
-                    'content@': {
+                    'content@admin': {
                         templateUrl: 'admin/users/UserList.html',
                         controller: 'UserListController'
                     }
+                },
+                resolve: {
+                    users: ['UsersApi', function (UsersApi) {
+                        return UsersApi.query().$promise;
+                    }]
                 },
                 data: {
                     title: 'Manage Users'
@@ -40,6 +45,11 @@
                         templateUrl: 'admin/users/UserEdit.html',
                         controller: 'UserEditController'
                     }
+                },
+                resolve: {
+                    user: ['UsersApi', '$stateParams', function (UsersApi, $stateParams) {
+                        return UsersApi.get({ userId: $stateParams.userId }).$promise;
+                    }]
                 },
                 data: {
                     title: 'Edit User'

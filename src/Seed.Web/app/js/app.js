@@ -4,6 +4,7 @@ var seedApp = (function (angular, toastr) {
     var app = angular.module('seedApp', [
         'ui.router',
         'ngAnimate',
+        'ngResource',
         'seedApp.templates',
         'seedApp.dashboard',
         'seedApp.admin',

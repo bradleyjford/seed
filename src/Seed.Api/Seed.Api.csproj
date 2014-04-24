@@ -85,6 +85,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Users\User.cs" />
+    <Compile Include="Admin\Users\UserRepository.cs" />
+    <Compile Include="Admin\Users\UsersController.cs" />
     <Compile Include="Infrastructure\AntiXsrf.cs" />
     <Compile Include="Infrastructure\ApplyAntiForgeryTokenAttribute.cs" />
     <Compile Include="Infrastructure\IntroduceLatencyFilter.cs" />

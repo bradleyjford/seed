@@ -3,11 +3,11 @@
 
     var module = angular.module('seedApp.admin');
 
-    var UserListController = function ($scope) {
-
+    var UserListController = function ($scope, users) {
+        $scope.users = users;
     };
 
-    UserListController.$inject = ['$scope'];
+    UserListController.$inject = ['$scope', 'users'];
 
     module.controller('UserListController', UserListController);
 })(angular);

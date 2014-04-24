@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<table>
+    <thead>
+        <tr>
+            <td>User name</td>
+            <td>Name</td>
+            <td>Email addresse</td>
+        </tr>
+    </thead>
 
-</body>
-</html>
+    <tbody>
+        <tr ng-repeat="user in users">
+            <td><a ui-sref="admin.users.edit({ userId: user.id })" ng-bind="user.userName"></a></td>
+            <td ng-bind="user.fullName"></td>
+            <td ng-bind="user.emailAddress"></td>
+        </tr>
+    </tbody>
+</table>

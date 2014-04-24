@@ -9,11 +9,21 @@ namespace Seed.Api.Infrastructure
 {
     public class IntroduceLatencyFilter : IActionFilter
     {
+        private readonly TimeSpan _latency;
+
+        public IntroduceLatencyFilter(TimeSpan latency)
+        {
+            _latency = latency;
+        }
+
         public bool AllowMultiple { get { return true; } }
 
-        public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
+        public async Task<HttpResponseMessage> ExecuteActionFilterAsync(
+            HttpActionContext actionContext, 
+            CancellationToken cancellationToken, 
+            Func<Task<HttpResponseMessage>> continuation)
         {
-            await Task.Delay(1000);
+            await Task.Delay(_latency);
 
             return await continuation();
         }
