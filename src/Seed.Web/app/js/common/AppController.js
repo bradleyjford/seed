@@ -24,8 +24,8 @@
                 }
 
                 // ensure the current user is in the correct role for the requested route
-/*                $rootScope.$on('$routeChangeStart', function (event, next) {
-                    if (next.requireRole && !$rootScope.user.isInRole(next.requireRole)) {
+                $rootScope.$on('$stateChangeStart', function (event, toState) {
+                    if (toState.data.requireRole && !$rootScope.user.isInRole(toState.data.requireRole)) {
                         if (!$rootScope.user.isAuthenticated) {
                             $state.go('sign-in');
                             return;
@@ -33,7 +33,7 @@
 
                         $state.go('403');
                     }
-                });*/
+                });
 
                 $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                     $rootScope.page.title = toState.data.title;

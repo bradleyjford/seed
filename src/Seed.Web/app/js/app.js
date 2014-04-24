@@ -6,6 +6,7 @@ var seedApp = (function (angular, toastr) {
         'ngAnimate',
         'seedApp.templates',
         'seedApp.dashboard',
+        'seedApp.admin',
         'ui.bootstrap.tpls',
         'ui.bootstrap'
     ]);

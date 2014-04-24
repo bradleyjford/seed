@@ -4,8 +4,12 @@
         <div ng-include="'admin/Header.html'"></div>
     </header>
 
-    <div class="container" ui-view>
+    <div class="container">
+        <sa-breadcrumb></sa-breadcrumb>
 
+        <div ui-view="content">
+
+        </div>
     </div>
 
     <footer>
