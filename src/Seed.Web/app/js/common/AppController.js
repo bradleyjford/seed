@@ -18,7 +18,7 @@
                             Principal.signIn(data.userName, data.roles);
 
                             if ($state.current.name === 'sign-in') {
-                                $state.go('dashboard.home');
+                                $state.go('home');
                             }
                         });
                 }

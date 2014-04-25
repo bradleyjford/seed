@@ -26,6 +26,8 @@
         return this.$http.get('/api/authentication/test');
     };
 
+    AuthenticationApi.$inject = ['$http'];
+
     angular.module('seedApp')
-        .service('AuthenticationApi', ['$http', AuthenticationApi]);
+        .service('AuthenticationApi', AuthenticationApi);
 })(angular);

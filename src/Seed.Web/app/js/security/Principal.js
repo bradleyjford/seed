@@ -24,7 +24,7 @@
         this.name = '';
         this.roles.length = 0;
 
-        this.$rootScope.$broadcast('seedApp.signout');
+        this.$rootScope.$broadcast('seedApp.signOut');
     };
 
     Principal.prototype.isInRole = function (role) {

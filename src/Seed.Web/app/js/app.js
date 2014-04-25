@@ -5,16 +5,19 @@ var seedApp = (function (angular, toastr) {
         'ui.router',
         'ngAnimate',
         'ngResource',
+
         'seedApp.templates',
-        'seedApp.dashboard',
+
+        'seedApp.home',
         'seedApp.admin',
+
         'ui.bootstrap.tpls',
         'ui.bootstrap'
     ]);
 
     app.config([
         '$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$provide',
-        function ($stateProvider, $urlRouterProvider ,$httpProvider, $locationProvider, $provide) {
+        function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $provide) {
             $locationProvider.html5Mode(false);
             $locationProvider.hashPrefix('!');
 
@@ -34,15 +37,6 @@ var seedApp = (function (angular, toastr) {
                     templateUrl: 'common/403.html',
                     data: {
                         title: 'Unauthorized'
-                    }
-                })
-
-                .state('sign-in', {
-                    url: '/',
-                    templateUrl: 'home/SignIn.html',
-                    controller: 'SignInController',
-                    data: {
-                        title: 'Sign in'
                     }
                 });
 
@@ -67,51 +61,12 @@ var seedApp = (function (angular, toastr) {
                 }
             ]);
 
-            $provide.factory('HttpEventInterceptor', [
-                '$q', '$rootScope',
-                function ($q, $rootScope) {
-                    var request = function (config) {
-                        $rootScope.$broadcast('httpRequest', config);
-
-                        return config || $q.when(config);
-                    };
-
-                    var requestError = function (rejection) {
-                        $rootScope.$broadcast('httpRequestError', rejection);
-
-                        return $q.reject(rejection);
-                    };
-
-                    var response = function (response) {
-                        $rootScope.$broadcast('httpResponse', response);
-
-                        return response || $q.when(response);
-                    };
-
-                    var responseError = function (rejection) {
-                        $rootScope.$broadcast('httpResponseError', rejection);
-
-                        return $q.reject(rejection);
-                    };
-
-                    return {
-                        'request': request,
-                        'requestError': requestError,
-                        'response': response,
-                        'responseError': responseError
-                    };
-                }
-            ]);
-
             $httpProvider.interceptors.push('AuthorizationHttpInterceptor');
-            $httpProvider.interceptors.push('HttpEventInterceptor');
         }]);
 
     angular.module('seedApp.templates', []);
 
     toastr.options = {
-
-
         iconClasses: {
             error: 'alert-error',
             info: 'alert-info',

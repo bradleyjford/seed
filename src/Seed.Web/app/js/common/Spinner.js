@@ -3,7 +3,7 @@
 
     var module = angular.module('seedApp');
 
-    module.directive('saSpinner', ['$rootScope', function ($rootScope) {
+    module.directive('saSpinner', [function () {
         return {
             restrict: 'EA',
             templateUrl: 'common/Spinner.html',
