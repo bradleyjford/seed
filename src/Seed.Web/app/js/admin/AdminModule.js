@@ -21,7 +21,7 @@
             })
 
             .state('admin.users', {
-                url: '/users',
+                url: '/users?p',
                 views: {
                     'content@admin': {
                         templateUrl: 'admin/users/UserList.html',
@@ -47,12 +47,12 @@
                     }
                 },
                 resolve: {
-                    user: ['UsersApi', '$stateParams', function (UsersApi, $stateParams) {
+                    model: ['UsersApi', '$stateParams', function (UsersApi, $stateParams) {
                         return UsersApi.get({ userId: $stateParams.userId }).$promise;
                     }]
                 },
                 data: {
-                    title: 'Edit User'
+                    title: '{{ model.fullName }}'
                 }
             });
     }]);

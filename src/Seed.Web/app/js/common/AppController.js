@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('seedApp')
-        .controller('AppController', ['$rootScope', '$state', 'AuthenticationApi', 'Principal',
-            function ($rootScope, $state, AuthenticationApi, Principal) {
+        .controller('AppController', ['$interpolate', '$rootScope', '$state', 'AuthenticationApi', 'Principal',
+            function ($interpolate, $rootScope, $state, AuthenticationApi, Principal) {
                 if (!$rootScope.page) {
                     $rootScope.page = new seedApp.Page();
                 }
@@ -36,7 +36,7 @@
                 });
 
                 $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-                    $rootScope.page.title = toState.data.title;
+                    $rootScope.page.title = $interpolate(toState.data.title)($state.$current.locals.globals);
                 });
             }
         ]);

@@ -1,1 +1,84 @@
-<p>Edit user {{ model.userName }}.</p>
+<h1><span class="fa fa-user"></span> Edit user</h1>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="well">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>
+                    {{ model.fullName }}
+                </legend>
+
+                <div class="form-group">
+                    <label for="fullName" class="col-sm-2 control-label">Name</label>
+
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="fullName" ng-model="model.fullName" ng-focus
+                               ng-required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="userName" class="col-md-2 control-label">User name</label>
+
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="userName" disabled ng-model="model.userName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailAddress" class="col-md-2 control-label">Email</label>
+
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="emailAddress" ng-model="model.emailAddress">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes" class="col-md-2 control-label">Notes</label>
+
+                    <div class="col-md-10">
+                        <textarea class="form-control" rows="3" id="notes"></textarea>
+                        <span class="help-block">Any administrative notes relating to the user. These are not visible to the user.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">I want to...</div>
+
+            <div class="list-group">
+                <a href="#" class="list-group-item">
+                    <h4 class="list-group-item-heading">Reset the user's password</h4>
+
+                    <p class="list-group-item-text">An email will be sent to the user with instructions on resetting
+                        their password.</p>
+                </a>
+                <a href="#" class="list-group-item">
+                    <h4 class="list-group-item-heading">Change the user's user name.</h4>
+
+                    <p class="list-group-item-text">Modify the user name that the user enters to login to the
+                        system.</p>
+                </a>
+                <a href="#" class="list-group-item">
+                    <h4 class="list-group-item-heading">Deactivate the user's account</h4>
+
+                    <p class="list-group-item-text">Prevent the user from logging into the system. The user will not be
+                        notified that their account has been deactivated.</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
