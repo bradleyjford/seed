@@ -1,17 +1,21 @@
+<h1><span class="fa fa-user"></span> Manage users</h1>
+
+<div class="row">
 <table class="table table-bordered table-striped table-hover table-responsive">
     <thead>
         <tr>
-            <td>User name</td>
-            <td>Name</td>
-            <td>Email address</td>
+            <th>User name</th>
+            <th>Name</th>
+            <th>Email address</th>
         </tr>
     </thead>
 
     <tbody>
         <tr ng-repeat="user in users">
-            <td><a ui-sref="admin.users.edit({ userId: user.id })" ng-bind="user.userName"></a></td>
+            <td><a ui-sref="admin.users.edit({ userId: user.id })" ng-bind="user.username"></a></td>
             <td ng-bind="user.fullName"></td>
             <td ng-bind="user.emailAddress"></td>
         </tr>
     </tbody>
 </table>
+    </div>

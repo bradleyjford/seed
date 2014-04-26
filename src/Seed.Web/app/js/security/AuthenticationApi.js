@@ -5,9 +5,9 @@
         this.$http = $http;
     };
 
-    AuthenticationApi.prototype.signIn = function (userName, password) {
+    AuthenticationApi.prototype.signIn = function (username, password) {
         var data = {
-            userName: userName,
+            username: username,
             password: password
         };
 

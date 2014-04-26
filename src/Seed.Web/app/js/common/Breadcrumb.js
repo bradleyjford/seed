@@ -15,16 +15,6 @@
                 displayNameProperty: '@'
             },
             link: function (scope) {
-                scope.breadcrumbs = [];
-
-                if ($state.$current.name !== '') {
-                    updateBreadcrumbArray();
-                }
-
-                scope.$on('$stateChangeSuccess', function () {
-                    updateBreadcrumbArray();
-                });
-
                 /**
                  * Start with the current state and traverse up the path to build the
                  * array of breadcrumbs that can be used in an ng-repeat in the template.
@@ -85,6 +75,16 @@
                     // use the $interpolate service to handle any bindings in the propertyReference string.
                     return $interpolate(propertyReference)(currentState.locals.globals);
                 }
+
+                scope.breadcrumbs = [];
+
+                if ($state.$current.name !== '') {
+                    updateBreadcrumbArray();
+                }
+
+                scope.$on('$stateChangeSuccess', function () {
+                    updateBreadcrumbArray();
+                });
             }
         };
     }]);

@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Web.Http;
 using System.Web.Security;
+using AutoMapper;
 using Seed.Api.Infrastructure;
+using Seed.Infrastructure.Messaging;
+using Seed.Security;
 
 namespace Seed.Api.Security
 {
     [RoutePrefix("authentication")]
-    public class AuthenticationController : ApiController
+    public class AuthenticationController : ApiCommandController
     {
+        private readonly ICommandBus _bus;
+
+        public AuthenticationController(ICommandBus bus)
+        {
+            _bus = bus;
+        }
+
         [HttpPost]
         [Route("signin")]
         [ValidateAntiForgeryToken]
@@ -18,12 +28,16 @@ namespace Seed.Api.Security
                 return BadRequest(ModelState);
             }
 
-            if (request.UserName != "test")
+            var command = Mapper.Map<SignInCommand>(request);
+
+            var result = _bus.Submit(command);
+
+            if (!result.Success)
             {
-                return BadRequest("Invalid username or password");
+                return BadRequest("Unknown username or password.");
             }
 
-            FormsAuthentication.SetAuthCookie(request.UserName, false);
+            FormsAuthentication.SetAuthCookie(request.Username, false);
 
             var roles = new[] {
                 "admin",
@@ -31,7 +45,7 @@ namespace Seed.Api.Security
                 "public"
             };
 
-            var response = new SignInSuccessResponse("Testing User", roles);
+            var response = new SignInSuccessResponse(request.Username, "Testing User", roles);
 
             return Ok(response);
         }
@@ -48,7 +62,7 @@ namespace Seed.Api.Security
                     "public"
                 };
 
-                var response = new SignInSuccessResponse("Testing User", roles);
+                var response = new SignInSuccessResponse("test", "Testing User", roles);
 
                 return Ok(response);
             }

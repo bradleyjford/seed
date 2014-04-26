@@ -6,7 +6,7 @@
     module.controller('SignInController', ['$scope', '$state', 'AuthenticationApi', 'Principal',
         function ($scope, $state, AuthenticationApi, Principal) {
             $scope.model = {
-                userName: '',
+                username: '',
                 password: '',
                 error: ''
             };
@@ -14,13 +14,13 @@
             $scope.signIn = function () {
                 $scope.model.error = '';
 
-                if (!$scope.signin_form.$valid) {
+                if (!$scope.signInForm.$valid) {
                     return;
                 }
 
-                AuthenticationApi.signIn($scope.model.userName, $scope.model.password)
+                AuthenticationApi.signIn($scope.model.username, $scope.model.password)
                     .success(function (data) {
-                        Principal.signIn(data.userName, data.roles);
+                        Principal.signIn(data.username, data.fullName, data.roles);
 
                         $state.go('home');
                     })

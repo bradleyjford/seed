@@ -30,7 +30,7 @@
                 }
             })
 
-            .state('home.sign-out', {
+            .state('sign-out', {
                 url: '/sign-out',
                 controller: 'SignOutController',
                 data: {

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Seed.Infrastructure.Messaging;
 
 namespace Seed.Security
 {
     public class SignInCommand : ICommand
     {
-        public string UserName { get; private set; }
-        public string Password { get; private set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

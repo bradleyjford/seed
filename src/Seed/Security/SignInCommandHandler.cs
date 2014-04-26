@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Seed.Infrastructure.Messaging;
 
 namespace Seed.Security
 {
-    public class SignInCommandHandler : ICommandHandler<SignInCommand, bool>
+    public class SignInCommandHandler : ICommandHandler<SignInCommand>
     {
-        public bool Execute(SignInCommand command)
+        public ICommandResult Execute(SignInCommand command)
         {
-            return false;
+            if (command.Username == "test")
+            {
+                return CommandResult.Ok;
+            }
+
+            return CommandResult.Fail;
         }
     }
 }

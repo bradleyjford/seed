@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-9">
         <div class="well">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="editUserForm" ng-submit="save()">
             <fieldset>
                 <legend>
                     {{ model.fullName }}
@@ -19,10 +19,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="userName" class="col-md-2 control-label">User name</label>
+                    <label for="username" class="col-md-2 control-label">User name</label>
 
                     <div class="col-md-5">
-                        <input type="text" class="form-control" id="userName" disabled ng-model="model.userName">
+                        <input type="text" class="form-control" id="username" disabled ng-model="model.username">
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                     <label for="notes" class="col-md-2 control-label">Notes</label>
 
                     <div class="col-md-10">
-                        <textarea class="form-control" rows="3" id="notes"></textarea>
+                        <textarea class="form-control" rows="3" id="notes">Not bound</textarea>
                         <span class="help-block">Any administrative notes relating to the user. These are not visible to the user.</span>
                     </div>
                 </div>

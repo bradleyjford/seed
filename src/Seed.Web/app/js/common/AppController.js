@@ -15,9 +15,9 @@
 
                     AuthenticationApi.get()
                         .success(function (data) {
-                            Principal.signIn(data.userName, data.roles);
+                            Principal.signIn(data.username, data.fullName, data.roles);
 
-                            if ($state.current.name === 'sign-in') {
+                            if ($state.current.name === '/') {
                                 $state.go('home');
                             }
                         });

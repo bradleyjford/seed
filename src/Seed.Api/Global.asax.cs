@@ -8,7 +8,10 @@ namespace Seed.Api
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            AutoMapperConfig.Configure();
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configure(AutofacConfig.Register);
         }
     }
 }

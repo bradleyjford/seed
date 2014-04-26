@@ -18,7 +18,7 @@ namespace Seed.Api
 
             config.Filters.Add(new ApplyAntiForgeryToken(true));
 #if DEBUG
-            config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromSeconds(1)));
+            config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromMilliseconds(600)));
 #endif
         }
     }

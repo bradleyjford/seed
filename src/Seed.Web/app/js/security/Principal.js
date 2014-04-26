@@ -6,12 +6,14 @@
 
         this.isAuthenticated = false;
         this.name = '';
+        this.fullName = '';
         this.roles = [];
     };
 
-    Principal.prototype.signIn = function (name, roles) {
+    Principal.prototype.signIn = function (username, fullName, roles) {
         this.isAuthenticated = true;
-        this.name = name;
+        this.name = username;
+        this.fullName = fullName;
 
         this.roles.length = 0;
         this.roles.push.apply(this.roles, roles);
@@ -22,6 +24,7 @@
     Principal.prototype.signOut = function () {
         this.isAuthenticated = false;
         this.name = '';
+        this.fullName = '';
         this.roles.length = 0;
 
         this.$rootScope.$broadcast('seedApp.signOut');
