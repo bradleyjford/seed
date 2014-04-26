@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
 using Seed.Admin.Users;
+using Seed.Api.Infrastructure.Filters;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
 
@@ -41,8 +42,9 @@ namespace Seed.Api.Admin.Users
             return Ok(response);
         }
 
-        [Route("")]
-        public IHttpActionResult Post([FromBody]SaveUserRequest request)
+        [Route("{id:int}")]
+        [ValidateAntiForgeryToken]
+        public IHttpActionResult Post(int id, [FromBody]SaveUserRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -50,6 +52,42 @@ namespace Seed.Api.Admin.Users
             }
 
             var command = Mapper.Map<EditUserCommand>(request);
+
+            command.UserId = id;
+
+            var result = _bus.Submit(command);
+
+            return CommandResult(result);
+        }
+
+        [Route("{id:int}/activate")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IHttpActionResult Activate(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var command = new ActivateUserCommand(id);
+
+            var result = _bus.Submit(command);
+
+            return CommandResult(result);
+        }
+        
+        [Route("{id:int}/deactivate")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IHttpActionResult Deactivate(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var command = new DeactivateUserCommand(id);
 
             var result = _bus.Submit(command);
 

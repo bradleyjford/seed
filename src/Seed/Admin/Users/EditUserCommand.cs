@@ -5,7 +5,7 @@ namespace Seed.Admin.Users
 {
     public class EditUserCommand : ICommand
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string FullName { get; set; }
         public string EmailAddress { get; set; }
     }

@@ -6,16 +6,16 @@ namespace Seed.Admin.Users
 {
     public class EditUserCommandHandler : ICommandHandler<EditUserCommand>
     {
-        private readonly UserRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public EditUserCommandHandler()
+        public EditUserCommandHandler(IUserRepository repository)
         {
-            _repository = new UserRepository();
+            _repository = repository;
         }
 
         public ICommandResult Execute(EditUserCommand command)
         {
-            var user = _repository.Get(command.Id);
+            var user = _repository.Get(command.UserId);
 
             user.FullName = command.FullName;
             user.EmailAddress = command.EmailAddress;

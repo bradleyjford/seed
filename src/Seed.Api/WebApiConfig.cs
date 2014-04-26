@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Routing;
 using Newtonsoft.Json.Serialization;
 using Seed.Api.Infrastructure;
+using Seed.Api.Infrastructure.Filters;
 
 namespace Seed.Api
 {

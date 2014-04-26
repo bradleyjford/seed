@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Security;
 using AutoMapper;
 using Seed.Api.Infrastructure;
+using Seed.Api.Infrastructure.Filters;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
 

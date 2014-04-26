@@ -8,7 +8,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Seed.Web.Http.AntiXsrf;
 
-namespace Seed.Api.Infrastructure
+namespace Seed.Api.Infrastructure.Filters
 {
     public class ApplyAntiForgeryToken : IActionFilter
     {
@@ -19,7 +19,10 @@ namespace Seed.Api.Infrastructure
             _requireSsl = requireSsl;
         }
 
-        public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
+        public async Task<HttpResponseMessage> ExecuteActionFilterAsync(
+            HttpActionContext actionContext, 
+            CancellationToken cancellationToken, 
+            Func<Task<HttpResponseMessage>> continuation)
         {
             var result = await continuation();
 

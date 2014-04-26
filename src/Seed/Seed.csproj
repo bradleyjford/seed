@@ -34,6 +34,12 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -45,6 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\Users\EditUserCommandHandler.cs" />
+    <Compile Include="Common\AuditEvent.cs" />
+    <Compile Include="Common\IAuditEntryRepository.cs" />
+    <Compile Include="Infrastructure\Domain\AggregateRoot.cs" />
+    <Compile Include="Infrastructure\Domain\ClockProvider.cs" />
+    <Compile Include="Infrastructure\Domain\IClock.cs" />
+    <Compile Include="Infrastructure\Domain\IInlineAudited.cs" />
+    <Compile Include="Infrastructure\Domain\IUserContext.cs" />
+    <Compile Include="Infrastructure\Domain\SystemClock.cs" />
+    <Compile Include="Common\AuditingCommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\CommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\CommandBusException.cs" />
     <Compile Include="Infrastructure\Messaging\CommandHandlerNotFoundException.cs" />
@@ -53,10 +68,13 @@
     <Compile Include="Infrastructure\Messaging\ICommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandResult.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandValidator.cs" />
+    <Compile Include="Security\ActivateUserCommand.cs" />
+    <Compile Include="Security\ActivateUserCommandHandler.cs" />
+    <Compile Include="Security\DeactivateUserCommand.cs" />
+    <Compile Include="Security\DeactivateUserCommandHandler.cs" />
     <Compile Include="Security\IUserRepository.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
     <Compile Include="Security\User.cs" />
-    <Compile Include="Security\UserRepository.cs" />
     <Compile Include="Infrastructure\Messaging\ICommand.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

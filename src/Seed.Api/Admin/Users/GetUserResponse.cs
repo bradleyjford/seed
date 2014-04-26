@@ -8,5 +8,6 @@ namespace Seed.Api.Admin.Users
         public string Username { get; set; }
         public string FullName { get; set; }
         public string EmailAddress { get; set; }
+        public bool IsActive { get; set; }
     }
 }

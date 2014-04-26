@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seed.Api.Infrastructure
+namespace Seed.Api.Infrastructure.Filters
 {
     internal static class AntiXsrf
     {

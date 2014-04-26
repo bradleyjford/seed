@@ -1,57 +1,61 @@
 <h1><span class="fa fa-user"></span> Edit user</h1>
 
+<div class="row" ng-hide="model.isActive">
+    <alert type="warning"><span class="fa fa-ban"></span> <b>Disabled</b> - This user is currently disabled and unable to sign in. <a href="" ng-click="enable()">Enable</a> the user.</alert>
+</div>
+
 <div class="row">
     <div class="col-md-9">
         <div class="well">
-        <form class="form-horizontal" name="editUserForm" ng-submit="save()">
-            <fieldset>
-                <legend>
-                    {{ model.fullName }}
-                </legend>
+            <form class="form-horizontal" name="editUserForm" ng-submit="save()">
+                <fieldset>
+                    <legend>
+                        {{ model.fullName }}
+                    </legend>
 
-                <div class="form-group">
-                    <label for="fullName" class="col-sm-2 control-label">Name</label>
+                    <div class="form-group">
+                        <label for="fullName" class="col-sm-2 control-label">Name</label>
 
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" id="fullName" ng-model="model.fullName" ng-focus
-                               ng-required>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="fullName" ng-model="model.fullName"
+                                   ng-required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="username" class="col-md-2 control-label">User name</label>
+                    <div class="form-group">
+                        <label for="username" class="col-md-2 control-label">User name</label>
 
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" id="username" disabled ng-model="model.username">
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="username" disabled ng-model="model.username">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="emailAddress" class="col-md-2 control-label">Email</label>
+                    <div class="form-group">
+                        <label for="emailAddress" class="col-md-2 control-label">Email</label>
 
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" id="emailAddress" ng-model="model.emailAddress">
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="emailAddress" ng-model="model.emailAddress">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="notes" class="col-md-2 control-label">Notes</label>
+                    <div class="form-group">
+                        <label for="notes" class="col-md-2 control-label">Notes</label>
 
-                    <div class="col-md-10">
-                        <textarea class="form-control" rows="3" id="notes">Not bound</textarea>
-                        <span class="help-block">Any administrative notes relating to the user. These are not visible to the user.</span>
+                        <div class="col-md-10">
+                            <textarea class="form-control" rows="3" id="notes">Not bound</textarea>
+                            <span class="help-block">Any administrative notes relating to the user. These are not visible to the user.</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                        </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
-</div>
+                </fieldset>
+            </form>
+        </div>
     </div>
 
     <div class="col-md-3">
@@ -66,19 +70,55 @@
                         their password.</p>
                 </a>
                 <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">Change the user's user name.</h4>
+                    <h4 class="list-group-item-heading">Change the user's username.</h4>
 
-                    <p class="list-group-item-text">Modify the user name that the user enters to login to the
+                    <p class="list-group-item-text">Modify the username that the user enters to login to the
                         system.</p>
                 </a>
-                <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">Deactivate the user's account</h4>
 
-                    <p class="list-group-item-text">Prevent the user from logging into the system. The user will not be
-                        notified that their account has been deactivated.</p>
+                <a href="" ng-click="enable()" ng-hide="model.isActive" class="list-group-item">
+                    <h4 class="list-group-item-heading">Enable the user's account</h4>
+
+                    <p class="list-group-item-text">Enable the user to sign in into the system. The user will not be
+                        notified that their account has been enabled.</p>
+                </a>
+
+                <a href="" ng-click="disable()" ng-show="model.isActive" class="list-group-item">
+                    <h4 class="list-group-item-heading">Disable the user's account</h4>
+
+                    <p class="list-group-item-text">Prevent the user from signing in into the system. The user will not be
+                        notified that their account has been disabled.</p>
                 </a>
             </div>
         </div>
     </div>
+
+    <script type="text/ng-template" id="disableUser.tpl">
+        <div class="modal-header">
+            <h3>Disable "{{ userName }}"?</h3>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure that you wish to disable the user "{{ userName }}"?</p>
+            <p>Disabling the user will prevent the user from accessing the system. If the user is currently
+            logged in, they will able to use the system until they sign out.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" ng-click="yes()">Yes, disable</button>
+            <button class="btn" ng-click="no()">No, cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="enableUser.tpl">
+        <div class="modal-header">
+            <h3>Enable "{{ userName }}"?</h3>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure that you wish to enable the user "{{ userName }}"?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="yes()">Yes, enable</button>
+            <button class="btn" ng-click="no()">No, cancel</button>
+        </div>
+    </script>
 
 </div>

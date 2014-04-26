@@ -14,7 +14,7 @@ namespace Seed.Infrastructure.Messaging
             _componentContext = container;
         }
 
-        public ICommandResult Submit<TCommand>(TCommand command) 
+        public virtual ICommandResult Submit<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
             var handler = _componentContext.Resolve<ICommandHandler<TCommand>>();
@@ -27,7 +27,7 @@ namespace Seed.Infrastructure.Messaging
             return handler.Execute(command);
         }
 
-        public IEnumerable<ValidationResult> Validate<TCommand>(TCommand command) 
+        public virtual IEnumerable<ValidationResult> Validate<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
             var handler = _componentContext.Resolve<ICommandValidator<TCommand>>();

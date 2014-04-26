@@ -44,6 +44,9 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Extras.CommonServiceLocator">
+      <HintPath>..\packages\Autofac.Extras.CommonServiceLocator.3.1.1\lib\net40\Autofac.Extras.CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac.Integration.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.WebApi2.3.2.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
@@ -67,9 +70,12 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.0-alpha1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
@@ -98,16 +104,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Users\DeactivateUserRequest.cs" />
     <Compile Include="Admin\Users\GetUserResponse.cs" />
     <Compile Include="Admin\Users\SaveUserRequest.cs" />
     <Compile Include="Admin\Users\UsersController.cs" />
     <Compile Include="ApiCommandController.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="AutoMapperConfig.cs" />
-    <Compile Include="Infrastructure\AntiXsrf.cs" />
-    <Compile Include="Infrastructure\ApplyAntiForgeryTokenAttribute.cs" />
-    <Compile Include="Infrastructure\IntroduceLatencyFilter.cs" />
-    <Compile Include="Infrastructure\ValidateAntiForgeryTokenAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\AntiXsrf.cs" />
+    <Compile Include="Infrastructure\Filters\ApplyAntiForgeryTokenAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
+    <Compile Include="Infrastructure\Filters\ValidateAntiForgeryTokenAttribute.cs" />
+    <Compile Include="Infrastructure\Security\SeedUserContext.cs" />
     <Compile Include="Security\AuthenticationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -129,6 +137,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Seed.Data\Seed.Data.csproj">
+      <Project>{7b0d87d5-12f5-4f8e-8a5e-0b74d55355a7}</Project>
+      <Name>Seed.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Seed.Web.Http.AntiXsrf\Seed.Web.Http.AntiXsrf.csproj">
       <Project>{8654F922-DCBD-4060-A34E-E2673AF36E64}</Project>
       <Name>Seed.Web.Http.AntiXsrf</Name>
@@ -137,6 +149,9 @@
       <Project>{EC2E4390-36CE-443C-BECE-416AB548D68F}</Project>
       <Name>Seed</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

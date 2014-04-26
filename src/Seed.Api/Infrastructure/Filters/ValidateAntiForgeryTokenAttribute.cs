@@ -7,7 +7,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Seed.Web.Http.AntiXsrf;
 
-namespace Seed.Api.Infrastructure
+namespace Seed.Api.Infrastructure.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class ValidateAntiForgeryTokenAttribute : AuthorizationFilterAttribute
