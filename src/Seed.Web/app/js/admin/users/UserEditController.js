@@ -4,70 +4,56 @@
     var module = angular.module('seedApp.admin');
 
     module.controller('UserEditController',
-        ['$scope', '$state', '$modal', 'UsersApi', 'model',
-        function ($scope, $state, $modal, UsersApi, model) {
-        $scope.model = model;
+        ['$scope', '$state', 'confirm', '$modal', 'UsersApi', 'model',
+        function ($scope, $state, confirm, $modal, UsersApi, model) {
+            $scope.model = model;
 
-        $scope.save = function () {
-            if ($scope.editUserForm.$valid)
-            {
-                $scope.model.$save({ userId: $scope.model.id }, function () {
-                    $state.go('^', null, { reload: true });
-                });
-            }
-        };
-
-        $scope.enable = function () {
-            var modalInstance = $modal.open({
-                templateUrl: 'enableUser.tpl',
-                controller: ['$scope', '$modalInstance', 'userName', IsActiveUserController],
-                resolve: {
-                    userName: function () {
-                        return 'Brad';
-                    }
+            $scope.save = function () {
+                if ($scope.editUserForm.$valid)
+                {
+                    $scope.model.$save({ userId: $scope.model.id }, function () {
+                        $state.go('^', null, { reload: true });
+                    });
                 }
-            });
+            };
 
-            modalInstance.result.then(function () {
-                UsersApi.activate({ userId: $scope.model.id }, null, function () {
-                    $scope.model.isActive = true;
-                });
-            });
-        };
+            $scope.enable = function (model) {
+                confirm.show(
+                    model,
+                    'Enable {{ fullName }}?',
+                    'Are you sure that you wish to enable the user "{{ fullName }}"?',
+                    {
+                        okButtonText: 'Yes, enable',
+                        cancelButtonText: 'No, cancel'
+                    })
+                    .then(function () {
+                        UsersApi.activate({ userId: $scope.model.id }, null, function () {
+                            $scope.model.isActive = true;
+                        });
+                    });
+            };
 
-        $scope.disable = function () {
-            var modalInstance = $modal.open({
-                templateUrl: 'disableUser.tpl',
-                controller: ['$scope', '$modalInstance', 'userName', IsActiveUserController],
-                resolve: {
-                    userName: function () {
-                        return 'Brad';
-                    }
-                }
-            });
+            $scope.disable = function (model) {
+                confirm.show(
+                    model,
+                    'Disable user "{{ fullName }}"?',
+                    'Are you sure that you wish to disable user "{{ fullName }}"?',
+                    {
+                        okButtonText: 'Yes, disable',
+                        okButtonClass: 'btn-danger',
+                        cancelButtonText: 'No, cancel'
+                    })
+                    .then(function () {
+                        UsersApi.deactivate({ userId: $scope.model.id }, null, function () {
+                            $scope.model.isActive = false;
+                        });
+                    });
+            };
 
-            modalInstance.result.then(function () {
-                UsersApi.deactivate({ userId: $scope.model.id }, null, function () {
-                    $scope.model.isActive = false;
-                });
-            });
-        };
-
-        $scope.cancel = function() {
-            $state.go('^');
-        };
-    }]);
-
-    var IsActiveUserController = function ($scope, $modalInstance, userName) {
-        $scope.userName = userName;
-
-        $scope.yes = function () {
-            $modalInstance.close(true);
-        };
-
-        $scope.no = function () {
-            $modalInstance.dismiss('cancel');
-        };
-    };
+            $scope.cancel = function() {
+                $state.go('^');
+            };
+        }
+    ]);
 
 })(angular);

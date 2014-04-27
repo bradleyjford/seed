@@ -117,16 +117,17 @@ module.exports = function (grunt) {
         },
         uglify: {
             options: {
-                sourceMap: true
+                sourceMap: true,
+                mangle: false,
+                compress: false,
+                beautify: true
             },
             app: {
                 options: {
                     sourceMapIncludeSources: true
                 },
                 files: {
-
                     '../../dist/js/SeedApp.min.js': ['<%= src.appJs %>']
-
                 }
             }
         },
