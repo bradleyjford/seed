@@ -3,18 +3,21 @@
 
     var module = angular.module('seedApp.admin');
 
-    module.controller('UserEditController',
-        ['$scope', '$state', 'confirm', '$modal', 'UsersApi', 'model',
-        function ($scope, $state, confirm, $modal, UsersApi, model) {
+    module.controller('UserEditController', [
+        '$scope', '$state', 'confirm', 'UsersApi', 'model',
+        function ($scope, $state, confirm, UsersApi, model) {
             $scope.model = model;
 
             $scope.save = function () {
-                if ($scope.editUserForm.$valid)
-                {
+                if ($scope.editUserForm.$valid) {
                     $scope.model.$save({ userId: $scope.model.id }, function () {
                         $state.go('^', null, { reload: true });
                     });
                 }
+            };
+
+            $scope.cancel = function() {
+                $state.go('^');
             };
 
             $scope.enable = function (model) {
@@ -49,11 +52,7 @@
                         });
                     });
             };
-
-            $scope.cancel = function() {
-                $state.go('^');
-            };
         }
     ]);
-
-})(angular);
+})(angular)
+;

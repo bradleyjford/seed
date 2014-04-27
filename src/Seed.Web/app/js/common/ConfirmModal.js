@@ -31,18 +31,21 @@
                                 return confirmOptions;
                             }
                         },
-                        controller: ['$scope', '$modalInstance', 'data', 'opts', function ($scope, $modalInstance, data, opts) {
-                            $scope.data = data;
-                            $scope.opts = opts;
+                        controller: [
+                            '$scope', '$modalInstance', 'data', 'opts',
+                            function ($scope, $modalInstance, data, opts) {
+                                $scope.data = data;
+                                $scope.opts = opts;
 
-                            $scope.ok = function () {
-                                $modalInstance.close(true);
-                            };
+                                $scope.ok = function () {
+                                    $modalInstance.close(true);
+                                };
 
-                            $scope.cancel = function () {
-                                $modalInstance.dismiss(false);
-                            };
-                        }]
+                                $scope.cancel = function () {
+                                    $modalInstance.dismiss(false);
+                                };
+                            }
+                        ]
                     });
 
                     return modalInstance.result;
