@@ -41,15 +41,17 @@ var seedApp = (function (angular, toastr) {
                 });
 
             $provide.factory('AuthorizationHttpInterceptor', [
-                '$q', '$location',
+                '$q', '$location', '$injector',
 
-                function ($q, $location) {
+                function ($q, $location, $injector) {
                     var responseError = function (rejection) {
+                        var $state = $injector.get('$state');
+
                         if (rejection.status === 401) {
-                            $location.path('/');
+                            $state.go('sign-in', { returnUrl: $location.url() });
                         }
                         else if (rejection.status === 403) {
-                            $location.path('/unauthorized');
+                            $state.go('403');
                         }
 
                         return $q.reject(rejection);

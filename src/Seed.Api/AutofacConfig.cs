@@ -36,6 +36,8 @@ namespace Seed.Api
             builder.RegisterType<SeedUserContext>().As<IUserContext>()
                 .InstancePerApiRequest();
 
+            builder.RegisterType<SeedDbContext>().As<ISeedDbContext>();
+
             builder.RegisterType<SeedUnitOfWork>().As<ISeedUnitOfWork>()
                 .InstancePerApiRequest();
 

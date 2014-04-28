@@ -47,10 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPagingOptions.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.Designer.cs">
       <DependentUpon>201404261003481_DeactivateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="PagingOptions.cs" />
+    <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
     <Compile Include="Admin\UserRepository.cs" />
     <Compile Include="Common\AuditEntryRepository.cs" />

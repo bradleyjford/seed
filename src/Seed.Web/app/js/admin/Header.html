@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="dropdown" sa-authorize>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> {{user.fullName}}</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> {{ user.identity.displayName }}</a>
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active"><a ui-sref="home.profile"><span class="fa fa-cog"></span> My account</a></li>
                         <li class="divider"></li>

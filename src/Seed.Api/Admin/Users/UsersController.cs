@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using Seed.Admin.Users;
 using Seed.Api.Infrastructure.Filters;
+using Seed.Data;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
 
@@ -14,18 +16,42 @@ namespace Seed.Api.Admin.Users
     public class UsersController : ApiCommandController
     {
         private readonly ICommandBus _bus;
-        private readonly IUserRepository _repository;
+        private readonly ISeedDbContext _dbContext;
 
-        public UsersController(ICommandBus bus, IUserRepository repository)
+        public UsersController(
+            ICommandBus bus, 
+            ISeedDbContext dbContext)
         {
             _bus = bus;
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri]UserQueryFilter filter, [FromUri]PagingOptions pagingOptions)
         {
-            var users = _repository.GetAll();
+            var usersQuery = _dbContext.Users.AsQueryable();
+
+            if (filter == null)
+            {
+                filter = new UserQueryFilter();
+            }
+
+            if (pagingOptions == null)
+            {
+                pagingOptions = new PagingOptions
+                {
+                    PageSize = 10
+                };
+            }
+
+            if (!String.IsNullOrEmpty(filter.UserName))
+            {
+                usersQuery = usersQuery.Where(u => u.Username.StartsWith(filter.UserName));
+            }
+
+            usersQuery = usersQuery.OrderBy(u => u.Username);
+
+            var users = usersQuery.Paged(pagingOptions);
 
             var response = Mapper.Map<IEnumerable<GetUserResponse>>(users);
 
@@ -35,7 +61,7 @@ namespace Seed.Api.Admin.Users
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            var user = _repository.Get(id);
+            var user = _dbContext.Users.SingleOrDefault(u => u.Id == id);
 
             var response = Mapper.Map<GetUserResponse>(user);
 

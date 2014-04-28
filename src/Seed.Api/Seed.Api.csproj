@@ -107,6 +107,7 @@
     <Compile Include="Admin\Users\DeactivateUserRequest.cs" />
     <Compile Include="Admin\Users\GetUserResponse.cs" />
     <Compile Include="Admin\Users\SaveUserRequest.cs" />
+    <Compile Include="Admin\Users\UserQueryFilter.cs" />
     <Compile Include="Admin\Users\UsersController.cs" />
     <Compile Include="ApiCommandController.cs" />
     <Compile Include="AutofacConfig.cs" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\Paging\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

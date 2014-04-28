@@ -6,7 +6,7 @@
     module.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('sign-in', {
-                url: '/',
+                url: '/?returnUrl',
                 controller: 'SignInController',
                 templateUrl: 'home/sign-in/SignIn.html',
                 data: {

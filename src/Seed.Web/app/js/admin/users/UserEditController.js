@@ -5,6 +5,7 @@
 
     module.controller('UserEditController', [
         '$scope', '$state', 'confirm', 'UsersApi', 'model',
+
         function ($scope, $state, confirm, UsersApi, model) {
             $scope.model = model;
 

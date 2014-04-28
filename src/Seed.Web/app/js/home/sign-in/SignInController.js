@@ -3,8 +3,8 @@
 
     var module = angular.module('seedApp.home');
 
-    module.controller('SignInController', ['$scope', '$state', 'AuthenticationApi', 'Principal',
-        function ($scope, $state, AuthenticationApi, Principal) {
+    module.controller('SignInController', ['$scope', '$state', '$stateParams', '$location', 'AuthenticationApi', 'SecurityPrincipal',
+        function ($scope, $state, $stateParams, $location, AuthenticationApi, SecurityPrincipal) {
             $scope.model = {
                 username: '',
                 password: '',
@@ -20,7 +20,12 @@
 
                 AuthenticationApi.signIn($scope.model.username, $scope.model.password)
                     .success(function (data) {
-                        Principal.signIn(data.username, data.fullName, data.roles);
+                        SecurityPrincipal.set(data.username, data.fullName, data.roles);
+
+                        if ($stateParams.returnUrl && $stateParams.returnUrl.length > 0) {
+                            $location.url($stateParams.returnUrl);
+                            return;
+                        }
 
                         $state.go('home');
                     })

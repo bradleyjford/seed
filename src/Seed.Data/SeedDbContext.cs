@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Threading.Tasks;
 using Seed.Common;
 using Seed.Infrastructure.Domain;
@@ -8,11 +9,21 @@ using Seed.Security;
 
 namespace Seed.Data
 {
-    public class SeedDbContext : DbContext
+    public class SeedDbContext : DbContext, ISeedDbContext
     {
         public DbSet<AuditEvent> AuditEvents { get; set; }
 
+        IQueryable<AuditEvent> ISeedDbContext.AuditEvents
+        {
+            get { return AuditEvents; }
+        }
+
         public DbSet<User> Users { get; set; }
+
+        IQueryable<User> ISeedDbContext.Users
+        {
+            get { return Users; }
+        }
 
         public Task<int> SaveChangesAsync(IUserContext userContext)
         {
@@ -59,5 +70,11 @@ namespace Seed.Data
              entry.CurrentValues["ModifiedUtcDate"] = ClockProvider.GetUtcNow();
              entry.CurrentValues["ModifiedByUserId"] = userContext.UserId;
         }
+    }
+
+    public interface ISeedDbContext 
+    {
+        IQueryable<AuditEvent> AuditEvents { get; }
+        IQueryable<User> Users { get; }
     }
 }
