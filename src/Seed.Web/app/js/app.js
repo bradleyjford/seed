@@ -1,4 +1,4 @@
-var seedApp = (function (angular, toastr) {
+var seedApp = (function (angular) {
     'use strict';
 
     var app = angular.module('seedApp', [
@@ -68,27 +68,5 @@ var seedApp = (function (angular, toastr) {
 
     angular.module('seedApp.templates', []);
 
-    toastr.options = {
-        iconClasses: {
-            error: 'alert-error',
-            info: 'alert-info',
-            success: 'alert-success',
-            warning: 'alert-warning'
-        },
-
-        "closeButton": true,
-        "debug": false,
-        "positionClass": "toast-bottom-right",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
-
     return app;
-})(angular, toastr);
+})(angular);

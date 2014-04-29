@@ -331,7 +331,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *   return result;
    * });
    *
-   * $stateProvider.state('dashboard', {
+   * $stateProvider.state('home', {
    *   views: {
    *     'contact.list': { controller: 'ListController' },
    *     'contact.item': { controller: 'ItemController' }
@@ -340,9 +340,9 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *
    * // ...
    *
-   * $state.go('dashboard');
-   * // Auto-populates list and item views with /partials/dashboard/contact/list.html,
-   * // and /partials/dashboard/contact/item.html, respectively.
+   * $state.go('home');
+   * // Auto-populates list and item views with /partials/home/contact/list.html,
+   * // and /partials/home/contact/item.html, respectively.
    * </pre>
    *
    * @param {string} name The name of the builder function to decorate. 
@@ -482,24 +482,24 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * // Some state name examples
    *
    * // stateName can be a single top-level name (must be unique).
-   * $stateProvider.state("dashboard", {});
+   * $stateProvider.state("home", {});
    *
    * // Or it can be a nested state name. This state is a child of the 
-   * // above "dashboard" state.
-   * $stateProvider.state("dashboard.newest", {});
+   * // above "home" state.
+   * $stateProvider.state("home.newest", {});
    *
    * // Nest states as deeply as needed.
-   * $stateProvider.state("dashboard.newest.abc.xyz.inception", {});
+   * $stateProvider.state("home.newest.abc.xyz.inception", {});
    *
    * // state() returns $stateProvider, so you can chain state declarations.
    * $stateProvider
-   *   .state("dashboard", {})
+   *   .state("home", {})
    *   .state("about", {})
    *   .state("contacts", {});
    * </pre>
    *
-   * @param {string} name A unique state name, e.g. "dashboard", "about", "contacts".
-   * To create a parent/child state use a dot, e.g. "about.sales", "dashboard.newest".
+   * @param {string} name A unique state name, e.g. "home", "about", "contacts". 
+   * To create a parent/child state use a dot, e.g. "about.sales", "home.newest".
    * @param {object} definition State configuration object.
    */
   this.state = state;

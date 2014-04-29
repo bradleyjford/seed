@@ -43,7 +43,7 @@ function stateContext(el) {
  * Here's an example of how you'd use ui-sref and how it would compile. If you have the 
  * following template:
  * <pre>
- * <a ui-sref="dashboard">Home</a> | <a ui-sref="about">About</a>
+ * <a ui-sref="home">Home</a> | <a ui-sref="about">About</a>
  * 
  * <ul>
  *     <li ng-repeat="contact in contacts">
@@ -54,7 +54,7 @@ function stateContext(el) {
  * 
  * Then the compiled html would be (assuming Html5Mode is off):
  * <pre>
- * <a href="#/dashboard" ui-sref="dashboard">Home</a> | <a href="#/about" ui-sref="about">About</a>
+ * <a href="#/home" ui-sref="home">Home</a> | <a href="#/about" ui-sref="about">About</a>
  * 
  * <ul>
  *     <li ng-repeat="contact in contacts">
@@ -68,7 +68,7 @@ function stateContext(el) {
  *     </li>
  * </ul>
  *
- * <a ui-sref="dashboard" ui-sref-opts="{reload: true}">Home</a>
+ * <a ui-sref="home" ui-sref-opts="{reload: true}">Home</a>
  * </pre>
  *
  * @param {string} ui-sref 'stateName' can be any valid absolute or relative state
