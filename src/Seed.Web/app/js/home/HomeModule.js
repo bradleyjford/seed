@@ -14,13 +14,13 @@
                 }
             })
 
-            .state('home', {
+            .state('app.home', {
                 url: '/home',
                 views: {
                     '@': {
                         templateUrl: 'home/Layout.html'
                     },
-                    'content@home': {
+                    'content@app.home': {
                         controller: 'DashboardController',
                         templateUrl: 'home/dashboard/Dashboard.html'
                     }
@@ -30,7 +30,7 @@
                 }
             })
 
-            .state('sign-out', {
+            .state('app.sign-out', {
                 url: '/sign-out',
                 controller: 'SignOutController',
                 data: {

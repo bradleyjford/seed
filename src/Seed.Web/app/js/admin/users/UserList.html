@@ -12,7 +12,7 @@
 
     <tbody>
         <tr ng-repeat="user in users">
-            <td><a ui-sref="admin.users.edit({ userId: user.id })" ng-bind="user.username"></a></td>
+            <td><a ui-sref="app.admin.users.edit({ userId: user.id })" ng-bind="user.username"></a></td>
             <td ng-bind="user.fullName"></td>
             <td ng-bind="user.emailAddress"></td>
         </tr>

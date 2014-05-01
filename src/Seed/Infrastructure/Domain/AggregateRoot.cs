@@ -10,7 +10,7 @@ namespace Seed.Infrastructure.Domain
             CreatedByUserId = ModifiedByUserId = userContext.UserId;
         }
 
-        public TId Id { get; protected set; }
+        public TId Id { get; protected internal set; }
 
         public int CreatedByUserId { get; protected set; }
         public DateTime CreatedUtcDate { get; protected set; }

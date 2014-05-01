@@ -5,10 +5,10 @@
 
     module.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('admin', {
+            .state('app.admin', {
                 url: '/admin',
                 views: {
-                    'content@': {
+                    'content@app': {
                         templateUrl: 'admin/home/Home.html'
                     },
                     '@': {
@@ -20,10 +20,10 @@
                 }
             })
 
-            .state('admin.users', {
+            .state('app.admin.users', {
                 url: '/users?p',
                 views: {
-                    'content@admin': {
+                    'content@app.admin': {
                         templateUrl: 'admin/users/UserList.html',
                         controller: 'UserListController'
                     }
@@ -38,10 +38,10 @@
                 }
             })
 
-            .state('admin.users.edit', {
+            .state('app.admin.users.edit', {
                 url: '/:userId',
                 views: {
-                    'content@admin': {
+                    'content@app.admin': {
                         templateUrl: 'admin/users/UserEdit.html',
                         controller: 'UserEditController'
                     }

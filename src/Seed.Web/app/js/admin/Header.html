@@ -8,24 +8,24 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="home">Seed</a>
+            <a class="navbar-brand" ui-sref="app.home">Seed</a>
         </div>
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ui-sref-active="active"><a ui-sref="home">Dashboard</a></li>
-                <li ui-sref-active="active" sa-authorize><a ui-sref="home.subscriptions">Subscriptions</a></li>
-                <li ui-sref-active="active" sa-authorize><a ui-sref="home.users">Users</a></li>
+                <li ui-sref-active="active"><a ui-sref="app.home">Dashboard</a></li>
+                <li ui-sref-active="active" sa-authorize><a ui-sref="app.home.subscriptions">Subscriptions</a></li>
+                <li ui-sref-active="active" sa-authorize><a ui-sref="app.home.users">Users</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown active" sa-authorize="admin">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span> Administration <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="admin">Home</a></li>
-                        <li ui-sref-active="active"><a ui-sref="admin.users">Users</a></li>
-                        <li ui-sref-active="active"><a ui-sref="admin.notifications">Notifications</a></li>
-                        <li ui-sref-active="active"><a ui-sref="admin.reference-data">Reference data</a></li>
+                        <li ui-sref-active="active"><a ui-sref="app.admin">Home</a></li>
+                        <li ui-sref-active="active"><a ui-sref="app.admin.users">Users</a></li>
+                        <li ui-sref-active="active"><a ui-sref="app.admin.notifications">Notifications</a></li>
+                        <li ui-sref-active="active"><a ui-sref="app.admin.reference-data">Reference data</a></li>
                     </ul>
                 </li>
 
@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active"><a ui-sref="home.profile"><span class="fa fa-cog"></span> My account</a></li>
                         <li class="divider"></li>
-                        <li><a ui-sref="sign-out"><span class="fa fa-power-off"></span> Sign out</a></li>
+                        <li><a ui-sref="app.sign-out"><span class="fa fa-power-off"></span> Sign out</a></li>
                     </ul>
                 </li>
             </ul>

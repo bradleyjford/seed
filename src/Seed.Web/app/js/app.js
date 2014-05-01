@@ -24,6 +24,16 @@ var seedApp = (function (angular) {
             $urlRouterProvider.otherwise('/not-found');
 
             $stateProvider
+                .state('app', {
+                    abstract: true,
+                    controller: 'AppController',
+                    resolve: {
+                        user: ['SecurityPrincipal', function (SecurityPrincipal) {
+                            return SecurityPrincipal.getCurrent().$promise;
+                        }]
+                    }
+                })
+
                 .state('404', {
                     url: '/not-found',
                     templateUrl: 'common/404.html',
@@ -47,8 +57,8 @@ var seedApp = (function (angular) {
                     var responseError = function (rejection) {
                         var $state = $injector.get('$state');
 
-                        if (rejection.status === 401) {
-                            $state.go('sign-in', { returnUrl: $location.url() });
+                        if (rejection.status === 401 && $state.current.name !== 'sign-in') {
+                            $state.go('sign-in');
                         }
                         else if (rejection.status === 403) {
                             $state.go('403');

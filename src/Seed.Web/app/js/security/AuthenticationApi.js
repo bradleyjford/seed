@@ -18,7 +18,7 @@
         return this.$http.post('/api/authentication/signout');
     };
 
-    AuthenticationApi.prototype.get = function () {
+    AuthenticationApi.prototype.getSecurityPrincipal = function () {
         return this.$http.post('/api/authentication/principal');
     };
 

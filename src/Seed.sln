@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web.Http.AntiXsrf", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Data", "Seed.Data\Seed.Data.csproj", "{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Tests", "Seed.Tests\Seed.Tests.csproj", "{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

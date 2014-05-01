@@ -5,11 +5,9 @@
 
     module.controller('SignOutController',
         ['SecurityPrincipal', '$state', 'AuthenticationApi',
-        function (SecurityPrincipal, $state, AuthenticationApi) {
-            AuthenticationApi.signOut()
+        function (SecurityPrincipal, $state) {
+            SecurityPrincipal.signOut()
                 .success(function () {
-                    SecurityPrincipal.clear();
-
                     $state.go('sign-in');
                 });
         }]);

@@ -71,10 +71,4 @@ namespace Seed.Data
              entry.CurrentValues["ModifiedByUserId"] = userContext.UserId;
         }
     }
-
-    public interface ISeedDbContext 
-    {
-        IQueryable<AuditEvent> AuditEvents { get; }
-        IQueryable<User> Users { get; }
-    }
 }

@@ -2,7 +2,6 @@
 using System.Web.Http;
 using System.Web.Security;
 using AutoMapper;
-using Seed.Api.Infrastructure;
 using Seed.Api.Infrastructure.Filters;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
@@ -53,6 +52,7 @@ namespace Seed.Api.Security
 
         [HttpPost]
         [Route("principal")]
+        [ValidateAntiForgeryToken()]
         public IHttpActionResult Get()
         {
             if (User.Identity.IsAuthenticated)
@@ -68,7 +68,7 @@ namespace Seed.Api.Security
                 return Ok(response);
             }
 
-            return Unauthorized();
+            return NotFound();
         }
 
         [HttpPost]

@@ -10,7 +10,7 @@
             link: function (scope, element, attrs) {
                 var originalDisplay = element.css('display');
 
-                scope.$on('securityPrincipalSet', function (event, roles) {
+                scope.$on('securityPrincipalSignedIn', function (event, roles) {
                     if (attrs.saAuthorize === '' ||
                         roles.indexOf(attrs.saAuthorize) !== -1) {
 
@@ -21,7 +21,7 @@
                     }
                 });
 
-                scope.$on('securityPrincipalCleared', function (event) {
+                scope.$on('securityPrincipalSignedOut', function (event) {
                     element.css('display', 'none');
                 });
             }

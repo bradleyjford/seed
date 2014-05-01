@@ -18,16 +18,14 @@
                     return;
                 }
 
-                AuthenticationApi.signIn($scope.model.username, $scope.model.password)
-                    .success(function (data) {
-                        SecurityPrincipal.set(data.username, data.fullName, data.roles);
-
+                SecurityPrincipal.signIn($scope.model.username, $scope.model.password)
+                    .success(function () {
                         if ($stateParams.returnUrl && $stateParams.returnUrl.length > 0) {
                             $location.url($stateParams.returnUrl);
                             return;
                         }
 
-                        $state.go('home');
+                        $state.go('app.home');
                     })
                     .error(function (data, status, headers, config) {
                         $scope.model.error = data.message;

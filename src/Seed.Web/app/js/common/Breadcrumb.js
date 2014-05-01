@@ -26,7 +26,7 @@
                     while (currentState && currentState.name !== '') {
                         var displayName = getDisplayName(currentState);
 
-                        if (displayName !== false) {
+                        if (displayName !== false && !currentState.abstract) {
                             breadcrumbs.push({
                                 displayName: displayName,
                                 route: currentState.name
