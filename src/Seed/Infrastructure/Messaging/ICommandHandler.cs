@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Seed.Infrastructure.Messaging
 {
     public interface ICommandHandler<in TCommand>
         where TCommand : ICommand
     {
-        ICommandResult Execute(TCommand command);
+        Task<ICommandResult> Execute(TCommand command);
     }
 }

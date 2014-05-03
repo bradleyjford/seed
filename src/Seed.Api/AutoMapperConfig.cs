@@ -17,11 +17,7 @@ namespace Seed.Api
             // Request -> Commands
             Mapper.CreateMap<SignInRequest, SignInCommand>();
 
-            Mapper.CreateMap<SaveUserRequest, EditUserCommand>()
-                .ForMember(d => d.UserId, opt => opt.MapFrom(s => s.Id));
-
-            Mapper.CreateMap<DeactivateUserRequest, DeactivateUserCommand>()
-                .ForMember(d => d.UserId, opt => opt.MapFrom(s => s.Id));
+            Mapper.CreateMap<EditUserRequest, EditUserCommand>();
         }
 
     }

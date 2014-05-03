@@ -22,21 +22,14 @@ namespace Seed.Data.Migrations
 
             for (var i = 1; i <= 100; i++)
             {
-                var user = new User
-                {
-                    EmailAddress = "test" + i + "@bjf.io",
-                    FullName = "Test User " + i,
-                    Username = "test" + i
-                };
-
-                user.Initialize(userContext, new SeedClock());
-
-                users.Add(user);
+                users.Add(new User("test" + i, "Test User " + 1, "test" + i + "@bjf.io"));
             }
 
             context.Users.AddOrUpdate(
                u => u.Username,
                users.ToArray());
+
+            context.SaveChanges(userContext);
         }
 
         public class SeedClock : IClock

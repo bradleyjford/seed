@@ -19,7 +19,7 @@ namespace Seed.Security
 
         public string Username { get; set; }
 
-        [Sensitive]
+        [AuditMaskValue]
         public string Password { get; set; }
     }
 }

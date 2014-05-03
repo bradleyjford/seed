@@ -53,6 +53,14 @@
     <Compile Include="Migrations\201404261003481_DeactivateUser.Designer.cs">
       <DependentUpon>201404261003481_DeactivateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405030543377_User notes.cs" />
+    <Compile Include="Migrations\201405030543377_User notes.Designer.cs">
+      <DependentUpon>201405030543377_User notes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405030546322_Concurrency.cs" />
+    <Compile Include="Migrations\201405030546322_Concurrency.Designer.cs">
+      <DependentUpon>201405030546322_Concurrency.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagingOptions.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
@@ -92,6 +100,15 @@
     <EmbeddedResource Include="Migrations\201404261003481_DeactivateUser.resx">
       <DependentUpon>201404261003481_DeactivateUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405030543377_User notes.resx">
+      <DependentUpon>201405030543377_User notes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405030546322_Concurrency.resx">
+      <DependentUpon>201405030546322_Concurrency.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

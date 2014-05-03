@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Security;
 using AutoMapper;
@@ -21,7 +22,7 @@ namespace Seed.Api.Security
         [HttpPost]
         [Route("signin")]
         [ValidateAntiForgeryToken]
-        public IHttpActionResult SignIn([FromBody]SignInRequest request)
+        public async Task<IHttpActionResult> SignIn([FromBody]SignInRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -30,7 +31,7 @@ namespace Seed.Api.Security
 
             var command = Mapper.Map<SignInCommand>(request);
 
-            var result = _bus.Submit(command);
+            var result = await _bus.Submit(command);
 
             if (!result.Success)
             {
@@ -52,7 +53,7 @@ namespace Seed.Api.Security
 
         [HttpPost]
         [Route("principal")]
-        [ValidateAntiForgeryToken()]
+        [ValidateAntiForgeryToken]
         public IHttpActionResult Get()
         {
             if (User.Identity.IsAuthenticated)

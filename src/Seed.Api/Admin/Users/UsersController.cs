@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Seed.Admin.Users;
@@ -16,42 +17,29 @@ namespace Seed.Api.Admin.Users
     public class UsersController : ApiCommandController
     {
         private readonly ICommandBus _bus;
-        private readonly ISeedDbContext _dbContext;
+        private readonly SeedDbContext _dbContext;
 
         public UsersController(
             ICommandBus bus, 
-            ISeedDbContext dbContext)
+            ISeedUnitOfWork unitOfWork)
         {
             _bus = bus;
-            _dbContext = dbContext;
+            _dbContext = unitOfWork.DbContext;
         }
 
         [Route("")]
-        public IHttpActionResult Get([FromUri]UserQueryFilter filter, [FromUri]PagingOptions pagingOptions)
+        public async Task<IHttpActionResult> Get([FromUri]UserQueryFilter filter, [FromUri]PagingOptions pagingOptions)
         {
+            filter = filter ?? new UserQueryFilter();
+            pagingOptions = pagingOptions ?? new PagingOptions();
+
             var usersQuery = _dbContext.Users.AsQueryable();
 
-            if (filter == null)
-            {
-                filter = new UserQueryFilter();
-            }
-
-            if (pagingOptions == null)
-            {
-                pagingOptions = new PagingOptions
-                {
-                    PageSize = 10
-                };
-            }
-
-            if (!String.IsNullOrEmpty(filter.UserName))
-            {
-                usersQuery = usersQuery.Where(u => u.Username.StartsWith(filter.UserName));
-            }
+            usersQuery = filter.Apply(usersQuery);
 
             usersQuery = usersQuery.OrderBy(u => u.Username);
 
-            var users = usersQuery.Paged(pagingOptions);
+            var users = await usersQuery.ToPagedListAsync(pagingOptions);
 
             var response = Mapper.Map<IEnumerable<GetUserResponse>>(users);
 
@@ -59,9 +47,9 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        public IHttpActionResult Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            var user = _dbContext.Users.SingleOrDefault(u => u.Id == id);
+            var user = await _dbContext.Users.FindAsync(id);
 
             var response = Mapper.Map<GetUserResponse>(user);
 
@@ -70,7 +58,7 @@ namespace Seed.Api.Admin.Users
 
         [Route("{id:int}")]
         [ValidateAntiForgeryToken]
-        public IHttpActionResult Post(int id, [FromBody]SaveUserRequest request)
+        public async Task<IHttpActionResult> Post(int id, [FromBody]EditUserRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +69,7 @@ namespace Seed.Api.Admin.Users
 
             command.UserId = id;
 
-            var result = _bus.Submit(command);
+            var result = await _bus.Submit(command);
 
             return CommandResult(result);
         }
@@ -89,7 +77,7 @@ namespace Seed.Api.Admin.Users
         [Route("{id:int}/activate")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IHttpActionResult Activate(int id)
+        public async Task<IHttpActionResult> Activate(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -98,7 +86,7 @@ namespace Seed.Api.Admin.Users
 
             var command = new ActivateUserCommand(id);
 
-            var result = _bus.Submit(command);
+            var result = await _bus.Submit(command);
 
             return CommandResult(result);
         }
@@ -106,7 +94,7 @@ namespace Seed.Api.Admin.Users
         [Route("{id:int}/deactivate")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IHttpActionResult Deactivate(int id)
+        public async Task<IHttpActionResult> Deactivate(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -115,7 +103,7 @@ namespace Seed.Api.Admin.Users
 
             var command = new DeactivateUserCommand(id);
 
-            var result = _bus.Submit(command);
+            var result = await _bus.Submit(command);
 
             return CommandResult(result);
         }

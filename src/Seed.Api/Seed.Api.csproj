@@ -115,9 +115,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\Users\DeactivateUserRequest.cs" />
     <Compile Include="Admin\Users\GetUserResponse.cs" />
-    <Compile Include="Admin\Users\SaveUserRequest.cs" />
+    <Compile Include="Admin\Users\EditUserRequest.cs" />
     <Compile Include="Admin\Users\UserQueryFilter.cs" />
     <Compile Include="Admin\Users\UsersController.cs" />
     <Compile Include="ApiCommandController.cs" />
@@ -127,6 +126,7 @@
     <Compile Include="Infrastructure\Filters\ApplyAntiForgeryTokenAttribute.cs" />
     <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
     <Compile Include="Infrastructure\Filters\ValidateAntiForgeryTokenAttribute.cs" />
+    <Compile Include="Infrastructure\Messaging\SeedCommandBus.cs" />
     <Compile Include="Infrastructure\Security\SeedUserContext.cs" />
     <Compile Include="Security\AuthenticationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -164,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Infrastructure\Paging\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

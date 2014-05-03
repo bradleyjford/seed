@@ -1,16 +1,13 @@
 ﻿using System;
-using Seed.Infrastructure.Domain;
 
 namespace Seed.Data
 {
     public class SeedUnitOfWork : ISeedUnitOfWork
     {
-        private readonly IUserContext _userContext;
         private readonly SeedDbContext _context;
 
-        public SeedUnitOfWork(IUserContext userContext)
+        public SeedUnitOfWork()
         {
-            _userContext = userContext;
             _context = new SeedDbContext();
         }
 
@@ -21,7 +18,6 @@ namespace Seed.Data
 
         public void Dispose()
         {
-            _context.SaveChanges(_userContext);
             _context.Dispose();
         }
     }

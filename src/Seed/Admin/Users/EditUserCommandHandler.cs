@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
 
@@ -13,12 +14,14 @@ namespace Seed.Admin.Users
             _repository = repository;
         }
 
-        public ICommandResult Execute(EditUserCommand command)
+        public async Task<ICommandResult> Execute(EditUserCommand command)
         {
-            var user = _repository.Get(command.UserId);
+            var user = await _repository.Get(command.UserId);
 
             user.FullName = command.FullName;
             user.EmailAddress = command.EmailAddress;
+            user.Notes = command.Notes;
+            user.RowVersion = command.RowVersion;
 
             return CommandResult.Ok;
         }

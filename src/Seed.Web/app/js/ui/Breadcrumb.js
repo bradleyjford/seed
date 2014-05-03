@@ -10,7 +10,7 @@
     module.directive('saBreadcrumb', ['$interpolate', '$state', function ($interpolate, $state) {
         return {
             restrict: 'EA',
-            templateUrl: 'common/Breadcrumb.html',
+            templateUrl: 'ui/Breadcrumb.html',
             scope: {
                 displayNameProperty: '@'
             },
@@ -19,7 +19,7 @@
                  * Start with the current state and traverse up the path to build the
                  * array of breadcrumbs that can be used in an ng-repeat in the template.
                  */
-                function updateBreadcrumbArray() {
+                function updateBreadcrumbArray () {
                     var breadcrumbs = [];
                     var currentState = $state.$current;
 

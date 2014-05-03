@@ -6,7 +6,7 @@
     module.directive('saSpinner', [function () {
         return {
             restrict: 'EA',
-            templateUrl: 'common/Spinner.html',
+            templateUrl: 'ui/Spinner.html',
             scope: { },
             link: function (scope) {
                 scope.enabled = false;

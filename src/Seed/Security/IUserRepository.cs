@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Seed.Security
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetAll();
-        User Get(int id);
+        Task<User> Get(int id);
     }
 }

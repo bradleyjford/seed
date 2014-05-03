@@ -19,30 +19,30 @@ namespace Seed.Tests.Security
         }
 
         [Test]
-        public void Execute_DeactivatingAnInactiveUser_Succeeds()
+        public async void Execute_DeactivatingAnInactiveUser_Succeeds()
         {
             var userId = 1;
-            var user = _userRepository.Get(userId);
+            var user = await _userRepository.Get(userId);
 
             user.Deactivate();
 
             var command = new DeactivateUserCommand(userId);
 
-            var result = _commandHandler.Execute(command);
+            var result = await _commandHandler.Execute(command);
 
             Assert.IsTrue(result.Success);
             Assert.IsFalse(user.IsActive);
         }
 
         [Test]
-        public void Execute_DeactivatingAnActiveUser_Succeeds()
+        public async void Execute_DeactivatingAnActiveUser_Succeeds()
         {
             var userId = 1;
-            var user = _userRepository.Get(userId);
+            var user = await _userRepository.Get(userId);
 
             var command = new DeactivateUserCommand(userId);
 
-            var result = _commandHandler.Execute(command);
+            var result = await _commandHandler.Execute(command);
 
             Assert.IsTrue(result.Success);
             Assert.IsFalse(user.IsActive);

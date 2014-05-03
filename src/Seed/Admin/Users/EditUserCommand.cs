@@ -1,4 +1,5 @@
 ﻿using System;
+using Seed.Infrastructure.Auditing;
 using Seed.Infrastructure.Messaging;
 
 namespace Seed.Admin.Users
@@ -8,5 +9,9 @@ namespace Seed.Admin.Users
         public int UserId { get; set; }
         public string FullName { get; set; }
         public string EmailAddress { get; set; }
+        public string Notes { get; set; }
+
+        [AuditIgnore]
+        public byte[] RowVersion { get; set; }
     }
 }

@@ -5,10 +5,10 @@ using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using Autofac.Integration.WebApi;
 using Microsoft.Practices.ServiceLocation;
+using Seed.Api.Infrastructure.Messaging;
 using Seed.Api.Infrastructure.Security;
 using Seed.Data;
 using Seed.Data.Admin;
-using Seed.Infrastructure.Auditing;
 using Seed.Infrastructure.Domain;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
@@ -21,22 +21,17 @@ namespace Seed.Api
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-            builder.RegisterType<AuditingCommandBus>().As<ICommandBus>()
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly())
                 .InstancePerApiRequest();
 
-            //builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerHttpRequest();
-            //builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>()
-            //    .InstancePerHttpRequest();
+            builder.RegisterType<SeedCommandBus>().As<ICommandBus>()
+                .InstancePerApiRequest();
 
             var domainAssembly = typeof(IUserRepository).Assembly;
             var dataAssembly = typeof(UserRepository).Assembly;
 
             builder.RegisterType<SeedUserContext>().As<IUserContext>()
                 .InstancePerApiRequest();
-
-            builder.RegisterType<SeedDbContext>().As<ISeedDbContext>();
 
             builder.RegisterType<SeedUnitOfWork>().As<ISeedUnitOfWork>()
                 .InstancePerApiRequest();
@@ -47,10 +42,12 @@ namespace Seed.Api
                 .InstancePerApiRequest();
 
             builder.RegisterAssemblyTypes(domainAssembly)
-                .AsClosedTypesOf(typeof(ICommandHandler<>)).InstancePerApiRequest();
+                .AsClosedTypesOf(typeof(ICommandHandler<>))
+                .InstancePerApiRequest();
 
             builder.RegisterAssemblyTypes(domainAssembly)
-                .AsClosedTypesOf(typeof(ICommandHandler<>)).InstancePerApiRequest();
+                .AsClosedTypesOf(typeof(ICommandValidator<>))
+                .InstancePerApiRequest();
             
             var container = builder.Build();
 

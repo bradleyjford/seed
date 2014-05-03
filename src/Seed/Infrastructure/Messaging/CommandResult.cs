@@ -4,8 +4,8 @@ namespace Seed.Infrastructure.Messaging
 {
     public class CommandResult : ICommandResult
     {
-        public static CommandResult Ok = new CommandResult(true, null);
-        public static CommandResult Fail = new CommandResult(false, null);
+        public static ICommandResult Ok = new CommandResult(true, null);
+        public static ICommandResult Fail = new CommandResult(false, null);
 
         private CommandResult(bool success, Exception error)
         {

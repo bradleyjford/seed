@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Autofac;
 using Seed.Infrastructure.Domain;
 using Seed.Infrastructure.Messaging;
@@ -18,9 +19,9 @@ namespace Seed.Infrastructure.Auditing
             _userContext = container.Resolve<IUserContext>();
         }
 
-        public override ICommandResult Submit<TCommand>(TCommand command)
+        public override async Task<ICommandResult> Submit<TCommand>(TCommand command)
         {
-            var result = base.Submit(command);
+            var result = await base.Submit(command);
 
             if (result.Success)
             {

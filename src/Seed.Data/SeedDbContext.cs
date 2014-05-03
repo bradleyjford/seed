@@ -28,6 +28,7 @@ namespace Seed.Data
         public Task<int> SaveChangesAsync(IUserContext userContext)
         {
             ApplyInlineAuditValues(userContext);
+            RestoreRowVersions();
 
             return base.SaveChangesAsync();
         }
@@ -35,6 +36,7 @@ namespace Seed.Data
         public int SaveChanges(IUserContext userContext)
         {
             ApplyInlineAuditValues(userContext);
+            RestoreRowVersions();
 
             return base.SaveChanges();
         }
@@ -69,6 +71,20 @@ namespace Seed.Data
         {
              entry.CurrentValues["ModifiedUtcDate"] = ClockProvider.GetUtcNow();
              entry.CurrentValues["ModifiedByUserId"] = userContext.UserId;
+        }
+        
+        private void RestoreRowVersions()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.CurrentValues.PropertyNames.Contains("RowVersion"))
+                {
+                    var property = entry.Property("RowVersion");
+
+                    property.OriginalValue = property.CurrentValue;
+                    property.IsModified = false;
+                }
+            }
         }
     }
 }

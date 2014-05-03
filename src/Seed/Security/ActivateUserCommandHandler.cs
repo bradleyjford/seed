@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Seed.Infrastructure.Messaging;
 
 namespace Seed.Security
@@ -12,9 +13,9 @@ namespace Seed.Security
             _repository = repository;
         }
 
-        public ICommandResult Execute(ActivateUserCommand command)
+        public async Task<ICommandResult> Execute(ActivateUserCommand command)
         {
-            var user = _repository.Get(command.UserId);
+            var user = await _repository.Get(command.UserId);
 
             user.Activate();
 

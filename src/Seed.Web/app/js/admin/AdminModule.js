@@ -30,7 +30,7 @@
                 },
                 resolve: {
                     users: ['UsersApi', function (UsersApi) {
-                        return UsersApi.query({ pagingOptions: { pageNumber: 5, pageSize: 20 }}).$promise;
+                        return UsersApi.query({ pageNumber: 5, pageSize: 20 }).$promise;
                     }]
                 },
                 data: {

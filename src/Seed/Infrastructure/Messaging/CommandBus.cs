@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Autofac;
 
 namespace Seed.Infrastructure.Messaging
@@ -14,7 +15,7 @@ namespace Seed.Infrastructure.Messaging
             _componentContext = container;
         }
 
-        public virtual ICommandResult Submit<TCommand>(TCommand command) 
+        public virtual Task<ICommandResult> Submit<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
             var handler = _componentContext.Resolve<ICommandHandler<TCommand>>();

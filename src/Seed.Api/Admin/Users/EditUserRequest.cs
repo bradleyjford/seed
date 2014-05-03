@@ -3,16 +3,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Seed.Api.Admin.Users
 {
-    public class SaveUserRequest
+    public class EditUserRequest
     {
         [Required]
-        public int Id { get; set; }
-
-        [Required]
+        [MaxLength(100)]
         public string FullName { get; set; }
 
         [Required]
         [EmailAddress]
+        [MaxLength(150)]
         public string EmailAddress { get; set; }
+
+        public string Notes { get; set; }
+
+        [Required]
+        public byte[] RowVersion { get; set; }
     }
 }

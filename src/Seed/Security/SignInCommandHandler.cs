@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Seed.Infrastructure.Messaging;
 
 namespace Seed.Security
 {
     public class SignInCommandHandler : ICommandHandler<SignInCommand>
     {
-        public ICommandResult Execute(SignInCommand command)
+        public Task<ICommandResult> Execute(SignInCommand command)
         {
             if (command.Username == "test")
             {
-                return CommandResult.Ok;
+                return Task.FromResult(CommandResult.Ok);
             }
 
-            return CommandResult.Fail;
+            return Task.FromResult(CommandResult.Fail);
         }
     }
 }

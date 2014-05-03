@@ -17,7 +17,7 @@
                         <label for="fullName" class="col-sm-2 control-label">Name</label>
 
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="fullName" ng-model="model.fullName" ng-required>
+                            <input type="text" class="form-control" id="fullName" ng-model="model.fullName" ng-required se-focus>
                         </div>
                     </div>
 
@@ -41,7 +41,7 @@
                         <label for="notes" class="col-md-2 control-label">Notes</label>
 
                         <div class="col-md-10">
-                            <textarea class="form-control" rows="3" id="notes">Not bound</textarea>
+                            <textarea class="form-control" rows="3" id="notes" ng-model="model.notes"></textarea>
                             <span class="help-block">Any administrative notes relating to the user. These are not visible to the user.</span>
                         </div>
                     </div>

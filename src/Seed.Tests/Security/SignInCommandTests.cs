@@ -16,21 +16,21 @@ namespace Seed.Tests.Security
         }
 
         [Test]
-        public void Execute_CorrectCredentials_ReturnsSuccess()
+        public async void Execute_CorrectCredentials_ReturnsSuccess()
         {
             var command = new SignInCommand("test", "no-important");
 
-            var result = _commandHandler.Execute(command);
+            var result = await _commandHandler.Execute(command);
 
             Assert.IsTrue(result.Success);
         }
 
         [Test]
-        public void Execute_IncorrectCredentials_ReturnsFailure()
+        public async void Execute_IncorrectCredentials_ReturnsFailure()
         {
             var command = new SignInCommand("incorrect", "no-important");
 
-            var result = _commandHandler.Execute(command);
+            var result = await _commandHandler.Execute(command);
 
             Assert.IsFalse(result.Success);
         }

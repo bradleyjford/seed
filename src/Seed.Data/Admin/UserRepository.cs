@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Seed.Security;
 
 namespace Seed.Data.Admin
@@ -14,14 +13,9 @@ namespace Seed.Data.Admin
             _context = unitOfWork.DbContext;
         }
 
-        public IEnumerable<User> GetAll()
+        public Task<User> Get(int id)
         {
-            return _context.Users;
-        }
-
-        public User Get(int id)
-        {
-            return _context.Users.FirstOrDefault(u => u.Id == id);
+            return _context.Users.FindAsync(id);
         }
     }
 }

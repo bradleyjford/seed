@@ -9,5 +9,7 @@ namespace Seed.Api.Admin.Users
         public string FullName { get; set; }
         public string EmailAddress { get; set; }
         public bool IsActive { get; set; }
+        public string Notes { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

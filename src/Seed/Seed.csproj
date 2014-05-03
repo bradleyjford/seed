@@ -54,9 +54,10 @@
     <Compile Include="Admin\Users\EditUserCommandHandler.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEntryContractResolver.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
+    <Compile Include="Infrastructure\Auditing\AuditIgnore.cs" />
     <Compile Include="Infrastructure\Auditing\IAuditEntryRepository.cs" />
     <Compile Include="Infrastructure\Auditing\MaskedStringJsonConverter.cs" />
-    <Compile Include="Infrastructure\Auditing\SensitiveAttribute.cs" />
+    <Compile Include="Infrastructure\Auditing\AuditMaskValue.cs" />
     <Compile Include="Infrastructure\Domain\AggregateRoot.cs" />
     <Compile Include="Infrastructure\Domain\ClockProvider.cs" />
     <Compile Include="Infrastructure\Domain\IClock.cs" />

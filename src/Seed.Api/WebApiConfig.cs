@@ -15,7 +15,10 @@ namespace Seed.Api
 
             config.MapHttpAttributeRoutes();
 
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            var formatters = GlobalConfiguration.Configuration.Formatters;
+
+            formatters.Remove(formatters.XmlFormatter);
+            formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.Filters.Add(new ApplyAntiForgeryToken(true));
 #if DEBUG
