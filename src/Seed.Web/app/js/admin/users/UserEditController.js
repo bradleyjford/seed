@@ -9,9 +9,9 @@
         function ($scope, $state, confirm, UsersApi, model) {
             $scope.model = model;
 
-            $scope.save = function () {
+            $scope.save = function (model) {
                 if ($scope.editUserForm.$valid) {
-                    $scope.model.$save({ userId: $scope.model.id }, function () {
+                    model.$save({ userId: model.id }, function () {
                         $state.go('^', null, { reload: true });
                     });
                 }

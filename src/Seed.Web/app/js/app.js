@@ -27,6 +27,7 @@ var seedApp = (function (angular) {
                 .state('app', {
                     abstract: true,
                     controller: 'AppController',
+                    template: '<ui-view></ui-view>',
                     resolve: {
                         user: ['SecurityPrincipal', function (SecurityPrincipal) {
                             return SecurityPrincipal.getCurrent().$promise;

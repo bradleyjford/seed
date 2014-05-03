@@ -4,7 +4,7 @@
     var module = angular.module('seedApp.home');
 
     module.controller('SignOutController',
-        ['SecurityPrincipal', '$state', 'AuthenticationApi',
+        ['SecurityPrincipal', '$state',
         function (SecurityPrincipal, $state) {
             SecurityPrincipal.signOut()
                 .success(function () {

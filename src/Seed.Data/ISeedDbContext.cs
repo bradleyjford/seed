@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Seed.Common;
+using Seed.Infrastructure.Auditing;
 using Seed.Security;
 
 namespace Seed.Data

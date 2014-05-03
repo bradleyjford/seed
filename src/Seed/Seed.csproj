@@ -52,15 +52,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\Users\EditUserCommandHandler.cs" />
-    <Compile Include="Common\AuditEvent.cs" />
-    <Compile Include="Common\IAuditEntryRepository.cs" />
+    <Compile Include="Infrastructure\Auditing\AuditEntryContractResolver.cs" />
+    <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
+    <Compile Include="Infrastructure\Auditing\IAuditEntryRepository.cs" />
+    <Compile Include="Infrastructure\Auditing\MaskedStringJsonConverter.cs" />
+    <Compile Include="Infrastructure\Auditing\SensitiveAttribute.cs" />
     <Compile Include="Infrastructure\Domain\AggregateRoot.cs" />
     <Compile Include="Infrastructure\Domain\ClockProvider.cs" />
     <Compile Include="Infrastructure\Domain\IClock.cs" />
     <Compile Include="Infrastructure\Domain\IInlineAudited.cs" />
     <Compile Include="Infrastructure\Domain\IUserContext.cs" />
     <Compile Include="Infrastructure\Domain\SystemClock.cs" />
-    <Compile Include="Common\AuditingCommandBus.cs" />
+    <Compile Include="Infrastructure\Auditing\AuditingCommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\CommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\CommandBusException.cs" />
     <Compile Include="Infrastructure\Messaging\CommandHandlerNotFoundException.cs" />

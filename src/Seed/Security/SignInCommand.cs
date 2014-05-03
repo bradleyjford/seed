@@ -1,4 +1,5 @@
 ﻿using System;
+using Seed.Infrastructure.Auditing;
 using Seed.Infrastructure.Messaging;
 
 namespace Seed.Security
@@ -17,6 +18,8 @@ namespace Seed.Security
         }
 
         public string Username { get; set; }
+
+        [Sensitive]
         public string Password { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seed.Common
+namespace Seed.Infrastructure.Auditing
 {
     public interface IAuditEntryRepository
     {

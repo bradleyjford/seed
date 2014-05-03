@@ -3,7 +3,7 @@ using Autofac;
 using Seed.Infrastructure.Domain;
 using Seed.Infrastructure.Messaging;
 
-namespace Seed.Common
+namespace Seed.Infrastructure.Auditing
 {
     public class AuditingCommandBus : CommandBus
     {

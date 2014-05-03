@@ -3,17 +3,22 @@ using Newtonsoft.Json;
 using Seed.Infrastructure.Domain;
 using Seed.Infrastructure.Messaging;
 
-namespace Seed.Common
+namespace Seed.Infrastructure.Auditing
 {
     public class AuditEvent
     {
+        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        {
+            ContractResolver = AuditEntryContractResolver.Instance,
+        };
+
         public static AuditEvent Create(IUserContext userContext, ICommand command)
         {
             var userId = userContext.UserId;
             var date = ClockProvider.GetUtcNow();
 
             var commandName = command.GetType().FullName;
-            var data = JsonConvert.SerializeObject(command);
+            var data = JsonConvert.SerializeObject(command, JsonSettings);
 
             return new AuditEvent(userId, date, commandName, data);
         }

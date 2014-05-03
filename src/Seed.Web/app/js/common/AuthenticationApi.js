@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var AuthenticationApi = function ($http) {
+    var AuthenticationApi = function AuthenticationApi ($http) {
         this.$http = $http;
     };
 
