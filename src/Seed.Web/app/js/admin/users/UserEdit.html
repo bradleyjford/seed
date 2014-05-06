@@ -1,13 +1,13 @@
 <h2><span class="fa fa-user"></span> Edit user</h2>
 
-<div class="row" ng-hide="model.isActive">
+<div class="row view-animation" ng-hide="model.isActive">
     <alert type="warning"><span class="fa fa-ban"></span> <b>Disabled</b> - This user is currently disabled and unable to sign in. <a href="" ng-click="enable(model)">Enable</a> the user.</alert>
 </div>
 
 <div class="row">
     <div class="col-md-9">
         <div class="well">
-            <form class="form-horizontal" name="editUserForm" ng-submit="save(model)">
+            <form class="form-horizontal" name="editForm" ng-submit="save(model)" abandon-form>
                 <fieldset>
                     <legend>
                         {{ model.fullName }}
@@ -48,7 +48,7 @@
 
                     <div class="form-group">
                         <div class="col-md-10 col-md-offset-2">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="editForm.$pristine">Save</button>
                             <button class="btn btn-default" ng-click="cancel()">Cancel</button>
                         </div>
                     </div>

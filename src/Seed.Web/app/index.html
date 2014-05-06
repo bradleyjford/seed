@@ -1,42 +1,46 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="seedApp" ng-controller="PageController">
+<html lang="en" ng-app="seedApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title ng-bind-template="{{ page.title }} - Seed">Seed</title>
     <style>
+        .ng-hide {
+            display: none !important;
+        }
+
         #splash {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
             width: 100%;
-            z-index: 10000 !important;
+            z-index: 10000;
             background-color: #fff;
             opacity: 1;
         }
 
-        #splash > div {
+        #splash > #page-splash {
             position: absolute;
             margin: auto;
             top: 0;
             left: 0;
             bottom: 0;
             right: 0;
-            height: 8em;
-            width: 8em;
+            height: 50%;
+            width: 50%;
         }
 
-        #splash > div > span {
-            font-size: 8em;
+        #splash > #page-splash > #page-splash-message {
+            font-size: 2em;
         }
     </style>
 
-    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/css/seed.css" type="text/css">
+    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
 </head>
 
 <body>
@@ -46,12 +50,25 @@
 
     </div>
 
+    <div id="splash" ng-show="false">
+        <div id="page-splash">
+            <div id="page-splash-message">
+                Please wait...
+            </div>
+            <div class="progress progress-striped active page-progress-bar">
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+
     <script src="/js/angular.js"></script>
     <script src="/js/angular-resource.js"></script>
     <script src="/js/angular-ui-router.js"></script>
     <script src="/js/angular-animate.js"></script>
-    <script src="/js/bootstrap.js"></script>
+
     <script src="/js/ui-bootstrap.js"></script>
     <script src="/js/ui-bootstrap-tpls.js"></script>
 

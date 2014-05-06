@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Seed.Security;
 
-namespace Seed.Data.Admin
+namespace Seed.Data
 {
     public class UserRepository : IUserRepository
     {

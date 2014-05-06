@@ -8,7 +8,7 @@
             .state('app.admin', {
                 url: '/admin',
                 views: {
-                    'content@app': {
+                    'content@app.admin': {
                         templateUrl: 'admin/home/Home.html'
                     },
                     '@': {
@@ -16,7 +16,61 @@
                     }
                 },
                 data: {
-                    title: 'Administration'
+                    title: 'Administration',
+                    requireRole: 'admin'
+                }
+            })
+
+            .state('app.admin.lookups', {
+                url: '/lookups',
+                views: {
+                    'content@app.admin': {
+                        templateUrl: 'admin/lookups/Index.html'
+                    }
+                },
+                data: {
+                    title: 'Manage lookup data'
+                }
+            })
+
+            .state('app.admin.lookups.list', {
+                url: '/:type',
+                views: {
+                    'content@app.admin': {
+                        templateUrl: 'admin/lookups/LookupList.html',
+                        controller: 'LookupListController'
+                    }
+                },
+                resolve: {
+                    items: ['$stateParams', 'LookupsApi', function ($stateParams, LookupsApi) {
+                        return LookupsApi.query({ type: $stateParams.type, pageNumber: 1, pageSize: 10 }).$promise;
+                    }],
+                    model: ['$stateParams', function ($stateParams) {
+                        return {
+                            typeName: $stateParams.type
+                        };
+                    }]
+                },
+                data: {
+                    title: 'Manage {{ model.typeName }}'
+                }
+            })
+
+            .state('app.admin.lookups.list.edit', {
+                url: ':id/edit',
+                views: {
+                    'content@app.admin': {
+                        templateUrl: 'admin/lookups/LookupEdit.html',
+                        controller: 'LookupEditController'
+                    }
+                },
+                resolve: {
+                    item: ['$stateParams', 'LookupsApi', function ($stateParams, LookupsApi) {
+                        return LookupsApi.get({ type: $stateParams.type, id: $stateParams.id }).$promise;
+                    }]
+                },
+                data: {
+                    title: 'Edit {{ model.typeName }} {{ model.name }}.'
                 }
             })
 
@@ -30,7 +84,7 @@
                 },
                 resolve: {
                     users: ['UsersApi', function (UsersApi) {
-                        return UsersApi.query({ pageNumber: 5, pageSize: 20 }).$promise;
+                        return UsersApi.query({ pageNumber: 1, pageSize: 10 }).$promise;
                     }]
                 },
                 data: {

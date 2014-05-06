@@ -3,19 +3,17 @@
 
     var module = angular.module('seedApp');
 
-    module.service('SecurityPrincipal', ['AuthenticationApi', '$rootScope', function (AuthenticationApi, $rootScope) {
-        this.isAuthenticated = false;
+    module.factory('SecurityPrincipal', ['AuthenticationApi', '$rootScope', function (AuthenticationApi, $rootScope) {
+        var _isAuthenticated = false;
 
-        this.identity = {
+        var _identity = {
             username: '',
             displayName: ''
         };
 
-        this.roles = [];
+        var _roles = [];
 
-        var self = this;
-
-        this.signIn = function (username, password) {
+        function signIn(username, password) {
             clear();
 
             var result = AuthenticationApi.signIn(username, password)
@@ -26,9 +24,9 @@
                 });
 
             return result;
-        };
+        }
 
-        this.signOut = function () {
+        function signOut() {
             var result = AuthenticationApi.signOut()
                 .success(function () {
                     clear();
@@ -37,9 +35,9 @@
                 });
 
             return result;
-        };
+        }
 
-        this.getCurrent = function () {
+        function getCurrent() {
             var result = AuthenticationApi.getSecurityPrincipal()
                 .success(function (data) {
                     set(data.username, data.fullName, data.roles);
@@ -48,29 +46,42 @@
                 });
 
             return result;
+        }
+
+        function isInRole(role) {
+            return _roles.indexOf(role) !== -1;
+        }
+
+        function set(username, displayName, roles) {
+            _isAuthenticated = true;
+
+            _identity.username = username;
+            _identity.displayName = displayName;
+
+            _roles.length = 0;
+            _roles.push.apply(_roles, roles);
+        }
+
+       function clear() {
+            _isAuthenticated = false;
+
+            _identity.username = '';
+            _identity.displayName = '';
+
+            _roles.length = 0;
+        }
+
+        var service = {
+            isAuthenticated: _isAuthenticated,
+            identity: _identity,
+            roles: _roles,
+
+            signIn: signIn,
+            signOut: signOut,
+            getCurrent: getCurrent,
+            isInRole: isInRole
         };
 
-        var set = function (username, displayName, roles) {
-            self.isAuthenticated = true;
-
-            self.identity.username = username;
-            self.identity.displayName = displayName;
-
-            self.roles.length = 0;
-            self.roles.push.apply(self.roles, roles);
-        };
-
-        var clear = function () {
-            self.isAuthenticated = false;
-
-            self.identity.username = '';
-            self.identity.displayName = '';
-
-            self.roles.length = 0;
-        };
-
-        this.isInRole = function (role) {
-            return this.roles.indexOf(role) !== -1;
-        };
+        return service;
     }]);
 })(angular);

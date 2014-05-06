@@ -3,23 +3,21 @@
 
     var module = angular.module('seedApp');
 
-    module.directive('saAuthorize', ['SecurityPrincipal', function (SecurityPrincipal) {
+    module.directive('saAuthorize', [function () {
         return function (scope, element, attrs) {
             var originalDisplay = element.css('display');
 
-            scope.$on('securityPrincipalSignedIn', function (event) {
+            element.css('display', 'none');
+
+            scope.$watchCollection('user.roles', function () {
                 if (attrs.saAuthorize === '' ||
-                    SecurityPrincipal.isInRole(attrs.saAuthorize)) {
+                    scope.user.isInRole(attrs.saAuthorize)) {
 
                     element.css('display', originalDisplay);
                 }
                 else {
                     element.css('display', 'none');
                 }
-            });
-
-            scope.$on('securityPrincipalSignedOut', function (event) {
-                element.css('display', 'none');
             });
         };
     }]);

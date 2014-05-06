@@ -2,6 +2,39 @@
 @import "_form.less";
 @import "_theme.less";
 
+.view-animation.ng-enter,
+.view-animation.ng-leave,
+.view-animation.ng-move {
+  position: relative;
+}
+
+.view-animation.ng-enter {
+  -webkit-animation:  0.5s fadeIn;
+  -moz-animation:  0.5s fadeIn;
+  -o-animation:  0.5s fadeIn;
+  animation: 0.5s fadeIn;
+
+  opacity: 0;
+}
+
+.view-animation.ng-leave {
+  -webkit-animation:  0.5s fadeOut;
+  -moz-animation:  0.5s fadeOut;
+  -o-animation:  0.5s fadeOut;
+  animation: 0.5s fadeOut;
+}
+
+.view-animation.ng-enter-stagger,
+.view-animation.ng-leave-stagger,
+.view-animation.ng-move-stagger {
+  /* notice how we're using animation instead of transition here */
+  -webkit-animation-delay:0.2s;
+  animation-delay:0.2s;
+
+  /* yes we still need to do this too */
+  -webkit-animation-duration:0;
+  animation-duration:0;
+}
 
 div.spinner-modal {
   position: absolute;
@@ -9,7 +42,7 @@ div.spinner-modal {
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 10000 !important;
+  z-index: 1000 !important;
   background-color: #efefef;
   opacity: 0.5;
 

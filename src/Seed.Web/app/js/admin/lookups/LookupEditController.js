@@ -3,15 +3,15 @@
 
     var module = angular.module('seedApp.admin');
 
-    module.controller('UserEditController', [
-        '$scope', '$state', 'confirm', 'UsersApi', 'model',
+    module.controller('LookupEditController', [
+        '$scope', '$state', 'confirm', 'LookupsApi', 'model',
 
-        function ($scope, $state, confirm, UsersApi, model) {
+        function ($scope, $state, confirm, LookupsApi, model) {
             $scope.model = model;
 
             $scope.save = function (model) {
                 if ($scope.editForm.$valid) {
-                    model.$save({ userId: model.id }, function () {
+                    model.$save({ id: model.id }, function () {
                         $scope.editForm.$setPristine();
 
                         $state.go('^', null, { reload: true });
@@ -28,14 +28,14 @@
             $scope.enable = function (model) {
                 confirm.show(
                     model,
-                    'Enable {{ fullName }}?',
-                    'Are you sure that you wish to enable the user "{{ fullName }}"?',
+                    'Enable {{ name }}?',
+                    'Are you sure that you wish to enable the {{ typeName }} "{{ name }}"?',
                     {
                         okButtonText: 'Yes, enable',
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        UsersApi.activate({ userId: $scope.model.id }, null, function () {
+                        LookupsApi.activate({ id: $scope.model.id }, null, function () {
                             $scope.model.isActive = true;
                         });
                     });
@@ -44,15 +44,15 @@
             $scope.disable = function (model) {
                 confirm.show(
                     model,
-                    'Disable user "{{ fullName }}"?',
-                    'Are you sure that you wish to disable user "{{ fullName }}"?',
+                    'Disable user "{{ name }}"?',
+                    'Are you sure that you wish to disable {{ typeName }} "{{ name }}"?',
                     {
                         okButtonText: 'Yes, disable',
                         okButtonClass: 'btn-danger',
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        UsersApi.deactivate({ userId: $scope.model.id }, null, function () {
+                        LookupsApi.deactivate({ id: $scope.model.id }, null, function () {
                             $scope.model.isActive = false;
                         });
                     });

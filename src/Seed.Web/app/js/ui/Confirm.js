@@ -19,7 +19,7 @@
                     confirmOptions = angular.extend({}, confirmProvider.options, confirmOptions);
 
                     var modalInstance = $modal.open({
-                        templateUrl: 'ui/ConfirmModal.html',
+                        templateUrl: 'ui/Confirm.html',
                         resolve: {
                             data : function () {
                                 return {

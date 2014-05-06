@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="IPagingOptions.cs" />
     <Compile Include="ISeedDbContext.cs" />
+    <Compile Include="LookupRepository.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.Designer.cs">
       <DependentUpon>201404261003481_DeactivateUser.cs</DependentUpon>
@@ -61,10 +62,14 @@
     <Compile Include="Migrations\201405030546322_Concurrency.Designer.cs">
       <DependentUpon>201405030546322_Concurrency.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405060115440_Added Countries.cs" />
+    <Compile Include="Migrations\201405060115440_Added Countries.Designer.cs">
+      <DependentUpon>201405060115440_Added Countries.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagingOptions.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
-    <Compile Include="Admin\UserRepository.cs" />
+    <Compile Include="UserRepository.cs" />
     <Compile Include="Common\AuditEntryRepository.cs" />
     <Compile Include="ISeedUnitOfWork.cs" />
     <Compile Include="IUnitOfWork.cs" />
@@ -106,8 +111,12 @@
     <EmbeddedResource Include="Migrations\201405030546322_Concurrency.resx">
       <DependentUpon>201405030546322_Concurrency.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405060115440_Added Countries.resx">
+      <DependentUpon>201405060115440_Added Countries.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Admin\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

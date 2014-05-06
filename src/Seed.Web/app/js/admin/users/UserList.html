@@ -1,21 +1,23 @@
 <h1><span class="fa fa-user"></span> Manage users</h1>
 
 <div class="row">
-<table class="table table-bordered table-striped table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>User name</th>
-            <th>Name</th>
-            <th>Email address</th>
-        </tr>
-    </thead>
+    <table class="table table-bordered table-striped table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>User name</th>
+                <th>Name</th>
+                <th>Email address</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr ng-repeat="user in users">
-            <td><a ui-sref="app.admin.users.edit({ userId: user.id })" ng-bind="user.username"></a></td>
-            <td ng-bind="user.fullName"></td>
-            <td ng-bind="user.emailAddress"></td>
-        </tr>
-    </tbody>
-</table>
-    </div>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td><a ui-sref="app.admin.users.edit({ userId: user.id })" ng-bind="user.username"></a></td>
+                <td ng-bind="user.fullName"></td>
+                <td ng-bind="user.emailAddress"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pagination total-items="100" ng-model="users" max-size="10" class="pagination-sm" boundary-links="true" rotate="false" num-pages="10"></pagination>
+</div>

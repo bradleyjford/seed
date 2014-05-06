@@ -1,4 +1,4 @@
-﻿(function (angular) {
+﻿(function (angular, jquery) {
     'use strict';
 
     var AuthenticationApi = function AuthenticationApi ($http) {
@@ -6,12 +6,17 @@
     };
 
     AuthenticationApi.prototype.signIn = function (username, password) {
-        var data = {
-            username: username,
-            password: password
-        };
-
-        return this.$http.post('/api/authentication/signin', data);
+        return this.$http.post('/api/token', jquery.param({
+                grant_type: 'password',
+                username: username,
+                password: password
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+        );
     };
 
     AuthenticationApi.prototype.signOut = function () {
@@ -19,7 +24,7 @@
     };
 
     AuthenticationApi.prototype.getSecurityPrincipal = function () {
-        return this.$http.post('/api/authentication/principal');
+        return this.$http.post('/api/authentication/identity');
     };
 
     AuthenticationApi.prototype.test = function () {
@@ -30,4 +35,4 @@
 
     angular.module('seedApp')
         .service('AuthenticationApi', AuthenticationApi);
-})(angular);
+})(angular, $);

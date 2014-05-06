@@ -14,5 +14,6 @@ namespace Seed.Data
            
             return target.Skip(firstResult).Take(options.PageSize).ToListAsync();
         }
+        
     }
 }

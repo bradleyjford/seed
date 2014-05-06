@@ -51,11 +51,9 @@ var seedApp = (function (angular) {
                     }
                 });
 
-            $provide.factory('AuthorizationHttpInterceptor', [
-                '$q', '$location', '$injector',
-
+            $provide.factory('AuthorizationHttpInterceptor', ['$q', '$location', '$injector',
                 function ($q, $location, $injector) {
-                    var responseError = function (rejection) {
+                    function responseError (rejection) {
                         var $state = $injector.get('$state');
 
                         if (rejection.status === 401 && $state.current.name !== 'sign-in') {
@@ -66,7 +64,7 @@ var seedApp = (function (angular) {
                         }
 
                         return $q.reject(rejection);
-                    };
+                    }
 
                     return {
                         responseError: responseError
@@ -74,7 +72,50 @@ var seedApp = (function (angular) {
                 }
             ]);
 
+            $provide.factory('HttpEventInterceptor', ['$q', '$rootScope',
+                function ($q, $rootScope) {
+                    function requestHandler(config) {
+                        $rootScope.$broadcast('httpRequest', config);
+
+                        return config || $q.when(config);
+                    }
+
+                    function requestErrorHandler(rejection) {
+                        $rootScope.$broadcast('httpRequestError', rejection);
+
+                        return $q.reject(rejection);
+                    }
+
+                    function responseHandler(response) {
+                        $rootScope.$broadcast('httpResponse', response);
+
+                        return response || $q.when(response);
+                    }
+
+                    function responseErrorHandler(rejection) {
+                        $rootScope.$broadcast('httpResponseError', rejection);
+
+                        return $q.reject(rejection);
+                    }
+
+                    return {
+                        'request': requestHandler,
+                        'requestError': requestErrorHandler,
+                        'response': responseHandler,
+                        'responseError': responseErrorHandler
+                    };
+                }
+            ]);
+
+            $httpProvider.interceptors.push('HttpEventInterceptor');
             $httpProvider.interceptors.push('AuthorizationHttpInterceptor');
+        }]);
+
+    app.run(['$rootScope', 'RouteMediator', 'SecurityPrincipal',
+        function ($rootScope, RouteMediator, SecurityPrincipal) {
+            $rootScope.user = SecurityPrincipal;
+
+            RouteMediator.setRoutingHandlers();
         }]);
 
     angular.module('seedApp.templates', []);

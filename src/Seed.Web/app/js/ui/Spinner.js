@@ -8,21 +8,46 @@
             restrict: 'EA',
             templateUrl: 'ui/Spinner.html',
             scope: { },
-            link: function (scope) {
-                scope.enabled = false;
+            controller: ['$scope', function ($scope) {
+                $scope.enabled = false;
 
-                scope.$on('$stateChangeStart', function () {
-                    scope.enabled = true;
+                var startCount = 0;
+
+                function start() {
+                    startCount++;
+
+                    $scope.enabled = true;
+                }
+
+                function stop(force) {
+                    startCount--;
+
+                    if (force || startCount < 0) {
+                        startCount = 0;
+                    }
+
+                    if (startCount === 0)
+                    {
+                        $scope.enabled = false;
+                    }
+                }
+
+                $scope.$on('httpRequest', function (event, config) {
+                    start();
                 });
 
-                scope.$on('$stateChangeSuccess', function () {
-                    scope.enabled = false;
+                $scope.$on('httpRequestError', function (event, rejection) {
+                    stop();
                 });
 
-                scope.$on('$stateChangeError', function () {
-                    scope.enabled = false;
+                $scope.$on('httpResponse', function (event, response) {
+                    stop();
                 });
-            }
+
+                $scope.$on('httpResponseError', function (event, rejection) {
+                    stop();
+                });
+            }]
         };
     }]);
 })(angular);

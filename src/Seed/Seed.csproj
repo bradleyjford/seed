@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Lookups\EditLookupCommand.cs" />
+    <Compile Include="Admin\Lookups\EditLookupCommandHandler.cs" />
+    <Compile Include="Admin\Lookups\ILookupRepository.cs" />
     <Compile Include="Admin\Users\EditUserCommandHandler.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEntryContractResolver.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Infrastructure\Domain\ClockProvider.cs" />
     <Compile Include="Infrastructure\Domain\IClock.cs" />
     <Compile Include="Infrastructure\Domain\IInlineAudited.cs" />
+    <Compile Include="Infrastructure\Domain\ILookupEntity.cs" />
     <Compile Include="Infrastructure\Domain\IUserContext.cs" />
     <Compile Include="Infrastructure\Domain\SystemClock.cs" />
     <Compile Include="Infrastructure\Auditing\AuditingCommandBus.cs" />
@@ -73,6 +77,8 @@
     <Compile Include="Infrastructure\Messaging\ICommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandResult.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandValidator.cs" />
+    <Compile Include="Lookups\Country.cs" />
+    <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
     <Compile Include="Security\ActivateUserCommandHandler.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />

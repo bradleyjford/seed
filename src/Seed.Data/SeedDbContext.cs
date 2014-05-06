@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Seed.Infrastructure.Auditing;
 using Seed.Infrastructure.Domain;
+using Seed.Lookups;
 using Seed.Security;
 
 namespace Seed.Data
@@ -23,6 +24,13 @@ namespace Seed.Data
         IQueryable<User> ISeedDbContext.Users
         {
             get { return Users; }
+        }
+
+        public DbSet<Country> Countries { get; set; }
+
+        IQueryable<Country> ISeedDbContext.Countries
+        {
+            get { return Countries; }
         }
 
         public Task<int> SaveChangesAsync(IUserContext userContext)
