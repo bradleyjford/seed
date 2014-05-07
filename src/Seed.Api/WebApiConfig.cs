@@ -19,8 +19,6 @@ namespace Seed.Api
             formatters.Remove(formatters.XmlFormatter);
             formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            config.Filters.Add(new ApplyAntiForgeryToken(true));
-
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
 

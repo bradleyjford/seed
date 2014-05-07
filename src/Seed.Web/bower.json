@@ -20,6 +20,7 @@
     "angular-bootstrap": "~0.10.0",
     "angular-resource": "~1.2.16",
     "animate.css": "~3.1.1",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "angular-local-storage": "~0.0.3"
   }
 }

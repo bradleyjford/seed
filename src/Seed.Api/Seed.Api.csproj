@@ -141,10 +141,7 @@
     <Compile Include="ApiCommandController.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="AutoMapperConfig.cs" />
-    <Compile Include="Infrastructure\Filters\AntiXsrf.cs" />
-    <Compile Include="Infrastructure\Filters\ApplyAntiForgeryToken.cs" />
     <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
-    <Compile Include="Infrastructure\Filters\ValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Infrastructure\Messaging\SeedCommandBus.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationExtensions.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationHandler.cs" />
@@ -153,7 +150,7 @@
     <Compile Include="Infrastructure\Middleware\SeedAuthorizationServerProvider.cs" />
     <Compile Include="Infrastructure\Middleware\WindowsAuthenticationExtensions.cs" />
     <Compile Include="Infrastructure\Security\SeedUserContext.cs" />
-    <Compile Include="Security\AuthenticationController.cs" />
+    <Compile Include="Security\IdentityController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SignInFailedResponse.cs" />
     <Compile Include="Security\SignInRequest.cs" />
@@ -175,10 +172,6 @@
     <ProjectReference Include="..\Seed.Data\Seed.Data.csproj">
       <Project>{7b0d87d5-12f5-4f8e-8a5e-0b74d55355a7}</Project>
       <Name>Seed.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Seed.Web.Http.AntiXsrf\Seed.Web.Http.AntiXsrf.csproj">
-      <Project>{8654F922-DCBD-4060-A34E-E2673AF36E64}</Project>
-      <Name>Seed.Web.Http.AntiXsrf</Name>
     </ProjectReference>
     <ProjectReference Include="..\Seed\Seed.csproj">
       <Project>{EC2E4390-36CE-443C-BECE-416AB548D68F}</Project>

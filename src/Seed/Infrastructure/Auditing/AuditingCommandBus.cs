@@ -11,12 +11,14 @@ namespace Seed.Infrastructure.Auditing
         private readonly IAuditEntryRepository _repository;
         private readonly IUserContext _userContext;
 
-        public AuditingCommandBus(IComponentContext container, IAuditEntryRepository repository) 
+        public AuditingCommandBus(
+            IComponentContext container, 
+            IUserContext userContext, 
+            IAuditEntryRepository repository) 
             : base(container)
         {
             _repository = repository;
-
-            _userContext = container.Resolve<IUserContext>();
+            _userContext = userContext;
         }
 
         public override async Task<ICommandResult> Submit<TCommand>(TCommand command)
@@ -25,9 +27,11 @@ namespace Seed.Infrastructure.Auditing
 
             if (result.Success)
             {
+                // TODO: Could do full auditing based on Audit and AuditEntry as per NHibernate
+                // inject DbContext and enumerate over ChangeTracker entities.
                 var entry = AuditEvent.Create(_userContext, command);
 
-                _repository.Save(entry);
+                _repository.Add(entry);
             }
 
             return result;

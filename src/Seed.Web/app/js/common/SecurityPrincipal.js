@@ -38,7 +38,7 @@
         }
 
         function getCurrent() {
-            var result = AuthenticationApi.getSecurityPrincipal()
+            var result = AuthenticationApi.getIdentity()
                 .success(function (data) {
                     set(data.username, data.fullName, data.roles);
 

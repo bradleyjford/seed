@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Web.Http;
-using System.Web.Security;
-using Seed.Api.Infrastructure.Filters;
 
 namespace Seed.Api.Security
 {
     [RoutePrefix("identity")]
-    [Authorize]
     public class IdentityController : ApiCommandController
     {
         [Route("")]

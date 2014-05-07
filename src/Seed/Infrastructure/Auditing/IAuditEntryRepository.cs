@@ -4,6 +4,6 @@ namespace Seed.Infrastructure.Auditing
 {
     public interface IAuditEntryRepository
     {
-        void Save(AuditEvent auditEvent);
+        void Add(AuditEvent auditEvent);
     }
 }

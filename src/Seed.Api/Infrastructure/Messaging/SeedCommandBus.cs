@@ -13,9 +13,10 @@ namespace Seed.Api.Infrastructure.Messaging
         private readonly IComponentContext _container;
 
         public SeedCommandBus(
-            IComponentContext container, 
+            IComponentContext container,
+            IUserContext userContext,
             IAuditEntryRepository repository) 
-            : base(container, repository)
+            : base(container, userContext, repository)
         {
             _container = container;
         }

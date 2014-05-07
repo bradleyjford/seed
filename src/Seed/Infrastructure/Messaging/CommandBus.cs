@@ -18,6 +18,7 @@ namespace Seed.Infrastructure.Messaging
         public virtual Task<ICommandResult> Submit<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
+            // TODO: Command processing pipeline
             var handler = _componentContext.Resolve<ICommandHandler<TCommand>>();
 
             if (handler == null)

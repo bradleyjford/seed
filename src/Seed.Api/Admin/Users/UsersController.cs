@@ -57,7 +57,6 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        [ValidateAntiForgeryToken]
         public async Task<IHttpActionResult> Post(int id, [FromBody]EditUserRequest request)
         {
             if (!ModelState.IsValid)
@@ -75,7 +74,6 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}/activate")]
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IHttpActionResult> Activate(int id)
         {
@@ -92,7 +90,6 @@ namespace Seed.Api.Admin.Users
         }
         
         [Route("{id:int}/deactivate")]
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IHttpActionResult> Deactivate(int id)
         {

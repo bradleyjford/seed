@@ -6,6 +6,8 @@ var seedApp = (function (angular) {
         'ngAnimate',
         'ngResource',
 
+        'LocalStorageModule',
+
         'seedApp.templates',
 
         'seedApp.home',
@@ -21,6 +23,7 @@ var seedApp = (function (angular) {
             $locationProvider.html5Mode(false);
             $locationProvider.hashPrefix('!');
 
+            $urlRouterProvider.when('', '/');
             $urlRouterProvider.otherwise('/not-found');
 
             $stateProvider
@@ -51,8 +54,18 @@ var seedApp = (function (angular) {
                     }
                 });
 
-            $provide.factory('AuthorizationHttpInterceptor', ['$q', '$location', '$injector',
-                function ($q, $location, $injector) {
+            $provide.factory('AuthorizationHttpInterceptor', ['$q', '$location', '$injector', 'localStorageService',
+                function ($q, $location, $injector, localStorageService) {
+                    function requestHandler(config) {
+                        console.log(config.headers);
+
+                        if (!config.headers.Authorization) {
+                            if (localStorageService.keys['access_token']) {
+                                config.headers.Authorization = 'Bearer ' + localStorageService.get('access_token');
+                            }
+                        }
+                    }
+
                     function responseError (rejection) {
                         var $state = $injector.get('$state');
 
@@ -67,6 +80,7 @@ var seedApp = (function (angular) {
                     }
 
                     return {
+                        //request: requestHandler,
                         responseError: responseError
                     };
                 }

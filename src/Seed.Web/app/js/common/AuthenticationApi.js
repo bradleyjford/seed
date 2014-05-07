@@ -1,38 +1,40 @@
 ﻿(function (angular, jquery) {
     'use strict';
 
-    var AuthenticationApi = function AuthenticationApi ($http) {
-        this.$http = $http;
-    };
+    var module = angular.module('seedApp');
 
-    AuthenticationApi.prototype.signIn = function (username, password) {
-        return this.$http.post('/api/token', jquery.param({
-                grant_type: 'password',
-                username: username,
-                password: password
-            }),
-            {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }
-        );
-    };
+    module.factory('AuthenticationApi', ['$http', 'localStorageService', function($http, localStorageService) {
 
-    AuthenticationApi.prototype.signOut = function () {
-        return this.$http.post('/api/authentication/signout');
-    };
+        function signIn(username, password) {
+            return $http.post('/api/token', jquery.param({
+                    grant_type: 'password',
+                    username: username,
+                    password: password
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .success(function (data) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + data.access_token;
+                });
+        }
 
-    AuthenticationApi.prototype.getSecurityPrincipal = function () {
-        return this.$http.post('/api/authentication/identity');
-    };
+        function signOut() {
+            localStorageService.remove('access_token');
 
-    AuthenticationApi.prototype.test = function () {
-        return this.$http.get('/api/authentication/test');
-    };
+            $http.defaults.headers.common.Authorization = '';
+        }
 
-    AuthenticationApi.$inject = ['$http'];
+        function getIdentity() {
+            return $http.get('/api/identity');
+        }
 
-    angular.module('seedApp')
-        .service('AuthenticationApi', AuthenticationApi);
+        return {
+            signIn: signIn,
+            signOut: signOut,
+            getIdentity: getIdentity
+        };
+    }]);
 })(angular, $);

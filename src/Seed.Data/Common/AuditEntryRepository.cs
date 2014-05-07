@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Seed.Infrastructure.Auditing;
 
 namespace Seed.Data.Common
@@ -16,7 +12,7 @@ namespace Seed.Data.Common
             _context = unitOfWork.DbContext;
         }
 
-        public void Save(AuditEvent auditEvent)
+        public void Add(AuditEvent auditEvent)
         {
             _context.AuditEvents.Add(auditEvent);
         }

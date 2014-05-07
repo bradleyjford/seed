@@ -27,7 +27,6 @@ namespace Seed.Api
                 Provider = new SeedAuthorizationServerProvider()
             });
  
-            // token consumption
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             var config = new HttpConfiguration();

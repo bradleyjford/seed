@@ -76,6 +76,7 @@ module.exports = function (grunt) {
                     { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-bootstrap' },
                     { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-ui-router/release' },
                     { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/toastr' },
+                    { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/angular-local-storage' },
                     { dest: '<%= distDir %>/js', src: ['*.js', '*.map'], expand: true, cwd: 'bower_components/ng-grid' },
                     { dest: '<%= distDir %>/css', src: ['*.css'], expand: true, cwd: 'bower_components/toastr' },
                     { dest: '<%= distDir %>/css', src: ['*.css'], expand: true, cwd: 'bower_components/animate.css' },

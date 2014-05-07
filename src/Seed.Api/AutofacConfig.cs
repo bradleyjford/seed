@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Dispatcher;
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using Autofac.Integration.WebApi;
 using Microsoft.Practices.ServiceLocation;
-using Seed.Api.Admin.Lookups;
-using Seed.Api.Infrastructure;
 using Seed.Api.Infrastructure.Messaging;
 using Seed.Api.Infrastructure.Security;
 using Seed.Data;
