@@ -85,6 +85,11 @@ namespace Seed.Data
         {
             foreach (var entry in ChangeTracker.Entries())
             {
+                if (entry.State == EntityState.Added)
+                {
+                    continue;
+                }
+
                 if (entry.CurrentValues.PropertyNames.Contains("RowVersion"))
                 {
                     var property = entry.Property("RowVersion");

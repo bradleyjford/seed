@@ -19,24 +19,29 @@ namespace Seed.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
-            { 
-                TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
- 
-                Provider = new SeedAuthorizationServerProvider()
-            });
+            var container = AutofacConfig.Initialize();
  
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
+            
             var config = new HttpConfiguration();
+
+            app.UseAutofacMiddleware(container);
+            app.UseAutofacWebApi(config);
+
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
+
+                Provider = new SeedAuthorizationServerProvider()
+            });
+
+            WebApiConfig.Register(config);
+
+            app.UseWebApi(config);
 
             AutoMapperConfig.Configure();
 
-            WebApiConfig.Register(config);
-            AutofacConfig.Register(config);
-
-            app.UseWebApi(config);
         }
     }
 }

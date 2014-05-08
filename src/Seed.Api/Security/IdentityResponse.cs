@@ -2,15 +2,15 @@
 
 namespace Seed.Api.Security
 {
-    public class SignInSuccessResponse : SignInResponse
+    public class IdentityResponse
     {
-        public string Username { get; set; }
+        public string UserName { get; private set; }
         public string FullName { get; private set; }
         public string[] Roles { get; private set; }
 
-        public SignInSuccessResponse(string username, string fullName, string[] roles)
+        public IdentityResponse(string userName, string fullName, string[] roles)
         {
-            Username = username;
+            UserName = userName;
             FullName = fullName;
             Roles = roles;
         }

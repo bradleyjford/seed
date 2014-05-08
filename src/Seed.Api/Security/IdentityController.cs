@@ -14,7 +14,7 @@ namespace Seed.Api.Security
             {
                 var user = User as ClaimsPrincipal;
 
-                var response = new SignInSuccessResponse(user.Identity.Name, "Testing User", new [] { "admin" });
+                var response = new IdentityResponse(user.Identity.Name, "Testing User", new [] { "admin" });
 
                 return Ok(response);
             }

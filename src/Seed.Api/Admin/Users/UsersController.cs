@@ -37,7 +37,7 @@ namespace Seed.Api.Admin.Users
 
             usersQuery = filter.Apply(usersQuery);
 
-            usersQuery = usersQuery.OrderBy(u => u.Username);
+            usersQuery = usersQuery.OrderBy(u => u.UserName);
 
             var users = await usersQuery.ToPagedListAsync(pagingOptions);
 

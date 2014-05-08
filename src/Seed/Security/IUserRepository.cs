@@ -5,6 +5,8 @@ namespace Seed.Security
 {
     public interface IUserRepository
     {
+        Task Add(User user);
         Task<User> Get(int id);
+        Task<User> GetByUserName(string userName);
     }
 }

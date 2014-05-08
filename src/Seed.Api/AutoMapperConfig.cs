@@ -2,7 +2,6 @@
 using AutoMapper;
 using Seed.Admin.Users;
 using Seed.Api.Admin.Users;
-using Seed.Api.Security;
 using Seed.Security;
 
 namespace Seed.Api
@@ -15,8 +14,6 @@ namespace Seed.Api
             Mapper.CreateMap<User, GetUserResponse>();
 
             // Request -> Commands
-            Mapper.CreateMap<SignInRequest, SignInCommand>();
-
             Mapper.CreateMap<EditUserRequest, EditUserCommand>();
         }
 

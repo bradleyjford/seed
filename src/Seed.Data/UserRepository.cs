@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Seed.Security;
 
@@ -16,6 +18,18 @@ namespace Seed.Data
         public Task<User> Get(int id)
         {
             return _context.Users.FindAsync(id);
+        }
+
+        public Task<User> GetByUserName(string userName)
+        {
+            return _context.Users.SingleAsync(u => u.UserName == userName);
+        }
+
+        public Task Add(User user)
+        {
+            _context.Users.Add(user);
+
+            return Task.FromResult<object>(null);
         }
     }
 }

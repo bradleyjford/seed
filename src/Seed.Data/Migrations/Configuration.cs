@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using Seed.Infrastructure.Domain;
+using Seed.Infrastructure.Security;
 using Seed.Security;
 
 namespace Seed.Data.Migrations
@@ -15,18 +16,23 @@ namespace Seed.Data.Migrations
 
         protected override void Seed(SeedDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var passwordHasher = new Rfc2898PasswordHasher(
+                Rfc2898PasswordHashParameters.Default,
+                Rfc2898PasswordHashParameters.AllVersions,
+                new RandomNumberGenerator());
 
             var userContext = new DummyUserContext();
             var users = new List<User>();
 
             for (var i = 1; i <= 100; i++)
             {
-                users.Add(new User("test" + i, "Test User " + 1, "test" + i + "@bjf.io"));
+                var password = passwordHasher.ComputeHash("test" + i);
+
+                users.Add(new User("test" + i, "Test User " + 1, "test" + i + "@bjf.io", password));
             }
 
             context.Users.AddOrUpdate(
-               u => u.Username,
+               u => u.UserName,
                users.ToArray());
 
             context.SaveChanges(userContext);

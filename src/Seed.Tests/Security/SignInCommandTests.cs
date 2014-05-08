@@ -12,7 +12,7 @@ namespace Seed.Tests.Security
         [SetUp]
         public void SetUp()
         {
-            _commandHandler = new SignInCommandHandler();
+            _commandHandler = new SignInCommandHandler(new TestUserRepository(), null);
         }
 
         [Test]

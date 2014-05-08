@@ -13,7 +13,7 @@ namespace Seed.Api.Admin.Users
         {
             if (!String.IsNullOrEmpty(UserName))
             {
-                queryable = queryable.Where(u => u.Username.StartsWith(UserName));
+                queryable = queryable.Where(u => u.UserName.StartsWith(UserName));
             }
 
             if (!String.IsNullOrEmpty(FullName))

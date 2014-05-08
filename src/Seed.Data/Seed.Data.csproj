@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201405060115440_Added Countries.Designer.cs">
       <DependentUpon>201405060115440_Added Countries.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405080637088_User confirmation.cs" />
+    <Compile Include="Migrations\201405080637088_User confirmation.Designer.cs">
+      <DependentUpon>201405080637088_User confirmation.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagingOptions.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
@@ -113,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405060115440_Added Countries.resx">
       <DependentUpon>201405060115440_Added Countries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405080637088_User confirmation.resx">
+      <DependentUpon>201405080637088_User confirmation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

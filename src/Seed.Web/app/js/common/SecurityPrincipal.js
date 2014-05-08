@@ -7,18 +7,18 @@
         var _isAuthenticated = false;
 
         var _identity = {
-            username: '',
+            userName: '',
             displayName: ''
         };
 
         var _roles = [];
 
-        function signIn(username, password) {
+        function signIn(userName, password) {
             clear();
 
-            var result = AuthenticationApi.signIn(username, password)
+            var result = AuthenticationApi.signIn(userName, password)
                 .success(function (data) {
-                    set(data.username, data.fullName, data.roles);
+                    set(data.userName, data.fullName, data.roles);
 
                     $rootScope.$broadcast('securityPrincipalSignedIn');
                 });
@@ -40,7 +40,7 @@
         function getCurrent() {
             var result = AuthenticationApi.getIdentity()
                 .success(function (data) {
-                    set(data.username, data.fullName, data.roles);
+                    set(data.userName, data.fullName, data.roles);
 
                     $rootScope.$broadcast('securityPrincipalSignedIn', data.roles);
                 });

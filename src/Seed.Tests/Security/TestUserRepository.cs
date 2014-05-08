@@ -10,7 +10,7 @@ namespace Seed.Tests.Security
     {
         private readonly List<User> _users = new List<User>
         {
-            new User("user1", "Test User 1", "user1@bjf.io")
+            new User("user1", "Test User 1", "user1@bjf.io", "test")
                 {
                     Id = 1
                 }
@@ -25,9 +25,21 @@ namespace Seed.Tests.Security
             //new User { Id = 10, Username = "user10", FullName = "Test User 10" , EmailAddress = "user10@bjf.io" }
         };
 
+        public Task Add(User user)
+        {
+            _users.Add(user);
+
+            return Task.FromResult<object>(null);
+        }
+
         public Task<User> Get(int id)
         {
             return Task.FromResult(_users.FirstOrDefault(u => u.Id == id));
+        }
+
+        public Task<User> GetByUserName(string userName)
+        {
+            return Task.FromResult(_users.FirstOrDefault(u => u.UserName == userName));
         }
     }
 }

@@ -5,10 +5,10 @@
 
     module.factory('AuthenticationApi', ['$http', 'localStorageService', function($http, localStorageService) {
 
-        function signIn(username, password) {
+        function signIn(userName, password) {
             return $http.post('/api/token', jquery.param({
                     grant_type: 'password',
-                    username: username,
+                    username: userName,
                     password: password
                 }),
                 {

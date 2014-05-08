@@ -7,4 +7,9 @@ namespace Seed.Infrastructure.Messaging
         bool Success { get; }
         Exception Error { get; }
     }
+
+    public interface ICommandResult<TResult> : ICommandResult
+    {
+        TResult Result { get; }
+    }
 }

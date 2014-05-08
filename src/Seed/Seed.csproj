@@ -34,9 +34,6 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -77,20 +74,30 @@
     <Compile Include="Infrastructure\Messaging\ICommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandResult.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandValidator.cs" />
+    <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
+    <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
+    <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
+    <Compile Include="Infrastructure\Security\IPasswordHasher.cs" />
+    <Compile Include="Infrastructure\Security\IRandomNumberGenerator.cs" />
+    <Compile Include="Infrastructure\Security\RandomNumberGenerator.cs" />
+    <Compile Include="Infrastructure\Security\Rfc2898PasswordHasher.cs" />
+    <Compile Include="Infrastructure\Security\Rfc2898PasswordHashParameters.cs" />
+    <Compile Include="Infrastructure\Text\Base32Decoder.cs" />
+    <Compile Include="Infrastructure\Text\Base32Encoder.cs" />
+    <Compile Include="Infrastructure\Text\Base32Encoding.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
-    <Compile Include="Security\ActivateUserCommandHandler.cs" />
+    <Compile Include="Security\ConfirmUserCommand.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />
-    <Compile Include="Security\DeactivateUserCommandHandler.cs" />
     <Compile Include="Security\IUserRepository.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
+    <Compile Include="Security\RegisterUserCommand.cs" />
     <Compile Include="Security\User.cs" />
     <Compile Include="Infrastructure\Messaging\ICommand.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SignInCommand.cs" />
-    <Compile Include="Security\SignInCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
