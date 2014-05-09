@@ -28,7 +28,7 @@
 
         function signOut() {
             var result = AuthenticationApi.signOut()
-                .success(function () {
+                .then(function () {
                     clear();
 
                     $rootScope.$broadcast('securityPrincipalSignedOut');

@@ -3,12 +3,12 @@
 
     var module = angular.module('seedApp.home');
 
-    module.controller('SignOutController',
-        ['SecurityPrincipal', '$state',
+    module.controller('SignOutController', ['SecurityPrincipal', '$state',
         function (SecurityPrincipal, $state) {
             SecurityPrincipal.signOut()
-                .success(function () {
+                .then(function () {
                     $state.go('sign-in');
                 });
-        }]);
+        }
+    ]);
 })(angular);

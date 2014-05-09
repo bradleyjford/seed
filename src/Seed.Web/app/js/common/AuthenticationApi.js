@@ -3,7 +3,28 @@
 
     var module = angular.module('seedApp');
 
-    module.factory('AuthenticationApi', ['$http', 'localStorageService', function($http, localStorageService) {
+    module.factory('AuthenticationApi', ['$http', '$q', 'localStorageService',
+        function($http, $q, localStorageService) {
+
+        function applyAccessToken(accessToken) {
+            localStorageService.add('access_token', accessToken);
+            $http.defaults.headers.common.Authorization = 'Bearer ' + localStorageService.get('access_token');
+        }
+
+        function clearAccessToken() {
+            $http.defaults.headers.common.Authorization = undefined;
+            localStorageService.remove('access_token');
+        }
+
+        function ensureAuthorizationHeader() {
+            if (!$http.defaults.headers.common.Authorization) {
+                var accessToken = localStorageService.get('access_token');
+
+                if (accessToken) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + localStorageService.get('access_token');
+                }
+            }
+        }
 
         function signIn(userName, password) {
             return $http.post('/api/token', jquery.param({
@@ -17,17 +38,17 @@
                     }
                 })
                 .success(function (data) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + data.access_token;
+                    applyAccessToken(data.access_token);
                 });
         }
 
         function signOut() {
-            localStorageService.remove('access_token');
-
-            $http.defaults.headers.common.Authorization = '';
+            return $q.when(clearAccessToken());
         }
 
         function getIdentity() {
+            ensureAuthorizationHeader();
+
             return $http.get('/api/identity');
         }
 

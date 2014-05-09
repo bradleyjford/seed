@@ -29,11 +29,15 @@ var seedApp = (function (angular) {
             $stateProvider
                 .state('app', {
                     abstract: true,
-                    controller: 'AppController',
                     template: '<ui-view></ui-view>',
                     resolve: {
-                        user: ['SecurityPrincipal', function (SecurityPrincipal) {
-                            return SecurityPrincipal.getCurrent().$promise;
+                        user: ['$state', 'SecurityPrincipal', function ($state, SecurityPrincipal) {
+                            return SecurityPrincipal.getCurrent()
+                                .error(function (data, status) {
+                                    if (status === 404) {
+                                        $state.go('sign-in');
+                                    }
+                                }).$promise;
                         }]
                     }
                 })
@@ -59,11 +63,21 @@ var seedApp = (function (angular) {
                     function requestHandler(config) {
                         console.log(config.headers);
 
+                        console.log(localStorageService.keys());
+
                         if (!config.headers.Authorization) {
-                            if (localStorageService.keys['access_token']) {
-                                config.headers.Authorization = 'Bearer ' + localStorageService.get('access_token');
+                            console.log('Missing authorization header');
+                            if (localStorageService.keys()['access_token']) {
+                                var authHeader = 'Bearer ' + localStorageService.get('access_token');
+
+                                config.defaults.headers.Authorization = authHeader;
+                                config.headers.Authorization = authHeader;
+
+                                console.log('Found access_token in local storage');
                             }
                         }
+
+                        return config || $q.when(config);
                     }
 
                     function responseError (rejection) {
