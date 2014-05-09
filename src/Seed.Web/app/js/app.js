@@ -60,26 +60,6 @@ var seedApp = (function (angular) {
 
             $provide.factory('AuthorizationHttpInterceptor', ['$q', '$location', '$injector', 'localStorageService',
                 function ($q, $location, $injector, localStorageService) {
-                    function requestHandler(config) {
-                        console.log(config.headers);
-
-                        console.log(localStorageService.keys());
-
-                        if (!config.headers.Authorization) {
-                            console.log('Missing authorization header');
-                            if (localStorageService.keys()['access_token']) {
-                                var authHeader = 'Bearer ' + localStorageService.get('access_token');
-
-                                config.defaults.headers.Authorization = authHeader;
-                                config.headers.Authorization = authHeader;
-
-                                console.log('Found access_token in local storage');
-                            }
-                        }
-
-                        return config || $q.when(config);
-                    }
-
                     function responseError (rejection) {
                         var $state = $injector.get('$state');
 
@@ -94,7 +74,6 @@ var seedApp = (function (angular) {
                     }
 
                     return {
-                        //request: requestHandler,
                         responseError: responseError
                     };
                 }
