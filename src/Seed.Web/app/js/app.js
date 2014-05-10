@@ -58,8 +58,13 @@ var seedApp = (function (angular) {
                     }
                 });
 
+<<<<<<< HEAD
             $provide.factory('AuthorizationHttpInterceptor', ['$q', '$injector',
                 function ($q, $injector) {
+=======
+            $provide.factory('AuthorizationHttpInterceptor', ['$q', '$location', '$injector', 'localStorageService',
+                function ($q, $location, $injector, localStorageService) {
+>>>>>>> a394929036ad9bd42f44a86a1eb3e68658c554a7
                     function responseError (rejection) {
                         var $state = $injector.get('$state');
 
