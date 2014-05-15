@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Seed.Api;
-using Seed.Api.Infrastructure.Middleware;
-using Seed.Api.Infrastructure.Middleware.BasicAuthentication;
+using Seed.Api.Infrastructure.Middleware.OAuth2;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -20,7 +15,7 @@ namespace Seed.Api
         public void Configuration(IAppBuilder app)
         {
             var container = AutofacConfig.Initialize();
- 
+
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             
             var config = new HttpConfiguration();
@@ -41,7 +36,7 @@ namespace Seed.Api
             app.UseWebApi(config);
 
             AutoMapperConfig.Configure();
-
+            
         }
     }
 }

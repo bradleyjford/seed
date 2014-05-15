@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Seed</RootNamespace>
     <AssemblyName>Seed</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -31,12 +31,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.1.3.12\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx">
+      <HintPath>..\packages\Serilog.1.3.12\lib\net45\Serilog.FullNetFx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -49,9 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\Lookups\EditLookupCommand.cs" />
-    <Compile Include="Admin\Lookups\EditLookupCommandHandler.cs" />
     <Compile Include="Admin\Lookups\ILookupRepository.cs" />
-    <Compile Include="Admin\Users\EditUserCommandHandler.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEntryContractResolver.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
     <Compile Include="Infrastructure\Auditing\AuditIgnore.cs" />
@@ -60,13 +68,14 @@
     <Compile Include="Infrastructure\Auditing\AuditMaskValue.cs" />
     <Compile Include="Infrastructure\Domain\AggregateRoot.cs" />
     <Compile Include="Infrastructure\Domain\ClockProvider.cs" />
+    <Compile Include="Infrastructure\Domain\Entity.cs" />
     <Compile Include="Infrastructure\Domain\IClock.cs" />
     <Compile Include="Infrastructure\Domain\IInlineAudited.cs" />
     <Compile Include="Infrastructure\Domain\ILookupEntity.cs" />
     <Compile Include="Infrastructure\Domain\IUserContext.cs" />
     <Compile Include="Infrastructure\Domain\SystemClock.cs" />
-    <Compile Include="Infrastructure\Auditing\AuditingCommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\CommandBus.cs" />
+    <Compile Include="Infrastructure\Messaging\CommandBusBuilder.cs" />
     <Compile Include="Infrastructure\Messaging\CommandBusException.cs" />
     <Compile Include="Infrastructure\Messaging\CommandHandlerNotFoundException.cs" />
     <Compile Include="Infrastructure\Messaging\CommandResult.cs" />
@@ -90,6 +99,7 @@
     <Compile Include="Security\ActivateUserCommand.cs" />
     <Compile Include="Security\ConfirmUserCommand.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />
+    <Compile Include="Security\LoginProvider.cs" />
     <Compile Include="Security\IUserRepository.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
     <Compile Include="Security\RegisterUserCommand.cs" />
@@ -98,6 +108,7 @@
     <Compile Include="Infrastructure\Messaging\ICommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SignInCommand.cs" />
+    <Compile Include="TaskExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

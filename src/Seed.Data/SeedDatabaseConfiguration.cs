@@ -10,8 +10,7 @@ namespace Seed.Data
         public SeedDatabaseConfiguration()
         {
             SetExecutionStrategy("System.Data.SqlClient", () => new SqlAzureExecutionStrategy());
-            SetDefaultConnectionFactory(new LocalDbConnectionFactory("v11.0")); 
-
+            SetDefaultConnectionFactory(new LocalDbConnectionFactory("ProjectsV12")); 
         }
     }
 }

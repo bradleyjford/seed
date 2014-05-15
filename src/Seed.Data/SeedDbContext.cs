@@ -12,6 +12,11 @@ namespace Seed.Data
 {
     public class SeedDbContext : DbContext, ISeedDbContext
     {
+        public SeedDbContext()
+            : base("Seed")
+        {
+        }
+
         public DbSet<AuditEvent> AuditEvents { get; set; }
 
         IQueryable<AuditEvent> ISeedDbContext.AuditEvents

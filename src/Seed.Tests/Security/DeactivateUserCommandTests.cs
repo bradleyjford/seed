@@ -28,7 +28,7 @@ namespace Seed.Tests.Security
 
             var command = new DeactivateUserCommand(userId);
 
-            var result = await _commandHandler.Execute(command);
+            var result = await _commandHandler.Handle(command);
 
             Assert.IsTrue(result.Success);
             Assert.IsFalse(user.IsActive);
@@ -42,7 +42,7 @@ namespace Seed.Tests.Security
 
             var command = new DeactivateUserCommand(userId);
 
-            var result = await _commandHandler.Execute(command);
+            var result = await _commandHandler.Handle(command);
 
             Assert.IsTrue(result.Success);
             Assert.IsFalse(user.IsActive);

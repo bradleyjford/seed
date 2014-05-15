@@ -23,7 +23,7 @@ namespace Seed.Security
             _repository = repository;
         }
 
-        public async Task<ICommandResult> Execute(DeactivateUserCommand command)
+        public async Task<ICommandResult> Handle(DeactivateUserCommand command)
         {
             var user = await _repository.Get(command.UserId);
 

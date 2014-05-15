@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Seed.Infrastructure.Messaging;
 using Seed.Infrastructure.Security;
 
 namespace Seed.Security
 {
-    public class RegisterUserCommand : ICommand
+    public class RegisterUserCommand : ICommand<User>
     {
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -16,7 +13,7 @@ namespace Seed.Security
         public string EmailAddress { get; set; }
     }
 
-    public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
+    public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, User>
     {
         private readonly IUserRepository _repository;
         private readonly IPasswordHasher _passwordHasher;
@@ -27,7 +24,7 @@ namespace Seed.Security
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<ICommandResult> Execute(RegisterUserCommand command)
+        public async Task<ICommandResult<User>> Execute(RegisterUserCommand command)
         {
             var hashedPassword = _passwordHasher.ComputeHash(command.Password);
 
@@ -35,7 +32,7 @@ namespace Seed.Security
 
             await _repository.Add(user);
 
-            return new CommandResult<User>(true, user);
+            return new CommandResult<User>(user);
         }
     }
 }

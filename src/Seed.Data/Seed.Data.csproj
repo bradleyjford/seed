@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Seed.Data</RootNamespace>
     <AssemblyName>Seed.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -36,6 +36,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -70,9 +73,14 @@
     <Compile Include="Migrations\201405080637088_User confirmation.Designer.cs">
       <DependentUpon>201405080637088_User confirmation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405112041025_External login providers.cs" />
+    <Compile Include="Migrations\201405112041025_External login providers.Designer.cs">
+      <DependentUpon>201405112041025_External login providers.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagingOptions.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
+    <Compile Include="SeedUserStore.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Common\AuditEntryRepository.cs" />
     <Compile Include="ISeedUnitOfWork.cs" />
@@ -120,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405080637088_User confirmation.resx">
       <DependentUpon>201405080637088_User confirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405112041025_External login providers.resx">
+      <DependentUpon>201405112041025_External login providers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

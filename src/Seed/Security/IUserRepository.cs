@@ -8,5 +8,7 @@ namespace Seed.Security
         Task Add(User user);
         Task<User> Get(int id);
         Task<User> GetByUserName(string userName);
+
+        Task<User> GetByLoginProvider(string name, string userKey);
     }
 }

@@ -25,6 +25,12 @@ namespace Seed.Data
             return _context.Users.SingleAsync(u => u.UserName == userName);
         }
 
+        public Task<User> GetByLoginProvider(string name, string userKey)
+        {
+            return _context.Users
+                .SingleOrDefaultAsync(u => u.LoginProviders.Any(lp => lp.Name == name && lp.UserKey == userKey));
+        }
+
         public Task Add(User user)
         {
             _context.Users.Add(user);

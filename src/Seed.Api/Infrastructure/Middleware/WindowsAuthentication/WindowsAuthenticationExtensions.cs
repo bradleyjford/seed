@@ -2,7 +2,7 @@
 using System.Net;
 using Owin;
 
-namespace Seed.Api.Infrastructure.Middleware
+namespace Seed.Api.Infrastructure.Middleware.WindowsAuthentication
 {
     public static class WindowsAuthenticationExtensions
     {

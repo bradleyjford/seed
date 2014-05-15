@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Seed.Admin.Users;
-using Seed.Api.Infrastructure.Filters;
 using Seed.Data;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;

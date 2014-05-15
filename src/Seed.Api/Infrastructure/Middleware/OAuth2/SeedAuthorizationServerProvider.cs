@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Seed.Infrastructure.Messaging;
 using Seed.Security;
 
-namespace Seed.Api.Infrastructure.Middleware
+namespace Seed.Api.Infrastructure.Middleware.OAuth2
 {
     public class SeedAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
@@ -26,13 +26,15 @@ namespace Seed.Api.Infrastructure.Middleware
             
             var command = new SignInCommand(context.UserName, context.Password);
 
-            var result = (CommandResult<User>)await bus.Submit(command);
+            var result = await bus.Submit<SignInCommand, User>(command);
 
             if (result.Success)
             {
-                var identity = new ClaimsIdentity("Seed", ClaimTypes.NameIdentifier, ClaimTypes.Role);
+                var user = result.Value;
 
-                identity.AddClaim(new Claim("SeedUserId", result.Result.Id.ToString(), ClaimValueTypes.Integer32));
+                var identity = new ClaimsIdentity("Seed");
+
+                identity.AddClaim(new Claim("SeedUserId", user.Id.ToString(), ClaimValueTypes.Integer32));
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserName));
                 identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
 

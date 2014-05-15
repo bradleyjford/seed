@@ -41,5 +41,10 @@ namespace Seed.Tests.Security
         {
             return Task.FromResult(_users.FirstOrDefault(u => u.UserName == userName));
         }
+
+        public Task<User> GetByLoginProvider(string name, string userKey)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Seed.Infrastructure.Messaging
             return new CommandResult(false, error);
         }
 
-        protected CommandResult(bool success, Exception error)
+        private CommandResult(bool success, Exception error)
         {
             Success = success;
             Error = error;
@@ -22,29 +22,35 @@ namespace Seed.Infrastructure.Messaging
         public Exception Error { get; private set; }
     }
 
-    public class CommandResult<TResult> : CommandResult, ICommandResult<TResult>
+    public class CommandResult<TResult> : ICommandResult<TResult>
+        where TResult : class
     {
-        public static ICommandResult<TResult> CreateFailureWithException<TResult>(Exception error)
+        public static ICommandResult<TResult> Fail = new CommandResult<TResult>(false);
+
+        public static ICommandResult<TResult> CreateFailureWithException(Exception error) 
         {
             return new CommandResult<TResult>(error);
         }
 
-        private readonly TResult _result;
-
-        protected CommandResult(Exception error) 
-            : base(false, error)
+        private CommandResult(bool success)
         {
+            Success = success;
         }
 
-        public CommandResult(bool success, TResult result) 
-            : base(success, null)
+        protected CommandResult(Exception error)
         {
-            _result = result;
+            Success = false;
+            Error = error;
         }
 
-        public TResult Result
+        public CommandResult(TResult value)
         {
-            get { return _result; }
+            Success = true;
+            Value = value;
         }
+
+        public TResult Value { get; private set; }
+        public bool Success { get; private set; }
+        public Exception Error { get; private set; }
     }
 }

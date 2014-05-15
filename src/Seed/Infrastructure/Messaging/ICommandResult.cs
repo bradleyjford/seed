@@ -8,8 +8,9 @@ namespace Seed.Infrastructure.Messaging
         Exception Error { get; }
     }
 
-    public interface ICommandResult<TResult> : ICommandResult
+    public interface ICommandResult<out TResult> : ICommandResult
+        where TResult : class
     {
-        TResult Result { get; }
+        TResult Value { get; }
     }
 }

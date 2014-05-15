@@ -15,7 +15,7 @@ namespace Seed.Tests.Security
         {
             _userRepository = new TestUserRepository();
 
-            _activateCommandHandler = new ActivateUserCommandHandler(_userRepository);
+            _activateCommandHandler = new ActivateUserCommandHandler(_userRepository, null);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace Seed.Tests.Security
 
             var command = new ActivateUserCommand(userId);
 
-            var result = await _activateCommandHandler.Execute(command);
+            var result = await _activateCommandHandler.Handle(command);
 
             var user = await _userRepository.Get(userId);
 
@@ -43,7 +43,7 @@ namespace Seed.Tests.Security
 
             var command = new ActivateUserCommand(userId);
 
-            var result = await _activateCommandHandler.Execute(command);
+            var result = await _activateCommandHandler.Handle(command);
 
             Assert.IsTrue(result.Success);
             Assert.IsTrue(user.IsActive);

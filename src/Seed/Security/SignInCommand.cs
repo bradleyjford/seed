@@ -6,7 +6,7 @@ using Seed.Infrastructure.Security;
 
 namespace Seed.Security
 {
-    public class SignInCommand : ICommand
+    public class SignInCommand : ICommand<User>
     {
         public SignInCommand(string userName, string password)
         {
@@ -20,7 +20,7 @@ namespace Seed.Security
         public string Password { get; set; }
     }
 
-    public class SignInCommandHandler : ICommandHandler<SignInCommand>
+    public class SignInCommandHandler : ICommandHandler<SignInCommand, User>
     {
         private readonly IUserRepository _repository;
         private readonly IPasswordHasher _passwordHasher;
@@ -31,21 +31,21 @@ namespace Seed.Security
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<ICommandResult> Execute(SignInCommand command)
+        public async Task<ICommandResult<User>> Execute(SignInCommand command)
         {
             var user = await _repository.GetByUserName(command.UserName);
 
             if (user == null)
             {
-                return CommandResult.Fail;
+                return CommandResult<User>.Fail;
             }
 
             if (_passwordHasher.ValidateHash(user.HashedPassword, command.Password))
-            {
-                return new CommandResult<User>(true, user);
+            { 
+                return new CommandResult<User>(user);
             }
 
-            return new CommandResult<User>(false, null);
+            return CommandResult<User>.Fail;
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Microsoft.AspNet.Identity;
 using Seed.Infrastructure.Domain;
 
 namespace Seed.Security
 {
-    public class User : AggregateRoot<int>
+    public class User : AggregateRoot<int>, IUser<int>
     {
         protected User()
         {
@@ -20,7 +23,15 @@ namespace Seed.Security
             IsActive = true;
             IsConfirmed = false;
 
+            LoginProviders = new List<LoginProvider>();
+
             CreatedUtcDate = ModifiedUtcDate = LastPasswordChangeUtcDate = ClockProvider.GetUtcNow();
+        }
+
+        string IUser<int>.UserName
+        {
+            get { return UserName; }
+            set { UserName = value; }
         }
 
         [StringLength(100)]
@@ -42,6 +53,8 @@ namespace Seed.Security
         public bool IsConfirmed { get; private set; }
 
         public DateTime LastPasswordChangeUtcDate { get; private set; }
+        
+        public List<LoginProvider> LoginProviders { get; private set; }
 
         public void Activate()
         {
@@ -63,6 +76,22 @@ namespace Seed.Security
             HashedPassword = newHashedPassword;
 
             LastPasswordChangeUtcDate = ClockProvider.GetUtcNow();
+        }
+
+        public void AddLoginProvider(string name, string userKey)
+        {
+            LoginProviders.Add(new LoginProvider(name, userKey));
+        }
+
+        public void RemoveLoginProvider(string name, string userKey)
+        {
+            var loginProvider = 
+                LoginProviders.FirstOrDefault(lp => lp.Name == name && lp.UserKey == userKey);
+
+            if (loginProvider != null)
+            {
+                LoginProviders.Remove(loginProvider);
+            }
         }
     }
 }
