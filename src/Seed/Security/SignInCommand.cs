@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Seed.Infrastructure.Auditing;
-using Seed.Infrastructure.Messaging;
-using Seed.Infrastructure.Security;
+using Seed.Common.Auditing;
+using Seed.Common.CommandHandling;
+using Seed.Common.Security;
 
 namespace Seed.Security
 {
-    public class SignInCommand : ICommand<User>
+    public class SignInCommand : ICommand<CommandResult<User>>
     {
         public SignInCommand(string userName, string password)
         {
@@ -20,7 +20,7 @@ namespace Seed.Security
         public string Password { get; set; }
     }
 
-    public class SignInCommandHandler : ICommandHandler<SignInCommand, User>
+    public class SignInCommandHandler : ICommandHandler<SignInCommand, CommandResult<User>>
     {
         private readonly IUserRepository _repository;
         private readonly IPasswordHasher _passwordHasher;
@@ -31,7 +31,7 @@ namespace Seed.Security
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<ICommandResult<User>> Execute(SignInCommand command)
+        public async Task<CommandResult<User>> Handle(SignInCommand command)
         {
             var user = await _repository.GetByUserName(command.UserName);
 

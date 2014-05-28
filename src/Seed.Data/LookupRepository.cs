@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Seed.Admin.Lookups;
-using Seed.Infrastructure.Domain;
+using Seed.Common.Domain;
 
 namespace Seed.Data
 {

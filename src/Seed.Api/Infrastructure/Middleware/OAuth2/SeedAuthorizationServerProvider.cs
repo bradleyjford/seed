@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Integration.Owin;
 using Microsoft.Owin.Security.OAuth;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.CommandHandling;
 using Seed.Security;
 
 namespace Seed.Api.Infrastructure.Middleware.OAuth2
@@ -26,7 +26,7 @@ namespace Seed.Api.Infrastructure.Middleware.OAuth2
             
             var command = new SignInCommand(context.UserName, context.Password);
 
-            var result = await bus.Submit<SignInCommand, User>(command);
+            var result = await bus.Send(command);
 
             if (result.Success)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNet.Identity;
-using Seed.Infrastructure.Domain;
+using Seed.Common.Domain;
 
 namespace Seed.Security
 {

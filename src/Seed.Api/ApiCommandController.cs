@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Http;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.CommandHandling;
 
 namespace Seed.Api
 {

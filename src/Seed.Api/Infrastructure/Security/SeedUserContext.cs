@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Seed.Infrastructure.Domain;
+using Seed.Common.Domain;
+using Seed.Security;
 
 namespace Seed.Api.Infrastructure.Security
 {

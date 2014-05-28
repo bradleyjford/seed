@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Http;
-using System.Web.Routing;
 using Newtonsoft.Json.Serialization;
 using Seed.Api.Infrastructure.Filters;
 
@@ -10,8 +9,6 @@ namespace Seed.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            RouteTable.Routes.RouteExistingFiles = true;
-
             config.MapHttpAttributeRoutes();
 
             var formatters = config.Formatters;

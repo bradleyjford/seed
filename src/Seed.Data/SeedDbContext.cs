@@ -3,8 +3,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using Seed.Common.Domain;
 using Seed.Infrastructure.Auditing;
-using Seed.Infrastructure.Domain;
 using Seed.Lookups;
 using Seed.Security;
 

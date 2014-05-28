@@ -1,6 +1,7 @@
 ﻿using System;
-using Seed.Infrastructure.Domain;
-using Seed.Infrastructure.Text;
+using Seed.Common.Domain;
+using Seed.Common.Security;
+using Seed.Common.Text;
 
 namespace Seed.Infrastructure.Security
 {

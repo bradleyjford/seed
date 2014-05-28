@@ -20,7 +20,7 @@ namespace Seed.Tests.Security
         {
             var command = new SignInCommand("test", "no-important");
 
-            var result = await _commandHandler.Execute(command);
+            var result = await _commandHandler.Handle(command);
 
             Assert.IsTrue(result.Success);
         }
@@ -30,7 +30,7 @@ namespace Seed.Tests.Security
         {
             var command = new SignInCommand("incorrect", "no-important");
 
-            var result = await _commandHandler.Execute(command);
+            var result = await _commandHandler.Handle(command);
 
             Assert.IsFalse(result.Success);
         }

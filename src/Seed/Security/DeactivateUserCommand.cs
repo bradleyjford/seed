@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.CommandHandling;
 
 namespace Seed.Security
 {
-    public class DeactivateUserCommand : ICommand
+    public class DeactivateUserCommand : ICommand<CommandResult>
     {
         public DeactivateUserCommand(int userId)
         {
@@ -14,7 +14,7 @@ namespace Seed.Security
         public int UserId { get; protected set; }
     }
 
-    public class DeactivateUserCommandHandler : ICommandHandler<DeactivateUserCommand>
+    public class DeactivateUserCommandHandler : ICommandHandler<DeactivateUserCommand, CommandResult>
     {
         private readonly IUserRepository _repository;
 
@@ -23,7 +23,7 @@ namespace Seed.Security
             _repository = repository;
         }
 
-        public async Task<ICommandResult> Handle(DeactivateUserCommand command)
+        public async Task<CommandResult> Handle(DeactivateUserCommand command)
         {
             var user = await _repository.Get(command.UserId);
 

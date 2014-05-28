@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.CommandHandling;
+using Seed.Common.Security;
 using Seed.Infrastructure.Security;
 
 namespace Seed.Security
@@ -24,7 +25,7 @@ namespace Seed.Security
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<ICommandResult<User>> Execute(RegisterUserCommand command)
+        public async Task<User> Handle(RegisterUserCommand command)
         {
             var hashedPassword = _passwordHasher.ComputeHash(command.Password);
 
@@ -32,7 +33,7 @@ namespace Seed.Security
 
             await _repository.Add(user);
 
-            return new CommandResult<User>(user);
+            return user;
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Seed.Infrastructure.Auditing;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.Auditing;
+using Seed.Common.CommandHandling;
 using Seed.Security;
 
 namespace Seed.Admin.Users
 {
-    public class EditUserCommand : ICommand
+    public class EditUserCommand : ICommand<CommandResult>
     {
         public int UserId { get; set; }
         public string FullName { get; set; }
@@ -17,7 +17,7 @@ namespace Seed.Admin.Users
         public byte[] RowVersion { get; set; }
     }
 
-    public class EditUserCommandHandler : ICommandHandler<EditUserCommand>
+    public class EditUserCommandHandler : ICommandHandler<EditUserCommand, CommandResult>
     {
         private readonly IUserRepository _repository;
 
@@ -26,9 +26,14 @@ namespace Seed.Admin.Users
             _repository = repository;
         }
 
-        public async Task<ICommandResult> Handle(EditUserCommand command)
+        public async Task<CommandResult> Handle(EditUserCommand command)
         {
             var user = await _repository.Get(command.UserId);
+
+            if (user == null)
+            {
+                throw new IndexOutOfRangeException();
+            }
 
             user.FullName = command.FullName;
             user.EmailAddress = command.EmailAddress;

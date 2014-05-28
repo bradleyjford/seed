@@ -1,5 +1,5 @@
 ﻿using System;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.CommandHandling;
 
 namespace Seed.Security
 {

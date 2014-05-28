@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Seed.Common;
 using Seed.Security;
 
 namespace Seed.Data

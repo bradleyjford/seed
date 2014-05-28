@@ -1,5 +1,5 @@
 ﻿using System;
-using Seed.Infrastructure.Domain;
+using Seed.Common.Domain;
 
 namespace Seed.Infrastructure.Security
 {

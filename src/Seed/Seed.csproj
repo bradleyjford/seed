@@ -42,12 +42,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Serilog">
-      <HintPath>..\packages\Serilog.1.3.12\lib\net45\Serilog.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog.FullNetFx">
-      <HintPath>..\packages\Serilog.1.3.12\lib\net45\Serilog.FullNetFx.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -60,58 +54,33 @@
   <ItemGroup>
     <Compile Include="Admin\Lookups\EditLookupCommand.cs" />
     <Compile Include="Admin\Lookups\ILookupRepository.cs" />
-    <Compile Include="Infrastructure\Auditing\AuditEntryContractResolver.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
-    <Compile Include="Infrastructure\Auditing\AuditIgnore.cs" />
     <Compile Include="Infrastructure\Auditing\IAuditEntryRepository.cs" />
-    <Compile Include="Infrastructure\Auditing\MaskedStringJsonConverter.cs" />
-    <Compile Include="Infrastructure\Auditing\AuditMaskValue.cs" />
-    <Compile Include="Infrastructure\Domain\AggregateRoot.cs" />
-    <Compile Include="Infrastructure\Domain\ClockProvider.cs" />
-    <Compile Include="Infrastructure\Domain\Entity.cs" />
-    <Compile Include="Infrastructure\Domain\IClock.cs" />
-    <Compile Include="Infrastructure\Domain\IInlineAudited.cs" />
-    <Compile Include="Infrastructure\Domain\ILookupEntity.cs" />
-    <Compile Include="Infrastructure\Domain\IUserContext.cs" />
-    <Compile Include="Infrastructure\Domain\SystemClock.cs" />
-    <Compile Include="Infrastructure\Messaging\CommandBus.cs" />
-    <Compile Include="Infrastructure\Messaging\CommandBusBuilder.cs" />
-    <Compile Include="Infrastructure\Messaging\CommandBusException.cs" />
-    <Compile Include="Infrastructure\Messaging\CommandHandlerNotFoundException.cs" />
-    <Compile Include="Infrastructure\Messaging\CommandResult.cs" />
-    <Compile Include="Infrastructure\Messaging\CommandValidatorNotFoundException.cs" />
-    <Compile Include="Infrastructure\Messaging\ICommandBus.cs" />
-    <Compile Include="Infrastructure\Messaging\ICommandResult.cs" />
-    <Compile Include="Infrastructure\Messaging\ICommandValidator.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
-    <Compile Include="Infrastructure\Security\IPasswordHasher.cs" />
-    <Compile Include="Infrastructure\Security\IRandomNumberGenerator.cs" />
-    <Compile Include="Infrastructure\Security\RandomNumberGenerator.cs" />
-    <Compile Include="Infrastructure\Security\Rfc2898PasswordHasher.cs" />
-    <Compile Include="Infrastructure\Security\Rfc2898PasswordHashParameters.cs" />
-    <Compile Include="Infrastructure\Text\Base32Decoder.cs" />
-    <Compile Include="Infrastructure\Text\Base32Encoder.cs" />
-    <Compile Include="Infrastructure\Text\Base32Encoding.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
     <Compile Include="Security\ConfirmUserCommand.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />
+    <Compile Include="Security\IUserContext.cs" />
     <Compile Include="Security\LoginProvider.cs" />
     <Compile Include="Security\IUserRepository.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
     <Compile Include="Security\RegisterUserCommand.cs" />
     <Compile Include="Security\User.cs" />
-    <Compile Include="Infrastructure\Messaging\ICommand.cs" />
-    <Compile Include="Infrastructure\Messaging\ICommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SignInCommand.cs" />
-    <Compile Include="TaskExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Seed.Common\Seed.Common.csproj">
+      <Project>{f1e65d85-f22e-486c-a2e8-20c682b2b3ef}</Project>
+      <Name>Seed.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

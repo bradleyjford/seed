@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Seed.Common.CommandHandling;
 using Seed.Data;
-using Seed.Infrastructure.Messaging;
 using Seed.Lookups;
 
 namespace Seed.Api.Admin.Lookups

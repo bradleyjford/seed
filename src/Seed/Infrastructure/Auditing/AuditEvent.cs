@@ -1,7 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Seed.Infrastructure.Domain;
-using Seed.Infrastructure.Messaging;
+using Seed.Common.Auditing;
+using Seed.Common.CommandHandling;
+using Seed.Common.Domain;
+using Seed.Security;
 
 namespace Seed.Infrastructure.Auditing
 {

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Seed.Admin.Users;
+using Seed.Common.CommandHandling;
 using Seed.Data;
-using Seed.Infrastructure.Messaging;
 using Seed.Security;
 
 namespace Seed.Api.Admin.Users
@@ -67,7 +67,7 @@ namespace Seed.Api.Admin.Users
 
             command.UserId = id;
 
-            var result = await _bus.Submit(command);
+            var result = await _bus.Send(command);
 
             return CommandResult(result);
         }
@@ -83,7 +83,7 @@ namespace Seed.Api.Admin.Users
 
             var command = new ActivateUserCommand(id);
 
-            var result = await _bus.Submit(command);
+            var result = await _bus.Send(command);
 
             return CommandResult(result);
         }
@@ -99,7 +99,7 @@ namespace Seed.Api.Admin.Users
 
             var command = new DeactivateUserCommand(id);
 
-            var result = await _bus.Submit(command);
+            var result = await _bus.Send(command);
 
             return CommandResult(result);
         }

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using Seed.Infrastructure.Domain;
-using Seed.Infrastructure.Security;
+using Seed.Common.Domain;
+using Seed.Common.Security;
 using Seed.Security;
 
 namespace Seed.Data.Migrations

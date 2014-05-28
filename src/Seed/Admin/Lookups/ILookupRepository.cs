@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Seed.Infrastructure.Domain;
+using Seed.Common.Domain;
 
 namespace Seed.Admin.Lookups
 {

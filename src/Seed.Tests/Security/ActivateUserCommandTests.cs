@@ -15,7 +15,7 @@ namespace Seed.Tests.Security
         {
             _userRepository = new TestUserRepository();
 
-            _activateCommandHandler = new ActivateUserCommandHandler(_userRepository, null);
+            _activateCommandHandler = new ActivateUserCommandHandler(_userRepository);
         }
 
         [Test]

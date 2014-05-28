@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201405112041025_External login providers.Designer.cs">
       <DependentUpon>201405112041025_External login providers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405262039319_Temp removal of registration tokens.cs" />
+    <Compile Include="Migrations\201405262039319_Temp removal of registration tokens.Designer.cs">
+      <DependentUpon>201405262039319_Temp removal of registration tokens.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagingOptions.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
@@ -102,6 +106,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Seed.Common\Seed.Common.csproj">
+      <Project>{F1E65D85-F22E-486C-A2E8-20C682B2B3EF}</Project>
+      <Name>Seed.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Seed\Seed.csproj">
       <Project>{ec2e4390-36ce-443c-bece-416ab548d68f}</Project>
       <Name>Seed</Name>
@@ -131,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405112041025_External login providers.resx">
       <DependentUpon>201405112041025_External login providers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405262039319_Temp removal of registration tokens.resx">
+      <DependentUpon>201405262039319_Temp removal of registration tokens.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
