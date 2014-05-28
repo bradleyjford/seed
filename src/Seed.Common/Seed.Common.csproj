@@ -78,6 +78,7 @@
     <Compile Include="Text\Base32Decoder.cs" />
     <Compile Include="Text\Base32Encoder.cs" />
     <Compile Include="Text\Base32Encoding.cs" />
+    <Compile Include="Text\Base32EncodingParameters.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

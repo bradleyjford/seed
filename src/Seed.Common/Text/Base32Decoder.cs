@@ -4,43 +4,42 @@ using System.IO;
 
 namespace Seed.Common.Text
 {
-    public class Base32Decoder : Base32Encoding
+    public class Base32Decoder
     {
         private static readonly Dictionary<string, uint> CharacterMap;
 
         static Base32Decoder()
         {
-            CharacterMap = new Dictionary<string, uint>(Alphabet.Length, StringComparer.InvariantCultureIgnoreCase);
+            CharacterMap = 
+                new Dictionary<string, uint>(Base32.Alphabet.Length, StringComparer.InvariantCultureIgnoreCase);
 
-            for (var i = 0; i < Alphabet.Length; i++)
+            for (var i = 0; i < Base32.Alphabet.Length; i++)
             {
-                CharacterMap[Alphabet.Substring(i, 1)] = (uint)i;
+                CharacterMap[Base32.Alphabet.Substring(i, 1)] = (uint)i;
             }
         }
 
-        private Base32Decoder()
+        public byte[] Decode(string value)
         {
-        }
-
-        public static byte[] Decode(string value)
-        {
-            if (value.Length % OutputLengthModulos != 0)
+            if (value.Length % Base32.OutputLengthModulos != 0)
             {
                 throw new FormatException("Invalid length for a Base32 encoded string.");
             }
 
             value = value.TrimEnd('=');
 
-            var decodedLength = Math.Max((int)Math.Ceiling((double)value.Length * BitsPerCharacter / BitsPerByte), 1);
+            var decodedLength = 
+                Math.Max((int)Math.Ceiling((double)value.Length * Base32.BitsPerCharacter / Base32.BitsPerByte), 1);
 
             using (var outputStream = new MemoryStream(decodedLength))
             {
                 for (var i = 0; i < value.Length; i += 8)
                 {
-                    var availableCharacters = Math.Min(value.Length - i, OutputLengthModulos);
+                    var availableCharacters = Math.Min(value.Length - i, Base32.OutputLengthModulos);
                     ulong currentValue = 0;
 
-                    var bytes = (int)Math.Floor(availableCharacters * (BitsPerCharacter / (double)BitsPerByte));
+                    var bytes = 
+                        (int)Math.Floor(availableCharacters * (Base32.BitsPerCharacter / (double)Base32.BitsPerByte));
 
                     for (var offset = 0; offset < availableCharacters; offset++)
                     {

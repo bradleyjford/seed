@@ -24,7 +24,7 @@ namespace Seed.Infrastructure.Security
         {
             var secretBytes = _randomNumberGenerator.Generate(TokenSizeBytes);
 
-            secret = Base32Encoder.Encode(secretBytes);
+            secret = Base32Encoding.Encode(secretBytes);
 
             var hashedSecret = _passwordHasher.ComputeHash(secret);
             var expiryUtcDate = ClockProvider.GetUtcNow().Add(validityPeriod);
