@@ -2,8 +2,8 @@
 
 namespace Seed.Common.Security
 {
-	public interface IRandomNumberGenerator
-	{
-		byte[] Generate(int byteLength);
-	}
+    public interface IRandomNumberGenerator
+    {
+        byte[] Generate(int byteLength);
+    }
 }

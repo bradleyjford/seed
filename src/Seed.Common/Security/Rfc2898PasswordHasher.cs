@@ -5,23 +5,23 @@ using System.Security.Cryptography;
 
 namespace Seed.Common.Security
 {
-	public sealed class Rfc2898PasswordHasher : IPasswordHasher
-	{
-	    private readonly Rfc2898PasswordHashParameters _computeParameters;
-	    private readonly IEnumerable<Rfc2898PasswordHashParameters> _validationParameters;
-	    private readonly IRandomNumberGenerator _randomNumberGenerator;
+    public sealed class Rfc2898PasswordHasher : IPasswordHasher
+    {
+        private readonly Rfc2898PasswordHashParameters _computeParameters;
+        private readonly IEnumerable<Rfc2898PasswordHashParameters> _validationParameters;
+        private readonly IRandomNumberGenerator _randomNumberGenerator;
 
-		public Rfc2898PasswordHasher(
-			Rfc2898PasswordHashParameters computeParameters,
+        public Rfc2898PasswordHasher(
+            Rfc2898PasswordHashParameters computeParameters,
             IEnumerable<Rfc2898PasswordHashParameters> validationParameters,
-			IRandomNumberGenerator randomNumberGenerator)
-		{
-			_computeParameters = computeParameters;
-		    _validationParameters = validationParameters;
-		    _randomNumberGenerator = randomNumberGenerator;
-		}
+            IRandomNumberGenerator randomNumberGenerator)
+        {
+            _computeParameters = computeParameters;
+            _validationParameters = validationParameters;
+            _randomNumberGenerator = randomNumberGenerator;
+        }
 
-		public string ComputeHash(string password)
+        public string ComputeHash(string password)
         {
             if (password == null)
             {
@@ -39,7 +39,7 @@ namespace Seed.Common.Security
 
             var outputBytes = new byte[_computeParameters.KeySize];
 
-		    outputBytes[0] = _computeParameters.Version;
+            outputBytes[0] = _computeParameters.Version;
 
             Buffer.BlockCopy(saltBytes, 0, outputBytes, 1, _computeParameters.SaltSize);
             Buffer.BlockCopy(subKey, 0, outputBytes, 1 + _computeParameters.SaltSize, _computeParameters.SubKeySize);
@@ -95,5 +95,5 @@ namespace Seed.Common.Security
 
             return parameters;
         }
-	}
+    }
 }
