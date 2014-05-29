@@ -9,5 +9,8 @@ namespace Seed.Common.Domain
         DateTime CreatedUtcDate { get; }
         DateTime ModifiedUtcDate { get; }
         bool IsActive { get; }
+
+        void Activate();
+        void Deactivate();
     }
 }

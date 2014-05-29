@@ -11,11 +11,21 @@ namespace Seed.Lookups
 
         public void Activate()
         {
+            if (IsActive)
+            {
+                throw new InvalidOperationException("Entity is already activated");
+            }
+
             IsActive = true;
         }
 
         public void Deactivate()
         {
+            if (!IsActive)
+            {
+                throw new InvalidOperationException("Entity is already deactivated");
+            }
+
             IsActive = false;
         }
     }
