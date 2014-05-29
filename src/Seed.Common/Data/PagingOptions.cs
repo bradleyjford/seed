@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seed.Data
+namespace Seed.Common.Data
 {
     public class PagingOptions : IPagingOptions
     {

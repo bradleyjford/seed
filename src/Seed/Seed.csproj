@@ -35,12 +35,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Seed.Data">
+      <HintPath>..\Seed.Api\Bin\Seed.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -53,9 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\Lookups\EditLookupCommand.cs" />
-    <Compile Include="Admin\Lookups\ILookupRepository.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
-    <Compile Include="Infrastructure\Auditing\IAuditEntryRepository.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
@@ -66,7 +74,6 @@
     <Compile Include="Security\DeactivateUserCommand.cs" />
     <Compile Include="Security\IUserContext.cs" />
     <Compile Include="Security\LoginProvider.cs" />
-    <Compile Include="Security\IUserRepository.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
     <Compile Include="Security\RegisterUserCommand.cs" />
     <Compile Include="Security\User.cs" />
@@ -74,6 +81,7 @@
     <Compile Include="Security\SignInCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

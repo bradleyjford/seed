@@ -2,11 +2,11 @@
 
 namespace Seed.Data
 {
-    public class SeedUnitOfWork : ISeedUnitOfWork
+    public class SeedUnitOfWork2 : ISeedUnitOfWork2
     {
         private readonly SeedDbContext _context;
 
-        public SeedUnitOfWork()
+        public SeedUnitOfWork2()
         {
             _context = new SeedDbContext();
         }

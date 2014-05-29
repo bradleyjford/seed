@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace Seed.Common.Data
 {
     public static class QueryableExtensions
     {

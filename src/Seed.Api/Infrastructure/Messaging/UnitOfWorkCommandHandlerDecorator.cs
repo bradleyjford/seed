@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
-using Seed.Common.Domain;
 using Seed.Data;
-using Seed.Security;
 
 namespace Seed.Api.Infrastructure.Messaging
 {
@@ -12,26 +12,44 @@ namespace Seed.Api.Infrastructure.Messaging
         where TResult : class
     {
         private readonly ICommandHandler<TCommand, TResult> _decoreted;
-        private readonly ISeedUnitOfWork _unitOfWork;
-        private readonly IUserContext _userContext;
+        private readonly ISeedDbContext _dbContext;
 
         public UnitOfWorkCommandHandlerDecorator(
             ICommandHandler<TCommand, TResult> decoreted,
-            ISeedUnitOfWork unitOfWork,
-            IUserContext userContext)
+            ISeedDbContext dbContext)
         {
             _decoreted = decoreted;
-            _unitOfWork = unitOfWork;
-            _userContext = userContext;
+            _dbContext = dbContext;
         }
 
         public async Task<TResult> Handle(TCommand command)
         {
             var result = await _decoreted.Handle(command);
 
-            await _unitOfWork.DbContext.SaveChangesAsync(_userContext);
+            RestoreRowVersions();
+
+            await _dbContext.SaveChangesAsync();
 
             return result;
+        }
+
+        private void RestoreRowVersions()
+        {
+            foreach (var entry in _dbContext.ChangeTracker.Entries())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    continue;
+                }
+
+                if (entry.CurrentValues.PropertyNames.Contains("RowVersion"))
+                {
+                    var property = entry.Property("RowVersion");
+
+                    property.OriginalValue = property.CurrentValue;
+                    property.IsModified = false;
+                }
+            }
         }
     }
 }

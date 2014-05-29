@@ -35,7 +35,7 @@ namespace Seed.Data.Migrations
                u => u.UserName,
                users.ToArray());
 
-            context.SaveChanges(userContext);
+            context.SaveChanges();
         }
 
         public class SeedClock : IClock

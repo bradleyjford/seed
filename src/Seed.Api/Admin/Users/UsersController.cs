@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using Seed.Admin.Users;
 using Seed.Common.CommandHandling;
+using Seed.Common.Data;
 using Seed.Data;
 using Seed.Security;
 
@@ -16,14 +17,14 @@ namespace Seed.Api.Admin.Users
     public class UsersController : ApiCommandController
     {
         private readonly ICommandBus _bus;
-        private readonly SeedDbContext _dbContext;
+        private readonly ISeedDbContext _dbContext;
 
         public UsersController(
             ICommandBus bus, 
-            ISeedUnitOfWork unitOfWork)
+            ISeedDbContext dbContext)
         {
             _bus = bus;
-            _dbContext = unitOfWork.DbContext;
+            _dbContext = dbContext;
         }
 
         [Route("")]

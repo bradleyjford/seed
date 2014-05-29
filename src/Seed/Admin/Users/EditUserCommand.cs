@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Seed.Common.Auditing;
 using Seed.Common.CommandHandling;
-using Seed.Security;
+using Seed.Data;
 
 namespace Seed.Admin.Users
 {
@@ -19,16 +19,16 @@ namespace Seed.Admin.Users
 
     public class EditUserCommandHandler : ICommandHandler<EditUserCommand, CommandResult>
     {
-        private readonly IUserRepository _repository;
+        private readonly ISeedDbContext _dbContext;
 
-        public EditUserCommandHandler(IUserRepository repository)
+        public EditUserCommandHandler(ISeedDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public async Task<CommandResult> Handle(EditUserCommand command)
         {
-            var user = await _repository.Get(command.UserId);
+            var user = await _dbContext.Users.FindAsync(command.UserId);
 
             if (user == null)
             {
@@ -43,5 +43,4 @@ namespace Seed.Admin.Users
             return CommandResult.Ok;
         }
     }
-
 }

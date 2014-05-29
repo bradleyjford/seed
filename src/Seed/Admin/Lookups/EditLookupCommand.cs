@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Domain;
+using Seed.Data;
 
 namespace Seed.Admin.Lookups
 {
@@ -15,23 +16,23 @@ namespace Seed.Admin.Lookups
     public class EditLookupCommandHandler<TLookupEntity> : ICommandHandler<EditLookupCommand<TLookupEntity>, CommandResult>
         where TLookupEntity : class, ILookupEntity
     {
-        private readonly ILookupRepository<TLookupEntity> _repository;
+        private readonly ISeedDbContext _dbContext;
 
-        public EditLookupCommandHandler(ILookupRepository<TLookupEntity> repository)
+        public EditLookupCommandHandler(ISeedDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public async Task<CommandResult> Handle(EditLookupCommand<TLookupEntity> command)
         {
-            var lookup = await _repository.Get(command.Id);
+            //var lookup = await _dbContext.Get(command.Id);
 
-            if (lookup == null)
-            {
-                throw new IndexOutOfRangeException();
-            }
+            //if (lookup == null)
+            //{
+            //    throw new IndexOutOfRangeException();
+            //}
 
-            lookup.Name = command.Name;
+            //lookup.Name = command.Name;
 
             return CommandResult.Ok;
         }

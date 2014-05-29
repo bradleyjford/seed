@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;
+using Seed.Data;
 using Seed.Infrastructure.Security;
 
 namespace Seed.Security
@@ -16,24 +17,24 @@ namespace Seed.Security
 
     public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, User>
     {
-        private readonly IUserRepository _repository;
+        private readonly ISeedDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
 
-        public RegisterUserCommandHandler(IUserRepository repository, IPasswordHasher passwordHasher)
+        public RegisterUserCommandHandler(ISeedDbContext dbContext, IPasswordHasher passwordHasher)
         {
-            _repository = repository;
+            _dbContext = dbContext;
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<User> Handle(RegisterUserCommand command)
+        public Task<User> Handle(RegisterUserCommand command)
         {
             var hashedPassword = _passwordHasher.ComputeHash(command.Password);
 
             var user = new User(command.UserName, command.FullName, command.EmailAddress, hashedPassword);
 
-            await _repository.Add(user);
+            _dbContext.Users.Add(user);
 
-            return user;
+            return Task.FromResult(user);
         }
     }
 }

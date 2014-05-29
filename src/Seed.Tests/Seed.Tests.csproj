@@ -31,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -38,6 +45,7 @@
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,19 +54,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\TestSeedDbContext.cs" />
     <Compile Include="Security\DeactivateUserCommandTests.cs" />
     <Compile Include="Security\SignInCommandTests.cs" />
-    <Compile Include="Security\TestUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ActivateUserCommandTests.cs" />
+    <Compile Include="Security\TestPasswordHasher.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Seed.Common\Seed.Common.csproj">
       <Project>{F1E65D85-F22E-486C-A2E8-20C682B2B3EF}</Project>
       <Name>Seed.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Seed.Data\Seed.Data.csproj">
+      <Project>{7b0d87d5-12f5-4f8e-8a5e-0b74d55355a7}</Project>
+      <Name>Seed.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Seed\Seed.csproj">
       <Project>{ec2e4390-36ce-443c-bece-416ab548d68f}</Project>

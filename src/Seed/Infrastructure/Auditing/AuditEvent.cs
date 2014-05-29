@@ -7,7 +7,7 @@ using Seed.Security;
 
 namespace Seed.Infrastructure.Auditing
 {
-    public class AuditEvent
+    public class AuditEvent : Entity<int>
     {
         private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
@@ -37,8 +37,6 @@ namespace Seed.Infrastructure.Auditing
         {
             
         }
-
-        public int Id { get; protected set; }
 
         public DateTime Date { get; protected set; }
         public int UserId { get; protected set; }

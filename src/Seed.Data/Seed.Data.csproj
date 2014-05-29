@@ -50,9 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPagingOptions.cs" />
     <Compile Include="ISeedDbContext.cs" />
-    <Compile Include="LookupRepository.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.Designer.cs">
       <DependentUpon>201404261003481_DeactivateUser.cs</DependentUpon>
@@ -81,14 +79,9 @@
     <Compile Include="Migrations\201405262039319_Temp removal of registration tokens.Designer.cs">
       <DependentUpon>201405262039319_Temp removal of registration tokens.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagingOptions.cs" />
-    <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SeedDbContext.cs" />
     <Compile Include="SeedUserStore.cs" />
-    <Compile Include="UserRepository.cs" />
-    <Compile Include="Common\AuditEntryRepository.cs" />
     <Compile Include="ISeedUnitOfWork.cs" />
-    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\201404260615214_Initial.cs" />
     <Compile Include="Migrations\201404260615214_Initial.Designer.cs">
       <DependentUpon>201404260615214_Initial.cs</DependentUpon>
@@ -146,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Admin\" />
+    <Folder Include="Common\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

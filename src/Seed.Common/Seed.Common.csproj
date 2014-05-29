@@ -33,6 +33,13 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -50,6 +57,15 @@
     <Compile Include="Auditing\AuditIgnore.cs" />
     <Compile Include="Auditing\AuditMaskValue.cs" />
     <Compile Include="Auditing\MaskedStringJsonConverter.cs" />
+    <Compile Include="Data\IPagingOptions.cs" />
+    <Compile Include="Data\IUnitOfWork.cs" />
+    <Compile Include="Data\PagingOptions.cs" />
+    <Compile Include="Data\QueryableExtensions.cs" />
+    <Compile Include="Data\Testing\TestDbAsyncEnumerable.cs" />
+    <Compile Include="Data\Testing\TestDbAsyncEnumerator.cs" />
+    <Compile Include="Data\Testing\TestDbAsyncQueryProvider.cs" />
+    <Compile Include="Data\Testing\TestDbSet.cs" />
+    <Compile Include="Data\Testing\TestEntityDbSet.cs" />
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\ClockProvider.cs" />
     <Compile Include="Domain\Entity.cs" />
@@ -78,9 +94,10 @@
     <Compile Include="Text\Base32Decoder.cs" />
     <Compile Include="Text\Base32Encoder.cs" />
     <Compile Include="Text\Base32Encoding.cs" />
-    <Compile Include="Text\Base32EncodingParameters.cs" />
+    <Compile Include="Text\Base32.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

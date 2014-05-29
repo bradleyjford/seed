@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace Seed.Data
+namespace Seed.Common.Data
 {
-    public interface IUnitOfWork<out TDbContext> : IDisposable
+    public interface IUnitOfWork2<out TDbContext> : IDisposable
         where TDbContext : DbContext
     {
         TDbContext DbContext { get; }

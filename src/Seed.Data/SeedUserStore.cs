@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -16,11 +17,11 @@ namespace Seed.Data
         IUserPasswordStore<User, int>,
         IUserSecurityStampStore<User, int>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly ISeedDbContext _dbContext;
 
-        public SeedUserStore(IUserRepository userRepository)
+        public SeedUserStore(ISeedDbContext dbContext)
         {
-            _userRepository = userRepository;
+            _dbContext = dbContext;
         }
 
         public void Dispose()
@@ -29,7 +30,7 @@ namespace Seed.Data
 
         public Task CreateAsync(User user)
         {
-            return _userRepository.Add(user);
+            return Task.FromResult(_dbContext.Users.Add(user));
         }
 
         public Task UpdateAsync(User user)
@@ -46,12 +47,14 @@ namespace Seed.Data
 
         public Task<User> FindByIdAsync(int userId)
         {
-            return _userRepository.Get(userId);
+            return _dbContext.Users.FindAsync(userId);
         }
 
         public Task<User> FindByNameAsync(string userName)
         {
-            return _userRepository.GetByUserName(userName);
+            return _dbContext.Users
+                .SingleOrDefaultAsync(
+                    u => String.Compare(u.UserName, userName, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
         public Task AddLoginAsync(User user, UserLoginInfo login)
@@ -79,7 +82,11 @@ namespace Seed.Data
 
         public Task<User> FindAsync(UserLoginInfo login)
         {
-            return _userRepository.GetByLoginProvider(login.LoginProvider, login.ProviderKey);
+            var result =
+                _dbContext.Users.SingleOrDefaultAsync(
+                    u => u.LoginProviders.Any(lp => lp.Name == login.LoginProvider && lp.UserKey == login.ProviderKey));
+
+            return result;
         }
 
         public Task<IList<Claim>> GetClaimsAsync(User user)

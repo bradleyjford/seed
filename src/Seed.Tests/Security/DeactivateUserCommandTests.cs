@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Seed.Security;
+using Seed.Tests.Data;
 
 namespace Seed.Tests.Security
 {
@@ -8,21 +9,31 @@ namespace Seed.Tests.Security
     public class DectivateUserCommandTests
     {
         private DeactivateUserCommandHandler _commandHandler;
-        private TestUserRepository _userRepository;
+        private TestSeedDbContext _dbContext;
 
         [SetUp]
         public void SetUp()
         {
-            _userRepository = new TestUserRepository();
+            _dbContext = new TestSeedDbContext();
 
-            _commandHandler = new DeactivateUserCommandHandler(_userRepository);
+            AddUser(1, "user1", "Test User 1", "user1@test.com", "password");
+
+            _commandHandler = new DeactivateUserCommandHandler(_dbContext);
+        }
+
+        private void AddUser(int id, string userName, string fullName, string emailAddress, string hashedPassword)
+        {
+            _dbContext.Users.Add(new User(userName, fullName, emailAddress, hashedPassword)
+            {
+                Id = id
+            });
         }
 
         [Test]
         public async void Execute_DeactivatingAnInactiveUser_Succeeds()
         {
             var userId = 1;
-            var user = await _userRepository.Get(userId);
+            var user = await  _dbContext.Users.FindAsync(userId);;
 
             user.Deactivate();
 
@@ -38,7 +49,7 @@ namespace Seed.Tests.Security
         public async void Execute_DeactivatingAnActiveUser_Succeeds()
         {
             var userId = 1;
-            var user = await _userRepository.Get(userId);
+            var user = await _dbContext.Users.FindAsync(userId);
 
             var command = new DeactivateUserCommand(userId);
 

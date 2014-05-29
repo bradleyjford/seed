@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
+using Seed.Data;
 
 namespace Seed.Security
 {
@@ -16,16 +17,21 @@ namespace Seed.Security
 
     public class DeactivateUserCommandHandler : ICommandHandler<DeactivateUserCommand, CommandResult>
     {
-        private readonly IUserRepository _repository;
+        private readonly ISeedDbContext _dbContext;
 
-        public DeactivateUserCommandHandler(IUserRepository repository)
+        public DeactivateUserCommandHandler(ISeedDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public async Task<CommandResult> Handle(DeactivateUserCommand command)
         {
-            var user = await _repository.Get(command.UserId);
+            var user = await _dbContext.Users.FindAsync(command.UserId);
+
+            if (user == null)
+            {
+                throw new IndexOutOfRangeException();
+            }
 
             user.Deactivate();
 
