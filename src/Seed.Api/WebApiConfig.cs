@@ -20,9 +20,8 @@ namespace Seed.Api
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
 
 #if DEBUG
-            config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromMilliseconds(600)));
+            config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromMilliseconds(300)));
 #endif
-
         }
     }
 }

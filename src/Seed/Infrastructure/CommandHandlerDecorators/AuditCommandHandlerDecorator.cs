@@ -8,7 +8,7 @@ using Seed.Data;
 using Seed.Infrastructure.Auditing;
 using Seed.Security;
 
-namespace Seed.Api.Infrastructure.Messaging
+namespace Seed.Infrastructure.CommandHandlerDecorators
 {
     public class AuditCommandHandlerDecorator<TCommand, TResult> : ICommandHandler<TCommand, TResult>
         where TCommand : ICommand<TResult> 

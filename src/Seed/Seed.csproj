@@ -64,10 +64,12 @@
   <ItemGroup>
     <Compile Include="Admin\Lookups\LookupEntityCommands.cs" />
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
+    <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
+    <Compile Include="Infrastructure\CommandHandlerDecorators\UnitOfWorkCommandHandlerDecorator.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />

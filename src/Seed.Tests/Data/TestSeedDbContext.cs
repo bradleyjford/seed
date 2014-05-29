@@ -33,6 +33,11 @@ namespace Seed.Tests.Data
 
         public int SaveChangesCount { get; private set; }
 
+        public DbSet Set(Type entityType)
+        {
+            throw new NotImplementedException();
+        }
+
         public DbSet<T> Set<T>() 
             where T : class
         {

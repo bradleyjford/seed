@@ -4,11 +4,11 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Integration.WebApi;
-using Seed.Api.Infrastructure.Messaging;
 using Seed.Api.Infrastructure.Security;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;
 using Seed.Data;
+using Seed.Infrastructure.CommandHandlerDecorators;
 using Seed.Lookups;
 using Seed.Security;
 

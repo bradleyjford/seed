@@ -23,7 +23,7 @@ namespace Seed.Api.Infrastructure.Filters
             CancellationToken cancellationToken, 
             Func<Task<HttpResponseMessage>> continuation)
         {
-            await Task.Delay(_latency);
+            await Task.Delay(_latency, cancellationToken);
 
             return await continuation();
         }

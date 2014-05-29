@@ -148,6 +148,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Lookups\CreateLookupRequest.cs" />
     <Compile Include="Admin\Lookups\EditLookupRequest.cs" />
     <Compile Include="Admin\Lookups\LookupsController.cs" />
     <Compile Include="Admin\Users\GetUserResponse.cs" />
@@ -158,8 +159,6 @@
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
-    <Compile Include="Infrastructure\Messaging\AuditCommandHandlerDecorator.cs" />
-    <Compile Include="Infrastructure\Messaging\UnitOfWorkCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationExtensions.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationHandler.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationMiddleware.cs" />
@@ -198,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\Messaging\" />
     <Folder Include="Infrastructure\Security\Identity\" />
   </ItemGroup>
   <PropertyGroup>

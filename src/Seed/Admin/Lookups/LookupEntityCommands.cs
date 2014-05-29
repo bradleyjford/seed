@@ -4,7 +4,7 @@ using Seed.Common.Domain;
 
 namespace Seed.Admin.Lookups
 {
-    public class AddLookupCommand<TLookupEntity> : ICommand<CommandResult>
+    public class CreateLookupCommand<TLookupEntity> : ICommand<CommandResult>
         where TLookupEntity : ILookupEntity
     {
         public int Id { get; set; }

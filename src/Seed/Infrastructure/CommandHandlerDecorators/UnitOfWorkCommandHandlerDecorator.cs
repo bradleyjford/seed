@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Data;
 
-namespace Seed.Api.Infrastructure.Messaging
+namespace Seed.Infrastructure.CommandHandlerDecorators
 {
     public class UnitOfWorkCommandHandlerDecorator<TCommand, TResult> : ICommandHandler<TCommand, TResult>
         where TCommand : ICommand<TResult>

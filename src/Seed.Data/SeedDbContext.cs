@@ -16,8 +16,10 @@ namespace Seed.Data
 
         DbChangeTracker ChangeTracker { get; }
 
-        DbSet<T> Set<T>()
-            where T : class;
+        DbSet Set(Type entityType);
+
+        DbSet<TEntity> Set<TEntity>()
+            where TEntity : class;
 
         int SaveChanges();
         Task<int> SaveChangesAsync();
@@ -28,6 +30,7 @@ namespace Seed.Data
         public SeedDbContext()
             : base("Seed")
         {
+
         }
 
         public DbSet<AuditEvent> AuditEvents { get; set; }

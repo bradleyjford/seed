@@ -35,6 +35,8 @@ namespace Seed.Api
 
             app.UseWebApi(config);
 
+            config.EnsureInitialized();
+
             AutoMapperConfig.Configure();
             
         }

@@ -7,7 +7,7 @@ using Seed.Data;
 namespace Seed.Admin.Lookups
 {
     public class LookupEntityCommandHandlers<TLookupEntity> : 
-        ICommandHandler<AddLookupCommand<TLookupEntity>, CommandResult>,
+        ICommandHandler<CreateLookupCommand<TLookupEntity>, CommandResult>,
         ICommandHandler<EditLookupCommand<TLookupEntity>, CommandResult>,
         ICommandHandler<ActivateLookupCommand<TLookupEntity>, CommandResult>,
         ICommandHandler<DeactivateLookupCommand<TLookupEntity>, CommandResult> 
@@ -21,7 +21,7 @@ namespace Seed.Admin.Lookups
         }
 
         // Add
-        public Task<CommandResult> Handle(AddLookupCommand<TLookupEntity> command)
+        public Task<CommandResult> Handle(CreateLookupCommand<TLookupEntity> command)
         {
             var lookup = new TLookupEntity
             {
