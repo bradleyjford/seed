@@ -62,8 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\Lookups\AddLookupCommand.cs" />
-    <Compile Include="Admin\Lookups\EditLookupCommand.cs" />
+    <Compile Include="Admin\Lookups\LookupEntityCommands.cs" />
+    <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
