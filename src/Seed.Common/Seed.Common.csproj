@@ -57,8 +57,9 @@
     <Compile Include="Auditing\AuditIgnore.cs" />
     <Compile Include="Auditing\AuditMaskValue.cs" />
     <Compile Include="Auditing\MaskedStringJsonConverter.cs" />
-    <Compile Include="Data\EntityQueryableExtensions.cs" />
+    <Compile Include="Data\QueryablePagingExtensions.cs" />
     <Compile Include="Data\IPagingOptions.cs" />
+    <Compile Include="Data\IQueryFilter.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Data\SortDescriptor.cs" />
     <Compile Include="Data\PagingOptions.cs" />

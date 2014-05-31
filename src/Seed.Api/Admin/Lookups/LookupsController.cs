@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -42,7 +44,9 @@ namespace Seed.Api.Admin.Lookups
                 return NotFound();
             }
 
-            var items = await _dbContext.Set(entityType).ToPagedListAsync(pagingOptions);
+            pagingOptions.SortOrder.Add(new SortDescriptor("Name", SortDirection.Ascending));
+
+            var items = await _dbContext.Set(entityType).Paged(entityType, pagingOptions).ToListAsync();
 
             return Ok(items);
         }

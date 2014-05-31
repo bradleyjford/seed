@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -39,7 +40,7 @@ namespace Seed.Api.Admin.Users
 
             pagingOptions.SortOrder.Add(new SortDescriptor("Id", SortDirection.Ascending));
 
-            var users = await usersQuery.ToPagedListAsync(pagingOptions);
+            var users = await usersQuery.Paged(pagingOptions).ToListAsync();
 
             var response = Mapper.Map<IEnumerable<GetUserResponse>>(users);
 
