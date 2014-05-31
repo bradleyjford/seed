@@ -8,21 +8,41 @@ namespace Seed.Common.Data
     public static class QueryablePagingExtensions
     {
         private static readonly MethodInfo PagedMethod = typeof(QueryablePagingExtensions).GetMethods()
-            .Single(method => method.Name == "Paged" && method.GetParameters().Length == 2);
+            .Single(method => 
+                method.Name == "Paged" && 
+                method.GetParameters().Length == 3 &&
+                method.GetParameters()[2].ParameterType == typeof(SortDescriptor[]));
 
-        public static IQueryable<T> Paged<T>(this IQueryable<T> source, IPagingOptions options)
+        public static IQueryable<T> Paged<T>(this IQueryable<T> source, IPagingOptions options, SortDescriptor defaultSort)
+        {
+            return Paged(source, options, new[] { defaultSort });
+        }
+
+        public static IQueryable<T> Paged<T>(this IQueryable<T> source, IPagingOptions options, SortDescriptor[] defaultSort)
         {
             var firstResult = (options.PageNumber - 1) * options.PageSize;
 
+            var sortDescriptors = options.SortDescriptors;
+
+            if (!sortDescriptors.Any())
+            {
+                sortDescriptors = defaultSort;
+            }
+
             return source
-                .OrderBy(options.SortDescriptors)
+                .OrderBy(sortDescriptors)
                 .Skip(firstResult)
                 .Take(options.PageSize);
         }
 
-        public static IQueryable Paged(this IQueryable source, Type type, IPagingOptions options)
+        public static IQueryable Paged(this IQueryable source, Type type, IPagingOptions options, SortDescriptor defaultSort)
         {
-            return (IQueryable)PagedMethod.MakeGenericMethod(type).Invoke(null, new object[] { source, options });
+            return Paged(source, type, options, new[] { defaultSort });
+        }
+
+        public static IQueryable Paged(this IQueryable source, Type type, IPagingOptions options, SortDescriptor[] defaultSort)
+        {
+            return (IQueryable)PagedMethod.MakeGenericMethod(type).Invoke(null, new object[] { source, options, defaultSort });
         }
 
         public static IOrderedQueryable<T> OrderBy<T>(

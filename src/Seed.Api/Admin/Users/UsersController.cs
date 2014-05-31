@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Seed.Admin.Users;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;
@@ -31,19 +31,13 @@ namespace Seed.Api.Admin.Users
         [Route("")]
         public async Task<IHttpActionResult> Get([FromUri] UserQueryFilter filter, [FromUri] PagingOptions pagingOptions)
         {
-            filter = filter ?? new UserQueryFilter();
-            pagingOptions = pagingOptions ?? new PagingOptions();
-
-            pagingOptions.DefaultSortOrder = "UserName asc";
-
             var users = await _dbContext.Users
                 .ApplyFilter(filter)
-                .Paged(pagingOptions)
+                .Paged(pagingOptions, new SortDescriptor("Id"))
+                .Project().To<UserSummaryResponse>()
                 .ToListAsync();
 
-            var response = Mapper.Map<IEnumerable<UserSummaryResponse>>(users);
-
-            return Ok(response);
+            return Ok(users);
         }
 
         [Route("{id:int}")]

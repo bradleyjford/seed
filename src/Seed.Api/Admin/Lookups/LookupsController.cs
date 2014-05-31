@@ -43,10 +43,9 @@ namespace Seed.Api.Admin.Lookups
                 return NotFound();
             }
 
-            pagingOptions.DefaultSortOrder = "Name asc";
-
             var items = await _dbContext.Set(entityType)
-                .Paged(entityType, pagingOptions)
+                .Paged(entityType, pagingOptions, new SortDescriptor("Name"))
+                // TODO: .Project().To<LookupSummaryResponse>()
                 .ToListAsync();
 
             return Ok(items);

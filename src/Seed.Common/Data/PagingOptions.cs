@@ -10,27 +10,21 @@ namespace Seed.Common.Data
         private int _pageNumber = 1;
         private int _pageSize = DefaultPageSize;
 
-        public string DefaultSortOrder { get; set; }
         public string SortOrder { get; set; }
 
         public IEnumerable<SortDescriptor> SortDescriptors
         {
-            get
-            {
-                var sortOrder = DefaultSortOrder;
-
-                if (!String.IsNullOrEmpty(SortOrder))
-                {
-                    sortOrder = SortOrder;
-                }
-
-                return ParseSortOrder(sortOrder);
-            }
+            get { return ParseSortOrder(SortOrder); }
         }
 
         private static IEnumerable<SortDescriptor> ParseSortOrder(string sortOrder)
         {
             var result = new List<SortDescriptor>();
+
+            if (String.IsNullOrEmpty(sortOrder))
+            {
+                return result;
+            }
 
             var sortSpecifications = sortOrder.Split(',');
 
