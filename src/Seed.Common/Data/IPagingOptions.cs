@@ -10,6 +10,8 @@ namespace Seed.Common.Data
         int ItemCount { get; set; }
         int PageCount { get; }
 
-        List<SortDescriptor> SortOrder { get; }
+        string SortOrder { get; set; }
+
+        IEnumerable<SortDescriptor> SortDescriptors { get; }
     }
 }

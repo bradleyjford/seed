@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Seed.Common.Data
 {
-    public static class QueryableExtensions
+    public static class QueryableOrderByExtensions
     {
         private static readonly MethodInfo OrderByMethod =
             typeof(Queryable).GetMethods().Single(method => method.Name == "OrderBy" && method.GetParameters().Length == 2);

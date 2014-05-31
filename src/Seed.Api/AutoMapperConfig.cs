@@ -11,11 +11,11 @@ namespace Seed.Api
         public static void Configure()
         {
             // Model -> Response
-            Mapper.CreateMap<User, GetUserResponse>();
+            Mapper.CreateMap<User, UserSummaryResponse>();
+            Mapper.CreateMap<User, UserDetailResponse>();
 
             // Request -> Commands
             Mapper.CreateMap<EditUserRequest, EditUserCommand>();
         }
-
     }
 }

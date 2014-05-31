@@ -34,15 +34,14 @@ namespace Seed.Api.Admin.Users
             filter = filter ?? new UserQueryFilter();
             pagingOptions = pagingOptions ?? new PagingOptions();
 
-            var usersQuery = _dbContext.Users.AsQueryable();
+            pagingOptions.DefaultSortOrder = "UserName asc";
 
-            usersQuery = filter.Apply(usersQuery);
+            var users = await _dbContext.Users
+                .ApplyFilter(filter)
+                .Paged(pagingOptions)
+                .ToListAsync();
 
-            pagingOptions.SortOrder.Add(new SortDescriptor("Id", SortDirection.Ascending));
-
-            var users = await usersQuery.Paged(pagingOptions).ToListAsync();
-
-            var response = Mapper.Map<IEnumerable<GetUserResponse>>(users);
+            var response = Mapper.Map<IEnumerable<UserSummaryResponse>>(users);
 
             return Ok(response);
         }
@@ -52,7 +51,7 @@ namespace Seed.Api.Admin.Users
         {
             var user = await _dbContext.Users.FindAsync(id);
 
-            var response = Mapper.Map<GetUserResponse>(user);
+            var response = Mapper.Map<UserDetailResponse>(user);
 
             return Ok(response);
         }

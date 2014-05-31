@@ -151,10 +151,11 @@
     <Compile Include="Admin\Lookups\CreateLookupRequest.cs" />
     <Compile Include="Admin\Lookups\EditLookupRequest.cs" />
     <Compile Include="Admin\Lookups\LookupsController.cs" />
-    <Compile Include="Admin\Users\GetUserResponse.cs" />
+    <Compile Include="Admin\Users\UserDetailResponse.cs" />
     <Compile Include="Admin\Users\EditUserRequest.cs" />
     <Compile Include="Admin\Users\UserQueryFilter.cs" />
     <Compile Include="Admin\Users\UsersController.cs" />
+    <Compile Include="Admin\Users\UserSummaryResponse.cs" />
     <Compile Include="ApiCommandController.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="AutoMapperConfig.cs" />

@@ -7,14 +7,55 @@ namespace Seed.Common.Data
     {
         private const int DefaultPageSize = 50;
 
-        private readonly List<SortDescriptor> _sortOrder = new List<SortDescriptor>(); 
-
         private int _pageNumber = 1;
         private int _pageSize = DefaultPageSize;
 
-        public List<SortDescriptor> SortOrder
+        public string DefaultSortOrder { get; set; }
+        public string SortOrder { get; set; }
+
+        public IEnumerable<SortDescriptor> SortDescriptors
         {
-            get { return _sortOrder; }
+            get
+            {
+                var sortOrder = DefaultSortOrder;
+
+                if (!String.IsNullOrEmpty(SortOrder))
+                {
+                    sortOrder = SortOrder;
+                }
+
+                return ParseSortOrder(sortOrder);
+            }
+        }
+
+        private static IEnumerable<SortDescriptor> ParseSortOrder(string sortOrder)
+        {
+            var result = new List<SortDescriptor>();
+
+            var sortSpecifications = sortOrder.Split(',');
+
+            foreach (var sortSpecification in sortSpecifications)
+            {
+                var parts = sortSpecification.Split(' ');
+
+                if (parts.Length == 1)
+                {
+                    result.Add(new SortDescriptor(parts[0], SortDirection.Ascending));
+                }
+                else if (parts.Length == 2)
+                {
+                    var direction = SortDirection.Ascending;
+
+                    if (String.Compare("desc", parts[1], StringComparison.OrdinalIgnoreCase) == 0)
+                    {
+                        direction = SortDirection.Descending;
+                    }
+
+                    result.Add(new SortDescriptor(parts[0], direction));
+                }
+            }
+
+            return result;
         }
 
         public int ItemCount { get; set; }

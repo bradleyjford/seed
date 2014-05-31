@@ -57,13 +57,14 @@
     <Compile Include="Auditing\AuditIgnore.cs" />
     <Compile Include="Auditing\AuditMaskValue.cs" />
     <Compile Include="Auditing\MaskedStringJsonConverter.cs" />
+    <Compile Include="Data\QueryableFilterExtensions.cs" />
     <Compile Include="Data\QueryablePagingExtensions.cs" />
     <Compile Include="Data\IPagingOptions.cs" />
     <Compile Include="Data\IQueryFilter.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Data\SortDescriptor.cs" />
     <Compile Include="Data\PagingOptions.cs" />
-    <Compile Include="Data\QueryableExtensions.cs" />
+    <Compile Include="Data\QueryableOrderByExtensions.cs" />
     <Compile Include="Data\SortDirection.cs" />
     <Compile Include="Data\Testing\TestDbAsyncEnumerable.cs" />
     <Compile Include="Data\Testing\TestDbAsyncEnumerator.cs" />

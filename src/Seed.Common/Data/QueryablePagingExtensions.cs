@@ -15,7 +15,7 @@ namespace Seed.Common.Data
             var firstResult = (options.PageNumber - 1) * options.PageSize;
 
             return source
-                .OrderBy(options.SortOrder)
+                .OrderBy(options.SortDescriptors)
                 .Skip(firstResult)
                 .Take(options.PageSize);
         }
