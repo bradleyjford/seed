@@ -28,7 +28,7 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("")]
-        public async Task<IHttpActionResult> Get([FromUri]UserQueryFilter filter, [FromUri]PagingOptions pagingOptions)
+        public async Task<IHttpActionResult> Get([FromUri] UserQueryFilter filter, [FromUri] PagingOptions pagingOptions)
         {
             filter = filter ?? new UserQueryFilter();
             pagingOptions = pagingOptions ?? new PagingOptions();
@@ -37,7 +37,7 @@ namespace Seed.Api.Admin.Users
 
             usersQuery = filter.Apply(usersQuery);
 
-            usersQuery = usersQuery.OrderBy(u => u.UserName);
+            pagingOptions.SortOrder.Add(new SortDescriptor("Id", SortDirection.Ascending));
 
             var users = await usersQuery.ToPagedListAsync(pagingOptions);
 
@@ -47,7 +47,7 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> Get(int id)
+        public async Task<IHttpActionResult> Get([FromUri] int id)
         {
             var user = await _dbContext.Users.FindAsync(id);
 
@@ -57,13 +57,8 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> Post(int id, [FromBody]EditUserRequest request)
+        public async Task<IHttpActionResult> Post([FromUri] int id, [FromBody] EditUserRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var command = Mapper.Map<EditUserCommand>(request);
 
             command.UserId = id;
@@ -75,13 +70,8 @@ namespace Seed.Api.Admin.Users
 
         [Route("{id:int}/activate")]
         [HttpPost]
-        public async Task<IHttpActionResult> Activate(int id)
+        public async Task<IHttpActionResult> Activate([FromUri] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var command = new ActivateUserCommand(id);
 
             var result = await _bus.Send(command);
@@ -91,13 +81,8 @@ namespace Seed.Api.Admin.Users
         
         [Route("{id:int}/deactivate")]
         [HttpPost]
-        public async Task<IHttpActionResult> Deactivate(int id)
+        public async Task<IHttpActionResult> Deactivate([FromUri] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var command = new DeactivateUserCommand(id);
 
             var result = await _bus.Send(command);

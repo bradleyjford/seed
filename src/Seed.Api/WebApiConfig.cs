@@ -18,6 +18,7 @@ namespace Seed.Api
 
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
+            config.Filters.Add(new ValidationFilter());
 
 #if DEBUG
             config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromMilliseconds(300)));

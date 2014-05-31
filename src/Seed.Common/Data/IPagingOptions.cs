@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Seed.Common.Data
 {
@@ -8,5 +9,7 @@ namespace Seed.Common.Data
         int PageSize { get; set; }
         int ItemCount { get; set; }
         int PageCount { get; }
+
+        List<SortDescriptor> SortOrder { get; }
     }
 }

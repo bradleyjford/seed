@@ -1,18 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
 using Seed.Security;
 using Seed.Tests.Data;
+using Xunit;
 
 namespace Seed.Tests.Security
 {
-    [TestFixture]
     public class SignInCommandTests
     {
-        private SignInCommandHandler _commandHandler;
-        private TestSeedDbContext _dbContext;
+        private readonly SignInCommandHandler _commandHandler;
+        private readonly TestSeedDbContext _dbContext;
 
-        [SetUp]
-        public void SetUp()
+        public SignInCommandTests()
         {
             _dbContext = new TestSeedDbContext();
 
@@ -28,24 +26,25 @@ namespace Seed.Tests.Security
                 Id = id
             });
         }
-        [Test]
+
+        [Fact]
         public async void Execute_CorrectCredentials_ReturnsSuccess()
         {
             var command = new SignInCommand("user1", "password");
 
             var result = await _commandHandler.Handle(command);
 
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
         }
 
-        [Test]
+        [Fact]
         public async void Execute_IncorrectCredentials_ReturnsFailure()
         {
             var command = new SignInCommand("incorrect", "no-important");
 
             var result = await _commandHandler.Handle(command);
 
-            Assert.IsFalse(result.Success);
+            Assert.False(result.Success);
         }
     }
 }

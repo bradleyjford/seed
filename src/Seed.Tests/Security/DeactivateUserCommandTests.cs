@@ -1,18 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
 using Seed.Security;
 using Seed.Tests.Data;
+using Xunit;
 
 namespace Seed.Tests.Security
 {
-    [TestFixture]
     public class DectivateUserCommandTests
     {
-        private DeactivateUserCommandHandler _commandHandler;
-        private TestSeedDbContext _dbContext;
+        private readonly DeactivateUserCommandHandler _commandHandler;
+        private readonly TestSeedDbContext _dbContext;
 
-        [SetUp]
-        public void SetUp()
+        public DectivateUserCommandTests()
         {
             _dbContext = new TestSeedDbContext();
 
@@ -29,7 +27,7 @@ namespace Seed.Tests.Security
             });
         }
 
-        [Test]
+        [Fact]
         public async void Execute_DeactivatingAnInactiveUser_Succeeds()
         {
             var userId = 1;
@@ -41,11 +39,11 @@ namespace Seed.Tests.Security
 
             var result = await _commandHandler.Handle(command);
 
-            Assert.IsTrue(result.Success);
-            Assert.IsFalse(user.IsActive);
+            Assert.True(result.Success);
+            Assert.False(user.IsActive);
         }
 
-        [Test]
+        [Fact]
         public async void Execute_DeactivatingAnActiveUser_Succeeds()
         {
             var userId = 1;
@@ -55,8 +53,8 @@ namespace Seed.Tests.Security
 
             var result = await _commandHandler.Handle(command);
 
-            Assert.IsTrue(result.Success);
-            Assert.IsFalse(user.IsActive);
+            Assert.True(result.Success);
+            Assert.False(user.IsActive);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -13,6 +12,7 @@ using Seed.Lookups;
 namespace Seed.Api.Admin.Lookups
 {
     [RoutePrefix("admin/lookups/{type}")]
+    [Authorize]
     public class LookupsController : ApiCommandController
     {
         private static readonly IDictionary<string, Type> LookupEntityTypeMap =
@@ -42,7 +42,7 @@ namespace Seed.Api.Admin.Lookups
                 return NotFound();
             }
 
-            var items = await _dbContext.Set(entityType).ToListAsync();
+            var items = await _dbContext.Set(entityType).ToPagedListAsync(pagingOptions);
 
             return Ok(items);
         }
@@ -83,12 +83,12 @@ namespace Seed.Api.Admin.Lookups
             [FromUri] string type,
             [FromBody] CreateLookupRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var entityType = ResolveEntityType(type);
+
+            if (entityType == null)
+            {
+                return NotFound();
+            }
 
             var command = MapRequestToCommand(request, typeof(CreateLookupCommand<>), entityType);
 
@@ -100,15 +100,10 @@ namespace Seed.Api.Admin.Lookups
         [Route("{id:int}")]
         [HttpPost]
         public async Task<IHttpActionResult> Edit(
-            [FromUri] string type, 
-            [FromUri] int id, 
+            [FromUri] string type,
+            [FromUri] int id,
             [FromBody] EditLookupRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var entityType = ResolveEntityType(type);
 
             if (entityType == null)
@@ -127,11 +122,6 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Activate([FromUri] string type, [FromUri] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var entityType = ResolveEntityType(type);
 
             if (entityType == null)
@@ -150,11 +140,6 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Deactivate([FromUri] string type, [FromUri] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var entityType = ResolveEntityType(type);
 
             if (entityType == null)

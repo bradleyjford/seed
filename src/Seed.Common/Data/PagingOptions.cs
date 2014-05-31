@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Seed.Common.Data
 {
@@ -6,8 +7,15 @@ namespace Seed.Common.Data
     {
         private const int DefaultPageSize = 50;
 
+        private readonly List<SortDescriptor> _sortOrder = new List<SortDescriptor>(); 
+
         private int _pageNumber = 1;
         private int _pageSize = DefaultPageSize;
+
+        public List<SortDescriptor> SortOrder
+        {
+            get { return _sortOrder; }
+        }
 
         public int ItemCount { get; set; }
 
@@ -43,8 +51,7 @@ namespace Seed.Common.Data
 
         public int PageCount 
         { 
-            get { return (int)Math.Ceiling((double)(ItemCount / PageSize)); }
+            get { return (int)Math.Ceiling(((double)ItemCount / PageSize)); }
         }
-
     }
 }

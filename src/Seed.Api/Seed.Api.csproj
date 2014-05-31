@@ -159,6 +159,7 @@
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
+    <Compile Include="Infrastructure\Filters\ValidationFilter.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationExtensions.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationHandler.cs" />
     <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationMiddleware.cs" />

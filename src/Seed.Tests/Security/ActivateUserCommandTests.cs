@@ -1,18 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
 using Seed.Security;
 using Seed.Tests.Data;
+using Xunit;
 
 namespace Seed.Tests.Security
 {
-    [TestFixture]
     public class ActivateUserCommandTests
     {
-        private ActivateUserCommandHandler _commandHandler;
-        private TestSeedDbContext _dbContext;
+        private readonly ActivateUserCommandHandler _commandHandler;
+        private readonly TestSeedDbContext _dbContext;
 
-        [SetUp]
-        public void SetUp()
+        public ActivateUserCommandTests()
         {
             _dbContext = new TestSeedDbContext();
 
@@ -29,7 +27,7 @@ namespace Seed.Tests.Security
             });
         }
 
-        [Test]
+        [Fact]
         public async void Activate_ActivatingAnActiveUser_Succeeds()
         {
             var userId = 1;
@@ -40,11 +38,11 @@ namespace Seed.Tests.Security
 
             var user = await _dbContext.Users.FindAsync(userId);
 
-            Assert.IsTrue(result.Success);
-            Assert.IsTrue(user.IsActive);
+            Assert.True(result.Success);
+            Assert.True(user.IsActive);
         }
 
-        [Test]
+        [Fact]
         public async void Activate_ActivatingAnInactiveUser_Succeeds()
         {
             var userId = 1;
@@ -56,8 +54,8 @@ namespace Seed.Tests.Security
 
             var result = await _commandHandler.Handle(command);
 
-            Assert.IsTrue(result.Success);
-            Assert.IsTrue(user.IsActive);
+            Assert.True(result.Success);
+            Assert.True(user.IsActive);
         }
     }
 }

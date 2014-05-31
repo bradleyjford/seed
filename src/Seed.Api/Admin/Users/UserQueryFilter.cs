@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using Seed.Common.Data;
 using Seed.Security;
 
 namespace Seed.Api.Admin.Users
 {
-    public class UserQueryFilter
+    public class UserQueryFilter : IQueryFilter<User>
     {
         public string UserName { get; set; }
         public string FullName { get; set; }

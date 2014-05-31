@@ -30,7 +30,6 @@ namespace Seed.Data
         public SeedDbContext()
             : base("Seed")
         {
-
         }
 
         public DbSet<AuditEvent> AuditEvents { get; set; }
