@@ -21,7 +21,7 @@ namespace Seed.Api
             config.Filters.Add(new ValidationFilter());
 
 #if DEBUG
-            config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromMilliseconds(300)));
+            config.Filters.Add(new IntroduceLatencyFilter(TimeSpan.FromMilliseconds(150)));
 #endif
         }
     }

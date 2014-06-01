@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Seed.Common.Data
 {
     public static class QueryablePagingExtensions
     {
         private static readonly MethodInfo PagedMethod = typeof(QueryablePagingExtensions).GetMethods()
-            .Single(method => 
-                method.Name == "Paged" && 
+            .Single(method =>
+                method.Name == "ToPagedResultAsync" && 
                 method.GetParameters().Length == 3 &&
                 method.GetParameters()[2].ParameterType == typeof(SortDescriptor[]));
 
-        public static IQueryable<T> Paged<T>(this IQueryable<T> source, IPagingOptions options, SortDescriptor defaultSort)
+        public static Task<PagedResult<T>> ToPagedResultAsync<T>(
+            this IQueryable<T> source, 
+            IPagingOptions options, 
+            SortDescriptor defaultSort) 
+            where T : class
         {
-            return Paged(source, options, new[] { defaultSort });
+            return ToPagedResultAsync(source, options, new[] { defaultSort });
         }
 
-        public static IQueryable<T> Paged<T>(this IQueryable<T> source, IPagingOptions options, SortDescriptor[] defaultSort)
+        public static async Task<PagedResult<T>> ToPagedResultAsync<T>(
+            this IQueryable<T> source, 
+            IPagingOptions options, 
+            SortDescriptor[] defaultSort) 
+            where T : class
         {
             var firstResult = (options.PageNumber - 1) * options.PageSize;
 
@@ -29,20 +39,35 @@ namespace Seed.Common.Data
                 sortDescriptors = defaultSort;
             }
 
-            return source
+            // TODO: Investigate Async futures
+            var itemCount = await source.CountAsync();
+
+            var items = await source
                 .OrderBy(sortDescriptors)
                 .Skip(firstResult)
-                .Take(options.PageSize);
+                .Take(options.PageSize)
+                .ToListAsync();
+
+            return new PagedResult<T>(options.PageNumber, options.PageSize, items, itemCount);
         }
 
-        public static IQueryable Paged(this IQueryable source, Type type, IPagingOptions options, SortDescriptor defaultSort)
+        public static Task<PagedResult> ToPagedResultAsync(
+            this IQueryable source, 
+            Type type, 
+            IPagingOptions options, 
+            SortDescriptor defaultSort)
         {
-            return Paged(source, type, options, new[] { defaultSort });
+            return ToPagedResultAsync(source, type, options, new[] { defaultSort });
         }
 
-        public static IQueryable Paged(this IQueryable source, Type type, IPagingOptions options, SortDescriptor[] defaultSort)
+        public static Task<PagedResult> ToPagedResultAsync(
+            this IQueryable source, 
+            Type type, 
+            IPagingOptions options, 
+            SortDescriptor[] defaultSort)
         {
-            return (IQueryable)PagedMethod.MakeGenericMethod(type).Invoke(null, new object[] { source, options, defaultSort });
+            return (Task<PagedResult>)PagedMethod.MakeGenericMethod(type)
+                .Invoke(null, new object[] { source, options, defaultSort });
         }
 
         public static IOrderedQueryable<T> OrderBy<T>(

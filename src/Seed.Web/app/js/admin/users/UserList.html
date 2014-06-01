@@ -11,11 +11,20 @@
         </thead>
 
         <tbody>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in pagedItems.items">
                 <td><a ui-sref="app.admin.users.edit({ userId: user.id })" ng-bind="user.userName"></a></td>
                 <td ng-bind="user.fullName"></td>
                 <td ng-bind="user.emailAddress"></td>
             </tr>
         </tbody>
     </table>
+
+    <pagination boundary-links="true"
+                rotate="true"
+                ng-model="pagedItems.pageNumber"
+                ng-change="pageChanged()"
+                total-items="pagedItems.itemCount"
+                items-per-page="pagedItems.pageSize"
+                max-size="5">
+    </pagination>
 </div>

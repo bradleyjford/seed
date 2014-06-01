@@ -44,9 +44,8 @@ namespace Seed.Api.Admin.Lookups
             }
 
             var items = await _dbContext.Set(entityType)
-                .Paged(entityType, pagingOptions, new SortDescriptor("Name"))
                 // TODO: .Project().To<LookupSummaryResponse>()
-                .ToListAsync();
+                .ToPagedResultAsync(entityType, pagingOptions, new SortDescriptor("Name"));
 
             return Ok(items);
         }

@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.Extended">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.95\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
@@ -57,6 +60,7 @@
     <Compile Include="Auditing\AuditIgnore.cs" />
     <Compile Include="Auditing\AuditMaskValue.cs" />
     <Compile Include="Auditing\MaskedStringJsonConverter.cs" />
+    <Compile Include="Data\IPagedResult.cs" />
     <Compile Include="Data\QueryableFilterExtensions.cs" />
     <Compile Include="Data\QueryablePagingExtensions.cs" />
     <Compile Include="Data\IPagingOptions.cs" />

@@ -29,13 +29,14 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("")]
-        public async Task<IHttpActionResult> Get([FromUri] UserQueryFilter filter, [FromUri] PagingOptions pagingOptions)
+        public async Task<IHttpActionResult> Get(
+            [FromUri] UserQueryFilter filter, 
+            [FromUri] PagingOptions pagingOptions)
         {
             var users = await _dbContext.Users
                 .ApplyFilter(filter)
-                .Paged(pagingOptions, new SortDescriptor("Id"))
                 .Project().To<UserSummaryResponse>()
-                .ToListAsync();
+                .ToPagedResultAsync(pagingOptions, new SortDescriptor("Id"));
 
             return Ok(users);
         }

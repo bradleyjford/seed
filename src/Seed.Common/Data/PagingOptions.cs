@@ -52,8 +52,6 @@ namespace Seed.Common.Data
             return result;
         }
 
-        public int ItemCount { get; set; }
-
         public int PageNumber
         {
             get { return _pageNumber; } 
@@ -82,11 +80,6 @@ namespace Seed.Common.Data
                     _pageSize = DefaultPageSize;
                 }
             }
-        }
-
-        public int PageCount 
-        { 
-            get { return (int)Math.Ceiling(((double)ItemCount / PageSize)); }
         }
     }
 }
