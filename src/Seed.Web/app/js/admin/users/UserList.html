@@ -1,6 +1,15 @@
 <h1><span class="fa fa-user"></span> Manage users</h1>
 
 <div class="row">
+    <form name="filterForm" no-validate>
+        <label for="filterText">User name</label>
+        <input type="text" id="filterText" ng-model="search.query">
+
+        <button ng-click="search()">Search</button>
+    </form>
+</div>
+
+<div class="row">
     <table class="table table-bordered table-striped table-hover table-responsive">
         <thead>
             <tr>

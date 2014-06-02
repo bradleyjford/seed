@@ -11,21 +11,22 @@
             ascending: true
         };
 
-        function getSortOrderString (sortOrder) {
-            var direction = 'asc';
+        $scope.search = {
+            query: ''
+        };
 
-            if (!sortOrder.ascending) {
-                direction = 'desc';
-            }
+        function getSortOrderString (sortOrder) {
+            var direction = sortOrder.ascending ? 'asc' : 'desc';
 
             return sortOrder.property + ' ' + direction;
         }
 
-        $scope.reloadData = function (page, pageSize, sortOrder) {
+        $scope.reloadData = function (page, pageSize, sortOrder, filter) {
             var requestData = {
                 pageNumber: page,
                 pageSize: pageSize,
-                sortOrder: getSortOrderString(sortOrder)
+                sortOrder: getSortOrderString(sortOrder),
+                filterText: filter
             };
 
             return UsersApi.query(requestData, function (data) {
@@ -34,7 +35,7 @@
         };
 
         $scope.pageChanged = function() {
-            return $scope.reloadData($scope.pagedItems.pageNumber, $scope.pagedItems.pageSize, $scope.sortOrder);
+            return $scope.reloadData($scope.pagedItems.pageNumber, $scope.pagedItems.pageSize, $scope.sortOrder, $scope.search.query);
         };
 
         $scope.orderBy = function (property) {
@@ -46,7 +47,11 @@
                 $scope.sortOrder.ascending = true;
             }
 
-            return $scope.reloadData(1, $scope.pagedItems.pageSize, $scope.sortOrder);
+            return $scope.reloadData(1, $scope.pagedItems.pageSize, $scope.sortOrder, $scope.search.query);
+        };
+
+        $scope.search = function () {
+            return $scope.reloadData(1, $scope.pagedItems.pageSize, $scope.sortOrder, $scope.search.query);
         };
     }]);
 })(angular);
