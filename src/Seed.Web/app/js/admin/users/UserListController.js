@@ -6,12 +6,47 @@
     module.controller('UserListController', ['$scope', 'users', 'UsersApi', function ($scope, users, UsersApi) {
         $scope.pagedItems = users;
 
-        $scope.pageChanged = function() {
-            var page = $scope.pagedItems.pageNumber;
+        $scope.sortOrder = {
+            property: 'Id',
+            ascending: true
+        };
 
-            return UsersApi.query({ pageNumber: page, pageSize: $scope.pagedItems.pageSize }, function (data) {
+        function getSortOrderString (sortOrder) {
+            var direction = 'asc';
+
+            if (!sortOrder.ascending) {
+                direction = 'desc';
+            }
+
+            return sortOrder.property + ' ' + direction;
+        }
+
+        $scope.reloadData = function (page, pageSize, sortOrder) {
+            var requestData = {
+                pageNumber: page,
+                pageSize: pageSize,
+                sortOrder: getSortOrderString(sortOrder)
+            };
+
+            return UsersApi.query(requestData, function (data) {
                 $scope.pagedItems = data;
             });
+        };
+
+        $scope.pageChanged = function() {
+            return $scope.reloadData($scope.pagedItems.pageNumber, $scope.pagedItems.pageSize, $scope.sortOrder);
+        };
+
+        $scope.orderBy = function (property) {
+            if ($scope.sortOrder.property === property) {
+                $scope.sortOrder.ascending = !$scope.sortOrder.ascending;
+            }
+            else {
+                $scope.sortOrder.property = property;
+                $scope.sortOrder.ascending = true;
+            }
+
+            return $scope.reloadData(1, $scope.pagedItems.pageSize, $scope.sortOrder);
         };
     }]);
 })(angular);
