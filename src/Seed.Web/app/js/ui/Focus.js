@@ -1,15 +1,14 @@
 (function (angular) {
     'use strict';
 
-    var saFocusDirective = function () {
-        return function (scope, elem, attr) {
-            scope.$on('$viewContentLoaded', function (event) {
+    var module = angular.module('seedApp');
+
+    module.directive('saFocus', [function () {
+        return function (scope, elem, attrs) {
+            scope.$on('$viewContentLoaded', function () {
                 elem.focus();
             });
         };
-    };
-
-    angular.module('seedApp')
-        .directive('seFocus', saFocusDirective);
+    }]);
 
 })(angular);

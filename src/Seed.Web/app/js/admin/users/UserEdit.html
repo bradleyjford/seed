@@ -1,7 +1,7 @@
-<h2><span class="fa fa-user"></span> Edit user</h2>
-
 <div class="row view-animation" ng-hide="model.isActive">
-    <alert type="warning"><span class="fa fa-ban"></span> <b>Disabled</b> - This user is currently disabled and unable to sign in. <a href="" ng-click="enable(model)">Enable</a> the user.</alert>
+    <div class="col-md-12">
+        <alert type="warning"><span class="fa fa-ban"></span> <b>Disabled</b> - This user is currently disabled and unable to sign in. <a href="" ng-click="enable(model)">Enable</a> the user.</alert>
+    </div>
 </div>
 
 <div class="row">
@@ -10,14 +10,14 @@
             <form class="form-horizontal" name="editForm" ng-submit="save(model)" abandon-form>
                 <fieldset>
                     <legend>
-                        {{ model.fullName }}
+                        Account
                     </legend>
 
                     <div class="form-group">
                         <label for="fullName" class="col-sm-2 control-label">Name</label>
 
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="fullName" ng-model="model.fullName" ng-required se-focus>
+                            <input type="text" class="form-control" id="fullName" ng-model="model.fullName" ng-required sa-focus>
                         </div>
                     </div>
 

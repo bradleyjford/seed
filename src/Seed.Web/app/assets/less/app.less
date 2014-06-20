@@ -1,40 +1,8 @@
 @import (reference) "../../../bower_components/bootstrap/less/bootstrap.less";
+@import "variables.less";
 @import "_form.less";
+@import "_tabs.less";
 @import "_theme.less";
-
-.view-animation.ng-enter,
-.view-animation.ng-leave,
-.view-animation.ng-move {
-  position: relative;
-}
-
-.view-animation.ng-enter {
-  -webkit-animation:  0.5s fadeIn;
-  -moz-animation:  0.5s fadeIn;
-  -o-animation:  0.5s fadeIn;
-  animation: 0.5s fadeIn;
-
-  opacity: 0;
-}
-
-.view-animation.ng-leave {
-  -webkit-animation:  0.5s fadeOut;
-  -moz-animation:  0.5s fadeOut;
-  -o-animation:  0.5s fadeOut;
-  animation: 0.5s fadeOut;
-}
-
-.view-animation.ng-enter-stagger,
-.view-animation.ng-leave-stagger,
-.view-animation.ng-move-stagger {
-  /* notice how we're using animation instead of transition here */
-  -webkit-animation-delay:0.2s;
-  animation-delay:0.2s;
-
-  /* yes we still need to do this too */
-  -webkit-animation-duration:0;
-  animation-duration:0;
-}
 
 div.spinner-modal {
   position: absolute;
@@ -69,4 +37,104 @@ div.spinner-modal {
 
 [sa-authorize] {
   display: none;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.page-header {
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-left: 15px;
+
+  h1 {
+    font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 3px;
+
+    small {
+      font-size: 0.6em;
+    }
+  }
+}
+
+.sa-gridview {
+  padding-left: 0;
+  list-style: none;
+
+  li {
+    float: left;
+    width: 12.5%;
+    height: 115px;
+    padding: 10px;
+    line-height: 1.4;
+    text-align: center;
+    border: 1px solid #fff;
+    background-color: #f5f5f5;
+
+    a {
+      color: @text-color;
+    }
+
+    a > span.fa {
+      font-size: 4em;
+    }
+
+    a > span.title {
+      display: block;
+      word-wrap: break-word;
+    }
+  }
+
+  li:hover {
+    color: @btn-primary-color;
+    background-color: @btn-primary-bg;
+
+    a {
+      color: @btn-primary-color;
+    }
+  }
+}
+
+.ui-view-container {
+  position: relative;
+
+  [ui-view].ng-enter, [ui-view].ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+  }
+
+  [ui-view].ng-enter {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  [ui-view].ng-enter-active {
+    opacity: 1;
+    -webkit-transform: translate3d(1, 1, 1);
+    -moz-transform: translate3d(1, 1, 1);
+    transform: translate3d(1, 1, 1);
+  }
+
+  [ui-view].ng-leave {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  [ui-view].ng-leave-active {
+    opacity: 0;
+    -webkit-transform: translate3d(100px, 0, 0);
+    -moz-transform: translate3d(100px, 0, 0);
+    transform: translate3d(100px, 0, 0);
+  }
 }

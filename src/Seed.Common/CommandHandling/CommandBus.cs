@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;s
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -19,7 +19,9 @@ namespace Seed.Common.CommandHandling
             where TResult : class
         {
             var commandType = command.GetType();
-            var commandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(commandType, typeof(TResult));
+            var resultType = typeof(TResult);
+
+            var commandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(commandType, resultType);
 
             var handler = _componentContext.ResolveOptional(commandHandlerType);
 
@@ -28,7 +30,7 @@ namespace Seed.Common.CommandHandling
                 throw new CommandHandlerNotFoundException(commandHandlerType);
             }
 
-            var wrappedType = typeof(CommandHandlerWrapper<,>).MakeGenericType(commandType, typeof(TResult));
+            var wrappedType = typeof(CommandHandlerWrapper<,>).MakeGenericType(commandType, resultType);
             var wrapped = (ICommandHandlerWrapper<TResult>)Activator.CreateInstance(wrappedType, handler);
 
             return wrapped.Handle(command);

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -12,7 +14,6 @@ namespace Seed.Common.Data
         private static readonly MethodInfo PagedMethod = typeof(QueryablePagingExtensions).GetMethods()
             .Single(method =>
                 method.Name == "ToPagedResultAsync" && 
-                method.GetParameters().Length == 3 &&
                 method.GetParameters()[2].ParameterType == typeof(SortDescriptor[]));
 
         public static Task<PagedResult<T>> ToPagedResultAsync<T>(
@@ -39,7 +40,6 @@ namespace Seed.Common.Data
                 sortDescriptors = defaultSort;
             }
 
-            // TODO: Investigate Async futures
             var itemCount = await source.CountAsync();
 
             var items = await source
@@ -51,7 +51,7 @@ namespace Seed.Common.Data
             return new PagedResult<T>(options.PageNumber, options.PageSize, items, itemCount);
         }
 
-        public static Task<PagedResult> ToPagedResultAsync(
+        public static dynamic ToPagedResultAsync(
             this IQueryable source, 
             Type type, 
             IPagingOptions options, 
@@ -60,14 +60,16 @@ namespace Seed.Common.Data
             return ToPagedResultAsync(source, type, options, new[] { defaultSort });
         }
 
-        public static Task<PagedResult> ToPagedResultAsync(
+        public static dynamic ToPagedResultAsync(
             this IQueryable source, 
             Type type, 
             IPagingOptions options, 
             SortDescriptor[] defaultSort)
         {
-            return (Task<PagedResult>)PagedMethod.MakeGenericMethod(type)
+            var result = PagedMethod.MakeGenericMethod(type)
                 .Invoke(null, new object[] { source, options, defaultSort });
+
+            return result;
         }
 
         public static IOrderedQueryable<T> OrderBy<T>(

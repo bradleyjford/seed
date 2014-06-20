@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -34,7 +33,10 @@ namespace Seed.Api.Admin.Lookups
         }
 
         [Route("")]
-        public async Task<IHttpActionResult> Get([FromUri] string type, [FromUri] PagingOptions pagingOptions)
+        [HttpGet]
+        public async Task<IHttpActionResult> Get(
+            [FromUri] string type, 
+            [FromUri] PagingOptions pagingOptions)
         {
             var entityType = ResolveEntityType(type);
 
@@ -61,6 +63,7 @@ namespace Seed.Api.Admin.Lookups
         }
 
         [Route("{id:int}")]
+        [HttpGet]
         public async Task<IHttpActionResult> Get([FromUri] string type, [FromUri] int id)
         {
             var entityType = ResolveEntityType(type);
@@ -102,7 +105,7 @@ namespace Seed.Api.Admin.Lookups
 
         [Route("{id:int}")]
         [HttpPost]
-        public async Task<IHttpActionResult> Edit(
+        public async Task<IHttpActionResult> Post(
             [FromUri] string type,
             [FromUri] int id,
             [FromBody] EditLookupRequest request)
@@ -159,9 +162,13 @@ namespace Seed.Api.Admin.Lookups
 
         private static ICommand<CommandResult> MapRequestToCommand(object request, Type commandType, Type entityType)
         {
-            var closedCommandTYpe = commandType.MakeGenericType(entityType);
+            var closedCommandType = commandType.MakeGenericType(entityType);
 
-            return (ICommand<CommandResult>)Mapper.Map(request, request.GetType(), closedCommandTYpe);
+            var commandInstance = Activator.CreateInstance(closedCommandType);
+
+            Mapper.DynamicMap(request, commandInstance, request.GetType(), closedCommandType);
+
+            return (ICommand<CommandResult>)commandInstance;
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Seed.Common;
 using Seed.Security;
 
 namespace Seed.Data
@@ -28,21 +27,18 @@ namespace Seed.Data
         {
         }
 
-        public Task CreateAsync(User user)
+        public async Task CreateAsync(User user)
         {
-            return Task.FromResult(_dbContext.Users.Add(user));
+            _dbContext.Users.Add(user);
         }
 
-        public Task UpdateAsync(User user)
+        public async Task UpdateAsync(User user)
         {
-            return Task.FromResult(0);
         }
 
-        public Task DeleteAsync(User user)
+        public async Task DeleteAsync(User user)
         {
             user.Deactivate();
-
-            return TaskHelpers.ForVoidResult();
         }
 
         public Task<User> FindByIdAsync(int userId)
@@ -57,27 +53,23 @@ namespace Seed.Data
                     u => String.Compare(u.UserName, userName, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
-        public Task AddLoginAsync(User user, UserLoginInfo login)
+        public async Task AddLoginAsync(User user, UserLoginInfo login)
         {
             user.AddLoginProvider(login.LoginProvider, login.ProviderKey);
-
-            return TaskHelpers.ForVoidResult();
         }
 
-        public Task RemoveLoginAsync(User user, UserLoginInfo login)
+        public async Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
             user.RemoveLoginProvider(login.LoginProvider, login.ProviderKey);
-
-            return TaskHelpers.ForVoidResult();
         }
 
-        public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
+        public async Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
             var loginProviders = (IList<UserLoginInfo>)user.LoginProviders
                 .Select(l => new UserLoginInfo(l.Name, l.UserKey))
                 .ToList();
 
-            return Task.FromResult(loginProviders);
+            return loginProviders;
         }
 
         public Task<User> FindAsync(UserLoginInfo login)

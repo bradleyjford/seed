@@ -50,7 +50,7 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> Post([FromUri] int id, [FromBody] EditUserRequest request)
+        public async Task<IHttpActionResult> Post([FromUri]int id, [FromBody]EditUserRequest request)
         {
             var command = Mapper.Map<EditUserCommand>(request);
 

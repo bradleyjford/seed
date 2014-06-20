@@ -1,17 +1,19 @@
-<h1><span class="fa fa-cog"></span> Manage {{ model.typeName }}</h1>
-
 <div class="row">
-    <table class="table table-bordered table-striped table-hover table-responsive">
-        <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-        </thead>
+    <div class="col-sm-12">
 
-        <tbody>
-            <tr ng-repeat="item in items">
-                <td><a ui-sref="app.admin.lookups.edit({ type: type, id: item.id })" ng-bind="item.name"></a></td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table table-bordered table-striped table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in pagedItems.items">
+                    <td><a ui-sref="app.admin.lookups.list.edit({ id: item.id })" ng-bind="item.name"></a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

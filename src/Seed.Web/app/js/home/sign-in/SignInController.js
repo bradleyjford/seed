@@ -3,8 +3,8 @@
 
     var module = angular.module('seedApp.home');
 
-    module.controller('SignInController', ['$scope', '$state', '$stateParams', '$location', 'AuthenticationApi', 'SecurityPrincipal',
-        function ($scope, $state, $stateParams, $location, SecurityPrincipal) {
+    module.controller('SignInController', ['$scope', '$state', '$stateParams', '$location',
+        function ($scope, $state, $stateParams, $location) {
             $scope.model = {
                 username: '',
                 password: '',

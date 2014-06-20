@@ -11,7 +11,7 @@
 
             $scope.save = function (model) {
                 if ($scope.editForm.$valid) {
-                    model.$save({ id: model.id }, function () {
+                    model.$save({ id: model.id, type: 'countries' }, function () {
                         $scope.editForm.$setPristine();
 
                         $state.go('^', null, { reload: true });

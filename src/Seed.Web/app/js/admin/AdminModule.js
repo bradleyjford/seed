@@ -29,7 +29,7 @@
                     }
                 },
                 data: {
-                    title: 'Manage lookup data'
+                    title: 'Manage Reference Data'
                 }
             })
 
@@ -57,7 +57,7 @@
             })
 
             .state('app.admin.lookups.list.edit', {
-                url: ':id/edit',
+                url: '/:id/edit',
                 views: {
                     'content@app.admin': {
                         templateUrl: 'admin/lookups/LookupEdit.html',
@@ -65,7 +65,7 @@
                     }
                 },
                 resolve: {
-                    item: ['$stateParams', 'LookupsApi', function ($stateParams, LookupsApi) {
+                    model: ['$stateParams', 'LookupsApi', function ($stateParams, LookupsApi) {
                         return LookupsApi.get({ type: $stateParams.type, id: $stateParams.id }).$promise;
                     }]
                 },
