@@ -11,20 +11,20 @@ namespace Seed.Infrastructure.CommandHandlerDecorators
         where TCommand : ICommand<TResult>
         where TResult : class
     {
-        private readonly ICommandHandler<TCommand, TResult> _decoreted;
+        private readonly ICommandHandler<TCommand, TResult> _decorated;
         private readonly ISeedDbContext _dbContext;
 
         public UnitOfWorkCommandHandlerDecorator(
-            ICommandHandler<TCommand, TResult> decoreted,
+            ICommandHandler<TCommand, TResult> decorated,
             ISeedDbContext dbContext)
         {
-            _decoreted = decoreted;
+            _decorated = decorated;
             _dbContext = dbContext;
         }
 
         public async Task<TResult> Handle(TCommand command)
         {
-            var result = await _decoreted.Handle(command);
+            var result = await _decorated.Handle(command);
 
             RestoreRowVersions();
 
