@@ -3,6 +3,11 @@ using System.Security.Cryptography;
 
 namespace Seed.Common.Security
 {
+    public interface IRandomNumberGenerator
+    {
+        byte[] Generate(int byteLength);
+    }
+
     public class RandomNumberGenerator : IRandomNumberGenerator
     {
         private static readonly RNGCryptoServiceProvider CryptoServiceProvider =

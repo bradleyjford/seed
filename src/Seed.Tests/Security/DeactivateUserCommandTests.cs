@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Threading.Tasks;
+using NUnit.Framework;
 using Seed.Security;
 using Seed.Tests.Data;
-using Xunit;
 
 namespace Seed.Tests.Security
 {
+    [TestFixture]
     public class DectivateUserCommandTests
     {
-        private readonly DeactivateUserCommandHandler _commandHandler;
-        private readonly TestSeedDbContext _dbContext;
+        private DeactivateUserCommandHandler _commandHandler;
+        private TestSeedDbContext _dbContext;
 
-        public DectivateUserCommandTests()
+        [SetUp]
+        public void SetUp()
         {
             _dbContext = new TestSeedDbContext();
 
@@ -19,16 +22,22 @@ namespace Seed.Tests.Security
             _commandHandler = new DeactivateUserCommandHandler(_dbContext);
         }
 
-        private void AddUser(int id, string userName, string fullName, string emailAddress, string hashedPassword)
+        private void AddUser(int id, string userName, string fullName, string emailAddress, string password)
         {
-            _dbContext.Users.Add(new User(userName, fullName, emailAddress, hashedPassword)
+            var passwordHasher = new TestPasswordHasher();
+
+            var user = new User(userName, fullName, emailAddress, passwordHasher, password)
             {
                 Id = id
-            });
+            };
+
+            user.Confirm();
+
+            _dbContext.Users.Add(user);
         }
 
-        [Fact]
-        public async void Execute_DeactivatingAnInactiveUser_Succeeds()
+        [Test]
+        public async Task Execute_DeactivatingAnInactiveUser_Succeeds()
         {
             var userId = 1;
             var user = await  _dbContext.Users.FindAsync(userId);;
@@ -43,8 +52,8 @@ namespace Seed.Tests.Security
             Assert.False(user.IsActive);
         }
 
-        [Fact]
-        public async void Execute_DeactivatingAnActiveUser_Succeeds()
+        [Test]
+        public async Task Execute_DeactivatingAnActiveUser_Succeeds()
         {
             var userId = 1;
             var user = await _dbContext.Users.FindAsync(userId);

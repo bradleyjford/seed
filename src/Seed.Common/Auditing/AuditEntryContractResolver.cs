@@ -33,7 +33,7 @@ namespace Seed.Common.Auditing
         {
             var result = base.CreateProperty(member, memberSerialization);
 
-            var attrs = member.GetCustomAttribute<AuditMaskValue>(true);
+            var attrs = member.GetCustomAttribute<AuditSensitive>(true);
 
             if (attrs != null)
             {

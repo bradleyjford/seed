@@ -26,9 +26,11 @@ namespace Seed.Data.Migrations
 
             for (var i = 1; i <= 100; i++)
             {
-                var password = passwordHasher.ComputeHash("test" + i);
+                var user = new User("test" + i, "Test User " + i, "test" + i + "@bjf.io", passwordHasher, "test" + i);
 
-                users.Add(new User("test" + i, "Test User " + i, "test" + i + "@bjf.io", password));
+                user.Confirm();
+
+                users.Add(user);
             }
 
             context.Users.AddOrUpdate(

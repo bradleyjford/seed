@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;
-using Seed.Data;
-using Seed.Infrastructure.Security;
 
 namespace Seed.Security
 {
@@ -28,9 +26,14 @@ namespace Seed.Security
 
         public Task<User> Handle(RegisterUserCommand command)
         {
-            var hashedPassword = _passwordHasher.ComputeHash(command.Password);
+            // Re-validate
 
-            var user = new User(command.UserName, command.FullName, command.EmailAddress, hashedPassword);
+            var user = new User(
+                command.UserName, 
+                command.FullName, 
+                command.EmailAddress, 
+                _passwordHasher, 
+                command.Password);
 
             _dbContext.Users.Add(user);
 

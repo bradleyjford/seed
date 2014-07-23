@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="Auditing\AuditEntryContractResolver.cs" />
     <Compile Include="Auditing\AuditIgnore.cs" />
-    <Compile Include="Auditing\AuditMaskValue.cs" />
+    <Compile Include="Auditing\AuditSensitive.cs" />
     <Compile Include="Auditing\MaskedStringJsonConverter.cs" />
     <Compile Include="Data\IPagedResult.cs" />
     <Compile Include="Data\QueryableFilterExtensions.cs" />
@@ -95,12 +95,19 @@
     <Compile Include="CommandHandling\ICommandHandler.cs" />
     <Compile Include="CommandHandling\ICommandResult.cs" />
     <Compile Include="CommandHandling\ICommandValidator.cs" />
+    <Compile Include="Enforce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\IPasswordHasher.cs" />
-    <Compile Include="Security\IRandomNumberGenerator.cs" />
+    <Compile Include="Security\PasswordComplexityRequirement.cs" />
+    <Compile Include="Security\PasswordLengthRequirement.cs" />
     <Compile Include="Security\RandomNumberGenerator.cs" />
     <Compile Include="Security\Rfc2898PasswordHasher.cs" />
     <Compile Include="Security\Rfc2898PasswordHashParameters.cs" />
+    <Compile Include="Specifications\AndSpecification.cs" />
+    <Compile Include="Specifications\ISpecification.cs" />
+    <Compile Include="Specifications\NotSpecification.cs" />
+    <Compile Include="Specifications\OrSpecification.cs" />
+    <Compile Include="Specifications\SpecificationExtensionMethods.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="Text\Base32Decoder.cs" />
     <Compile Include="Text\Base32Encoder.cs" />

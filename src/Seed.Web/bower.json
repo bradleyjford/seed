@@ -16,7 +16,7 @@
   "dependencies": {
     "angularjs": "*",
     "angular-animate": "~1.2.16",
-    "bootstrap": "~3.1.1",
+    "bootstrap": "~3.2.0",
     "angular-bootstrap": "~0.11.0",
     "angular-resource": "~1.2.16",
     "animate.css": "~3.1.1",

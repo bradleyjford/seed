@@ -10,16 +10,16 @@ namespace Seed.Api.Security
         [Route("")]
         public IHttpActionResult Get()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                var user = User as ClaimsPrincipal;
-
-                var response = new IdentityResponse(user.Identity.Name, "Testing User", new [] { "admin" });
-
-                return Ok(response);
+                return NotFound();
             }
 
-            return NotFound();
+            var user = User as ClaimsPrincipal;
+
+            var response = new IdentityResponse(user.Identity.Name, "Testing User", new[] { "admin" });
+
+            return Ok(response);
         }
     }
 }

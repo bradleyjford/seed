@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Seed.Common.Auditing;
 using Seed.Common.CommandHandling;
-using Seed.Data;
 
 namespace Seed.Admin.Users
 {

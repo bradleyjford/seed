@@ -10,7 +10,7 @@ namespace Seed.Common.CommandHandling
         Task<TResult> Send<TResult>(ICommand<TResult> command)
            where TResult : class;
 
-        IEnumerable<ValidationResult> Validate<TCommand>(TCommand command)
+        Task<IEnumerable<ValidationResult>> Validate<TCommand>(TCommand command)
             where TCommand : ICommand;
     }
 }

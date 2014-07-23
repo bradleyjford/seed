@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MappingExtensions.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.cs" />
     <Compile Include="Migrations\201404261003481_DeactivateUser.Designer.cs">
       <DependentUpon>201404261003481_DeactivateUser.cs</DependentUpon>
@@ -87,6 +88,22 @@
     <Compile Include="Migrations\201405291948431_Something changed.cs" />
     <Compile Include="Migrations\201405291948431_Something changed.Designer.cs">
       <DependentUpon>201405291948431_Something changed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407202016363_User state.cs" />
+    <Compile Include="Migrations\201407202016363_User state.Designer.cs">
+      <DependentUpon>201407202016363_User state.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407202031408_User state 2.cs" />
+    <Compile Include="Migrations\201407202031408_User state 2.Designer.cs">
+      <DependentUpon>201407202031408_User state 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407212011162_User State 3.cs" />
+    <Compile Include="Migrations\201407212011162_User State 3.Designer.cs">
+      <DependentUpon>201407212011162_User State 3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407221005124_User state 4.cs" />
+    <Compile Include="Migrations\201407221005124_User state 4.Designer.cs">
+      <DependentUpon>201407221005124_User state 4.cs</DependentUpon>
     </Compile>
     <Compile Include="SeedDbContext.cs" />
     <Compile Include="SeedUserStore.cs" />
@@ -146,6 +163,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405291948431_Something changed.resx">
       <DependentUpon>201405291948431_Something changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407202016363_User state.resx">
+      <DependentUpon>201407202016363_User state.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407202031408_User state 2.resx">
+      <DependentUpon>201407202031408_User state 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407212011162_User State 3.resx">
+      <DependentUpon>201407212011162_User State 3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407221005124_User state 4.resx">
+      <DependentUpon>201407221005124_User state 4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

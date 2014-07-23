@@ -54,8 +54,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Seed.Data">
-      <HintPath>..\Seed.Api\Bin\Seed.Data.dll</HintPath>
+    <Reference Include="Stateless">
+      <HintPath>..\packages\Stateless.2.4.0\lib\Stateless.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -75,15 +75,19 @@
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\UnitOfWorkCommandHandlerDecorator.cs" />
+    <Compile Include="ISeedDbContext.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
     <Compile Include="Security\ConfirmUserCommand.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />
+    <Compile Include="Security\PasswordRequirements.cs" />
     <Compile Include="Security\IUserContext.cs" />
     <Compile Include="Security\LoginProvider.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
     <Compile Include="Security\RegisterUserCommand.cs" />
+    <Compile Include="Security\RegisterUserCommandValidator.cs" />
+    <Compile Include="Security\SeedLoginProvider.cs" />
     <Compile Include="Security\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SignInCommand.cs" />

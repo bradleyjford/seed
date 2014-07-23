@@ -4,7 +4,6 @@ using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Domain;
-using Seed.Data;
 using Seed.Infrastructure.Auditing;
 using Seed.Security;
 

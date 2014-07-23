@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Seed.Security;
 using Seed.Tests.Data;
 using Xunit;
@@ -19,16 +21,22 @@ namespace Seed.Tests.Security
             _commandHandler = new SignInCommandHandler(_dbContext, new TestPasswordHasher());
         }
 
-        private void AddUser(int id, string userName, string fullName, string emailAddress, string hashedPassword)
+        private void AddUser(int id, string userName, string fullName, string emailAddress, string password)
         {
-            _dbContext.Users.Add(new User(userName, fullName, emailAddress, hashedPassword)
+            var passwordHasher = new TestPasswordHasher();
+
+            var user = new User(userName, fullName, emailAddress, passwordHasher, password)
             {
                 Id = id
-            });
+            };
+
+            user.Confirm();
+
+            _dbContext.Users.Add(user);
         }
 
         [Fact]
-        public async void Execute_CorrectCredentials_ReturnsSuccess()
+        public async Task Execute_CorrectCredentials_ReturnsSuccess()
         {
             var command = new SignInCommand("user1", "password");
 
@@ -38,13 +46,31 @@ namespace Seed.Tests.Security
         }
 
         [Fact]
-        public async void Execute_IncorrectCredentials_ReturnsFailure()
+        public async Task Execute_IncorrectCredentials_ReturnsFailure()
         {
             var command = new SignInCommand("incorrect", "no-important");
 
             var result = await _commandHandler.Handle(command);
 
             Assert.False(result.Success);
+        }
+
+        [Fact]
+        public async Task Execute_SiginingInWithInvalidCredentials5Times_LocksAccount()
+        {
+            var command = new SignInCommand("user1", "incorrect-password");
+
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+
+            var user = _dbContext.Users.Single();
+
+            Console.WriteLine(user.LockedUtcDate);
+
+            Assert.True(user.LockedUtcDate.HasValue);
         }
     }
 }

@@ -19,7 +19,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="active" sa-authorize="admin"><a ui-sref="app.admin.homt">Administration</a></li>
 
-            <li class="dropdown" sa-authorize>
+            <li class="dropdown" role="menu" sa-authorize>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> {{ user.identity.displayName }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li ui-sref-active="active"><a ui-sref="home.profile"><span class="fa fa-cog"></span> My account</a></li>

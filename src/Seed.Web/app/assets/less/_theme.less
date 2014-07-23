@@ -1,6 +1,7 @@
-// Yeti 3.1.1
+// Yeti 3.2.0
 // Bootswatch
 // -----------------------------------------------------
+
 @import (reference) "../../../bower_components/bootstrap/less/bootstrap.less";
 
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
@@ -231,8 +232,7 @@ table {
 
 // Forms ======================================================================
 
-input,
-.form-control {
+input {
   padding: 7px;
 }
 
@@ -263,7 +263,7 @@ label,
 
 .nav-tabs {
   > li > a {
-    background-color: #fff;/*@btn-default-bg;*/
+    background-color: @btn-default-bg;
     color: @text-color;
   }
 
@@ -279,6 +279,7 @@ label,
 
 .breadcrumb {
   border: 1px solid @table-border-color;
+  border-radius: 3px;
   font-size: 10px;
   font-weight: 300;
   text-transform: uppercase;
@@ -309,7 +310,7 @@ label,
   > li:last-child {
     > a,
     > span {
-      border-radius: 0;
+      border-radius: 3px;
     }
   }
 
@@ -338,6 +339,8 @@ label,
 
 .close {
   opacity: 0.4;
+  text-decoration: none;
+  text-shadow: none;
 
   &:hover,
   &:focus {
@@ -349,21 +352,10 @@ label,
   font-size: @font-size-small;
   font-weight: 300;
 
-  a,
   .alert-link {
     font-weight: normal;
     color: #fff;
     text-decoration: underline;
-  }
-
-  .close {
-    color: #fff;
-    text-decoration: none;
-
-    &:hover,
-    &:focus {
-      color: #fff;
-    }
   }
 }
 
@@ -426,5 +418,17 @@ label,
   &-footer {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+  }
+
+  &-default {
+    .close {
+      color: @text-color;
+    }
+  }
+}
+
+.modal {
+  .close {
+    color: @text-color;
   }
 }

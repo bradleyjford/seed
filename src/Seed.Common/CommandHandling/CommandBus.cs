@@ -36,8 +36,7 @@ namespace Seed.Common.CommandHandling
             return wrapped.Handle(command);
         }
 
-        // TODO: Not convinced about the validation implementation
-        public virtual IEnumerable<ValidationResult> Validate<TCommand>(TCommand command) 
+        public virtual async Task<IEnumerable<ValidationResult>> Validate<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
             var handler = _componentContext.Resolve<ICommandValidator<TCommand>>();
@@ -47,7 +46,7 @@ namespace Seed.Common.CommandHandling
                 throw new CommandValidatorNotFoundException(typeof(TCommand));
             }
 
-            return handler.Validate(command);
+            return await handler.Validate(command);
         }
     }
 }

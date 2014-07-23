@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Seed.Common.Auditing;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;
-using Seed.Data;
 
 namespace Seed.Security
 {
@@ -18,7 +17,7 @@ namespace Seed.Security
 
         public string UserName { get; set; }
 
-        [AuditMaskValue]
+        [AuditSensitive]
         public string Password { get; set; }
     }
 
@@ -44,7 +43,7 @@ namespace Seed.Security
                 return CommandResult<User>.Fail;
             }
 
-            if (_passwordHasher.ValidateHash(user.HashedPassword, command.Password))
+            if (user.Login(_passwordHasher, command.Password))
             { 
                 return new CommandResult<User>(user);
             }
