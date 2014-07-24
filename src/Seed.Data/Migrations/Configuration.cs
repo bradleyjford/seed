@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using Seed.Common.Domain;
 using Seed.Common.Security;
 using Seed.Security;
 
@@ -21,7 +20,6 @@ namespace Seed.Data.Migrations
                 Rfc2898PasswordHashParameters.AllVersions,
                 new RandomNumberGenerator());
 
-            var userContext = new DummyUserContext();
             var users = new List<User>();
 
             for (var i = 1; i <= 100; i++)
@@ -38,14 +36,6 @@ namespace Seed.Data.Migrations
                users.ToArray());
 
             context.SaveChanges();
-        }
-
-        public class SeedClock : IClock
-        {
-            public DateTime GetUtcNow()
-            {
-                return DateTime.Today;
-            }
         }
 
         public class DummyUserContext : IUserContext

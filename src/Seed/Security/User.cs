@@ -34,8 +34,6 @@ namespace Seed.Security
             PasswordChanged
         }
 
-        private const int MaxFailedLoginAtteptCount = 5;
-        private static readonly TimeSpan FailedLoginAttemptWindowPeriod = TimeSpan.FromMinutes(5);
 
         private readonly StateMachine<UserState, Trigger> _stateMachine;
 
@@ -138,9 +136,9 @@ namespace Seed.Security
         /// </summary>
         public DateTime LastPasswordChangeUtcDate { get; private set; }
 
-        public DateTime? FailedLoginWindowStart { get; private set; }
+        public DateTime? FailedLoginWindowStart { get; internal set; }
 
-        public int FailedLoginAttemptCount { get; private set; }
+        public int FailedLoginAttemptCount { get; internal set; }
 
         public DateTime? LockedUtcDate { get; private set; }
 
@@ -180,12 +178,23 @@ namespace Seed.Security
         public bool IsPasswordChangeRequired { get; private set; }
 
         /// <summary>
+        /// Gets a value indicating if the user is locked.
+        /// </summary>
+        public bool IsLocked
+        {
+            get { return AccountLockoutPolicy.IsAccountLocked(this); }
+        }
+
+        /// <summary>
         /// Changes the password used by the user to signin to the application using the specfied password hasher.
         /// </summary>
         /// <param name="hasher"><see cref="Seed.Common.Security.IPasswordHasher"/></param>
         /// <param name="newPassword"></param>
         public void ChangePassword(IPasswordHasher hasher, string newPassword)
         {
+            Enforce.ArgumentNotNull("hasher", hasher);
+            Enforce.ArgumentNotNull("newPassword", hasher);
+
             HashedPassword = hasher.ComputeHash(newPassword);
 
             LastPasswordChangeUtcDate = ClockProvider.GetUtcNow();
@@ -193,77 +202,50 @@ namespace Seed.Security
             _stateMachine.Fire(Trigger.PasswordChanged);
         }
 
-        public bool Login(IPasswordHasher passwordHasher, string password)
+        public LoginResult Login(IPasswordHasher passwordHasher, string password)
         {
-            if (!CanLogin())
-            {
-                return false;
-            }
+            Enforce.ArgumentNotNull("passwordHasher", passwordHasher);
+            Enforce.ArgumentNotNull("password", password);
 
             var passwordValidated = passwordHasher.ValidateHash(HashedPassword, password);
 
             if (passwordValidated)
             {
+                if (!IsConfirmed)
+                {
+                    return LoginResult.PendingConfirmation;
+                }
+
+                if (AccountLockoutPolicy.IsAccountLocked(this))
+                {
+                    return LoginResult.AccountLocked;
+                }
+
                 LastLoginUtcDate = ClockProvider.GetUtcNow();
 
-                ResetFailedLoginAttemptWindow();
-            }
-            else
-            {
-                LogFailedLoginAttempt();
+                AccountLockoutPolicy.LogSuccessfulLoginAttempt(this);
 
-                if (FailedLoginAttemptCount == MaxFailedLoginAtteptCount)
-                {
-                    _stateMachine.Fire(Trigger.Lock);
-                }
+                return LoginResult.Success;
             }
 
-            return passwordValidated;
-        }
-
-        private bool CanLogin()
-        {
-            return _stateMachine.IsInState(UserState.Activated) && 
-                !_stateMachine.IsInState(UserState.Locked);
-        }
-
-        private void ResetFailedLoginAttemptWindow()
-        {
-            FailedLoginWindowStart = null;
-            FailedLoginAttemptCount = 0;
-        }
-
-        private void LogFailedLoginAttempt()
-        {
-            var failedLoginWindowExpiry = CalculateFailedLoginAttemptWindowExpiryUtcDate();
-
-            if (ClockProvider.GetUtcNow() < failedLoginWindowExpiry)
-            {
-                FailedLoginAttemptCount++;
-            }
-            else
-            {
-                FailedLoginAttemptCount = 1;
-            }
-        }
-
-        private DateTime CalculateFailedLoginAttemptWindowExpiryUtcDate()
-        {
-            if (!FailedLoginWindowStart.HasValue)
-            {
-                FailedLoginWindowStart = ClockProvider.GetUtcNow();
-            }
-
-            return FailedLoginWindowStart.Value.Add(FailedLoginAttemptWindowPeriod);
+            AccountLockoutPolicy.LogFailedLoginAttempt(this);
+            
+            return LoginResult.InvalidUserNameOrPassword;
         }
 
         public void AddLoginProvider(string name, string userKey)
         {
+            Enforce.ArgumentNotNull("name", name);
+            Enforce.ArgumentNotNull("userKey", userKey);
+
             LoginProviders.Add(new LoginProvider(name, userKey));
         }
 
         public void RemoveLoginProvider(string name, string userKey)
         {
+            Enforce.ArgumentNotNull("name", name);
+            Enforce.ArgumentNotNull("userKey", userKey);
+
             var loginProvider = 
                 LoginProviders.FirstOrDefault(lp => lp.Name == name && lp.UserKey == userKey);
 
@@ -271,6 +253,16 @@ namespace Seed.Security
             {
                 LoginProviders.Remove(loginProvider);
             }
+        }
+
+        internal void Lock()
+        {
+            _stateMachine.Fire(Trigger.Lock);
+        }
+
+        public void Unlock()
+        {
+            _stateMachine.Fire(Trigger.UnlockAccount);
         }
     }
 }

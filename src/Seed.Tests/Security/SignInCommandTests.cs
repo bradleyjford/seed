@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Seed.Common.Domain;
+using Seed.Common.Testing;
+using Seed.Data.Migrations;
 using Seed.Security;
 using Seed.Tests.Data;
 using Xunit;
@@ -35,8 +38,21 @@ namespace Seed.Tests.Security
             _dbContext.Users.Add(user);
         }
 
+        private async Task LockUserAccount(User user)
+        {
+            var invalidCommand = new SignInCommand("user1", "incorrect-password");
+
+            await _commandHandler.Handle(invalidCommand);
+            await _commandHandler.Handle(invalidCommand);
+            await _commandHandler.Handle(invalidCommand);
+            await _commandHandler.Handle(invalidCommand);
+            await _commandHandler.Handle(invalidCommand);
+
+            Assert.True(user.LockedUtcDate.HasValue);
+        }
+
         [Fact]
-        public async Task Execute_CorrectCredentials_ReturnsSuccess()
+        public async Task Handle_CorrectCredentials_ReturnsSuccess()
         {
             var command = new SignInCommand("user1", "password");
 
@@ -46,7 +62,7 @@ namespace Seed.Tests.Security
         }
 
         [Fact]
-        public async Task Execute_IncorrectCredentials_ReturnsFailure()
+        public async Task Handle_IncorrectCredentials_ReturnsFailure()
         {
             var command = new SignInCommand("incorrect", "no-important");
 
@@ -56,7 +72,7 @@ namespace Seed.Tests.Security
         }
 
         [Fact]
-        public async Task Execute_SiginingInWithInvalidCredentials5Times_LocksAccount()
+        public async Task Handle_SiginingInWithInvalidCredentialsFiveTimes_LocksAccount()
         {
             var command = new SignInCommand("user1", "incorrect-password");
 
@@ -71,6 +87,44 @@ namespace Seed.Tests.Security
             Console.WriteLine(user.LockedUtcDate);
 
             Assert.True(user.LockedUtcDate.HasValue);
+        }
+
+        [Fact]
+        public async Task Handle_SiginingInWithInvalidCredentialsFourTimes_DoesNotLockAccount()
+        {
+            var command = new SignInCommand("user1", "incorrect-password");
+
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+            await _commandHandler.Handle(command);
+
+            var user = _dbContext.Users.Single();
+
+            Console.WriteLine(user.LockedUtcDate);
+
+            Assert.False(user.LockedUtcDate.HasValue);
+        }
+
+        [Fact]
+        public async Task Handle_AccountIsLocked_AbleToLoginAfterFiveMinutes()
+        {
+            var lockUtcDate = new DateTime(2014, 01, 01, 10, 0, 0);
+
+            var user = _dbContext.Users.Single();
+
+            ClockProvider.SetClock(new StaticClock(lockUtcDate));
+
+            await LockUserAccount(user);
+
+            ClockProvider.SetClock(new StaticClock(lockUtcDate.AddMinutes(10).AddSeconds(1)));
+
+            var command = new SignInCommand("user1", "password");
+
+            var result = await _commandHandler.Handle(command);
+
+            Assert.True(result.Success);
+            Assert.False(user.LockedUtcDate.HasValue);
         }
     }
 }

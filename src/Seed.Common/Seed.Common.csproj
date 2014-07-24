@@ -109,6 +109,7 @@
     <Compile Include="Specifications\OrSpecification.cs" />
     <Compile Include="Specifications\SpecificationExtensionMethods.cs" />
     <Compile Include="TaskExtensions.cs" />
+    <Compile Include="Testing\StaticClock.cs" />
     <Compile Include="Text\Base32Decoder.cs" />
     <Compile Include="Text\Base32Encoder.cs" />
     <Compile Include="Text\Base32Encoding.cs" />

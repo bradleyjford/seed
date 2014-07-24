@@ -30,7 +30,7 @@ namespace Seed.Api.Infrastructure.Middleware.OAuth2
 
             if (result.Success)
             {
-                var user = result.Value;
+                var user = result.User;
 
                 var identity = new ClaimsIdentity("Seed");
 

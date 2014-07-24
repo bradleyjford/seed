@@ -27,25 +27,25 @@ namespace Seed.Common.CommandHandling
     {
         public static CommandResult<TResult> Fail = new CommandResult<TResult>(false);
 
-        public static CommandResult<TResult> CreateFailureWithException(Exception error) 
-        {
-            return new CommandResult<TResult>(error);
-        }
-
         private CommandResult(bool success)
         {
             Success = success;
         }
 
-        protected CommandResult(Exception error)
+        public CommandResult(Exception error)
         {
             Success = false;
             Error = error;
         }
 
         public CommandResult(TResult value)
+            : this(true, value)
         {
-            Success = true;
+        }
+
+        public CommandResult(bool success, TResult value)
+        {
+            Success = success;
             Value = value;
         }
 
