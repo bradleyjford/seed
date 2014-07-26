@@ -19,12 +19,13 @@ namespace Seed.Tests.Security
         {
             _dbContext = new TestSeedDbContext();
 
-            AddUser(1, "user1", "Test User 1", "user1@test.com", "password");
+            AddUser(1, "user1", "Test User 1", "user1@test.com", "password", true);
+            AddUser(1, "unconfirmed", "Unconfirmed User", "unconfirmed@test.com", "password", false);
 
             _commandHandler = new SignInCommandHandler(_dbContext, new TestPasswordHasher());
         }
 
-        private void AddUser(int id, string userName, string fullName, string emailAddress, string password)
+        private void AddUser(int id, string userName, string fullName, string emailAddress, string password, bool confirm)
         {
             var passwordHasher = new TestPasswordHasher();
 
@@ -33,7 +34,10 @@ namespace Seed.Tests.Security
                 Id = id
             };
 
-            user.Confirm();
+            if (confirm)
+            {
+                user.Confirm();
+            }
 
             _dbContext.Users.Add(user);
         }
@@ -86,7 +90,7 @@ namespace Seed.Tests.Security
 
             Console.WriteLine(user.LockedUtcDate);
 
-            Assert.True(user.LockedUtcDate.HasValue);
+            Assert.True(user.IsLocked);
         }
 
         [Fact]

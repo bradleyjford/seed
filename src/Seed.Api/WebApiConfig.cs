@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Http;
-using System.Web.Http.Validation;
 using FluentValidation.WebApi;
 using Newtonsoft.Json.Serialization;
 using Seed.Api.Infrastructure.Filters;

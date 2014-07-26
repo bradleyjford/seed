@@ -7,7 +7,7 @@ using Seed.Common.Security;
 
 namespace Seed.Security
 {
-    public class SignInCommand : ICommand<SignInResult>
+    public class SignInCommand : ICommand<SignInCommandResult>
     {
         public SignInCommand(string userName, string password)
         {
@@ -21,15 +21,15 @@ namespace Seed.Security
         public string Password { get; set; }
     }
 
-    public class SignInResult : ICommandResult
+    public class SignInCommandResult : ICommandResult
     {
-        public SignInResult(LoginResult result, User user)
+        public SignInCommandResult(LoginResult result, User user)
         {
             Success = result.IsSuccessful();
             User = user;
         }
 
-        public SignInResult(Exception error)
+        public SignInCommandResult(Exception error)
         {
             Success = false;
             Error = error;
@@ -40,7 +40,7 @@ namespace Seed.Security
         public Exception Error { get; private set; }
     }
 
-    public class SignInCommandHandler : ICommandHandler<SignInCommand, SignInResult>
+    public class SignInCommandHandler : ICommandHandler<SignInCommand, SignInCommandResult>
     {
         private readonly ISeedDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
@@ -51,19 +51,19 @@ namespace Seed.Security
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<SignInResult> Handle(SignInCommand command)
+        public async Task<SignInCommandResult> Handle(SignInCommand command)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(
                  u => String.Compare(u.UserName, command.UserName, StringComparison.OrdinalIgnoreCase) == 0);
 
             if (user == null)
             {
-                return new SignInResult(LoginResult.InvalidUserNameOrPassword, null);
+                return new SignInCommandResult(LoginResult.InvalidUserNameOrPassword, null);
             }
 
             var loginResult = user.Login(_passwordHasher, command.Password);
 
-            return new SignInResult(loginResult, user);
+            return new SignInCommandResult(loginResult, user);
         }
     }
 }

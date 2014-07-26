@@ -5,7 +5,7 @@ using System.Web.Http;
 namespace Seed.Api.Security
 {
     [RoutePrefix("identity")]
-    public class IdentityController : ApiCommandController
+    public class IdentityController : ApiController
     {
         [Route("")]
         public IHttpActionResult Get()
@@ -15,7 +15,7 @@ namespace Seed.Api.Security
                 return NotFound();
             }
 
-            var user = User as ClaimsPrincipal;
+            var user = (ClaimsPrincipal)User;
 
             var response = new IdentityResponse(user.Identity.Name, "Testing User", new[] { "admin" });
 

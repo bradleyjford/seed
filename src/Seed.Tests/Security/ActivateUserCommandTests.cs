@@ -37,7 +37,7 @@ namespace Seed.Tests.Security
         }
 
         [Test]
-        public async Task Activate_ActivatingAnActiveUser_Succeeds()
+        public async Task Handle_ActivatingAnActiveUser_Succeeds()
         {
             var userId = 1;
 
@@ -52,7 +52,7 @@ namespace Seed.Tests.Security
         }
 
         [Test]
-        public async Task Activate_ActivatingAnInactiveUser_Succeeds()
+        public async Task Handle_ActivatingAnInactiveUser_Succeeds()
         {
             var userId = 1;
             var user = await _dbContext.Users.FindAsync(userId);

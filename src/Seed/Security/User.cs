@@ -34,7 +34,6 @@ namespace Seed.Security
             PasswordChanged
         }
 
-
         private readonly StateMachine<UserState, Trigger> _stateMachine;
 
         protected User()
@@ -127,12 +126,12 @@ namespace Seed.Security
         public string Notes { get; set; }
 
         /// <summary>
-        /// Gets the date and time of the last successful login by the user.
+        /// Gets the date and time of the last successful login by the user in UTC.
         /// </summary>
         public DateTime? LastLoginUtcDate { get; private set; }
 
         /// <summary>
-        /// Gets the date and time at which the user's password was last changed.
+        /// Gets the date and time at which the user's password was last changed in UTC.
         /// </summary>
         public DateTime LastPasswordChangeUtcDate { get; private set; }
 
