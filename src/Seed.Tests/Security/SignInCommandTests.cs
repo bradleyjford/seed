@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Seed.Common.Domain;
 using Seed.Common.Testing;
-using Seed.Data.Migrations;
 using Seed.Security;
 using Seed.Tests.Data;
 using Xunit;
@@ -12,6 +11,9 @@ namespace Seed.Tests.Security
 {
     public class SignInCommandTests
     {
+        private static readonly Guid User1Id = new Guid("00000000-0000-0000-0000-000000000001");
+        private static readonly Guid User2Id = new Guid("00000000-0000-0000-0000-000000000002");
+
         private readonly SignInCommandHandler _commandHandler;
         private readonly TestSeedDbContext _dbContext;
 
@@ -19,13 +21,13 @@ namespace Seed.Tests.Security
         {
             _dbContext = new TestSeedDbContext();
 
-            AddUser(1, "user1", "Test User 1", "user1@test.com", "password", true);
-            AddUser(1, "unconfirmed", "Unconfirmed User", "unconfirmed@test.com", "password", false);
+            AddUser(User1Id, "user1", "Test User 1", "user1@test.com", "password", true);
+            AddUser(User2Id, "unconfirmed", "Unconfirmed User", "unconfirmed@test.com", "password", false);
 
             _commandHandler = new SignInCommandHandler(_dbContext, new TestPasswordHasher());
         }
 
-        private void AddUser(int id, string userName, string fullName, string emailAddress, string password, bool confirm)
+        private void AddUser(Guid id, string userName, string fullName, string emailAddress, string password, bool confirm)
         {
             var passwordHasher = new TestPasswordHasher();
 

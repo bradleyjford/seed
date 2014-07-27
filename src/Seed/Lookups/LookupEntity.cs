@@ -3,7 +3,7 @@ using Seed.Common.Domain;
 
 namespace Seed.Lookups
 {
-    public abstract class LookupEntity : AggregateRoot<int>, ILookupEntity
+    public abstract class LookupEntity : AggregateRoot<int, Guid>, ILookupEntity
     {
         public string Name { get; set; }
 

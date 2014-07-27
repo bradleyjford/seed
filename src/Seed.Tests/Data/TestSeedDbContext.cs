@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using Seed.Common.Data.Testing;
-using Seed.Data;
 using Seed.Infrastructure.Auditing;
 using Seed.Lookups;
 using Seed.Security;
@@ -15,7 +14,7 @@ namespace Seed.Tests.Data
         public TestSeedDbContext()
         {            
             AuditEvents = new TestEntityDbSet<AuditEvent, int>();
-            Users = new TestEntityDbSet<User, int>();
+            Users = new TestEntityDbSet<User, Guid>();
             Countries = new TestEntityDbSet<Country, int>();
         }
         
@@ -25,10 +24,7 @@ namespace Seed.Tests.Data
 
         public DbChangeTracker ChangeTracker
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public int SaveChangesCount { get; private set; }

@@ -9,6 +9,8 @@ namespace Seed.Tests.Security
     [TestFixture]
     public class DectivateUserCommandTests
     {
+        private static readonly Guid User1Id = new Guid("00000000-0000-0000-0000-000000000001");
+
         private DeactivateUserCommandHandler _commandHandler;
         private TestSeedDbContext _dbContext;
 
@@ -17,12 +19,12 @@ namespace Seed.Tests.Security
         {
             _dbContext = new TestSeedDbContext();
 
-            AddUser(1, "user1", "Test User 1", "user1@test.com", "password");
+            AddUser(User1Id, "user1", "Test User 1", "user1@test.com", "password");
 
             _commandHandler = new DeactivateUserCommandHandler(_dbContext);
         }
 
-        private void AddUser(int id, string userName, string fullName, string emailAddress, string password)
+        private void AddUser(Guid id, string userName, string fullName, string emailAddress, string password)
         {
             var passwordHasher = new TestPasswordHasher();
 
@@ -39,12 +41,11 @@ namespace Seed.Tests.Security
         [Test]
         public async Task Handle_DeactivatingAnInactiveUser_Succeeds()
         {
-            var userId = 1;
-            var user = await  _dbContext.Users.FindAsync(userId);;
+            var user = await  _dbContext.Users.FindAsync(User1Id);;
 
             user.Deactivate();
 
-            var command = new DeactivateUserCommand(userId);
+            var command = new DeactivateUserCommand(User1Id);
 
             var result = await _commandHandler.Handle(command);
 
@@ -55,10 +56,9 @@ namespace Seed.Tests.Security
         [Test]
         public async Task Handle_DeactivatingAnActiveUser_Succeeds()
         {
-            var userId = 1;
-            var user = await _dbContext.Users.FindAsync(userId);
+            var user = await _dbContext.Users.FindAsync(User1Id);
 
-            var command = new DeactivateUserCommand(userId);
+            var command = new DeactivateUserCommand(User1Id);
 
             var result = await _commandHandler.Handle(command);
 

@@ -8,7 +8,7 @@ namespace Seed.Web.SpaHost.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index");
+            return View();
         }
     }
 }

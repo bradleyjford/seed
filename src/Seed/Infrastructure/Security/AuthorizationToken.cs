@@ -16,7 +16,7 @@ namespace Seed.Infrastructure.Security
 
         public bool IsExpired
         {
-            get { return ExpiryUtcDate <= ClockProvider.GetUtcNow(); }
+            get { return ClockProvider.GetUtcNow() > ExpiryUtcDate; }
         }
 
         public void ExpireNow()

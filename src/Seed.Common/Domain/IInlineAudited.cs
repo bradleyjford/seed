@@ -2,11 +2,11 @@
 
 namespace Seed.Common.Domain
 {
-    public interface IInlineAudited
+    public interface IInlineAudited<TUserId>
     {
-        int CreatedByUserId { get; }
+        TUserId CreatedByUserId { get; }
         DateTime CreatedUtcDate { get; }
-        int ModifiedByUserId { get; }
+        TUserId ModifiedByUserId { get; }
         DateTime ModifiedUtcDate { get; }
     }
 }

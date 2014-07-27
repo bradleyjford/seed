@@ -40,7 +40,7 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> Get([FromUri] int id)
+        public async Task<IHttpActionResult> Get([FromUri] Guid id)
         {
             var user = await _dbContext.Users.FindAsync(id);
 
@@ -50,7 +50,7 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> Post([FromUri]int id, [FromBody]EditUserRequest request)
+        public async Task<IHttpActionResult> Post([FromUri] Guid id, [FromBody] EditUserRequest request)
         {
             var command = Mapper.Map<EditUserCommand>(request);
 
@@ -63,7 +63,7 @@ namespace Seed.Api.Admin.Users
 
         [Route("{id:int}/activate")]
         [HttpPost]
-        public async Task<IHttpActionResult> Activate([FromUri] int id)
+        public async Task<IHttpActionResult> Activate([FromUri] Guid id)
         {
             var command = new ActivateUserCommand(id);
 
@@ -74,7 +74,7 @@ namespace Seed.Api.Admin.Users
         
         [Route("{id:int}/deactivate")]
         [HttpPost]
-        public async Task<IHttpActionResult> Deactivate([FromUri] int id)
+        public async Task<IHttpActionResult> Deactivate([FromUri] Guid id)
         {
             var command = new DeactivateUserCommand(id);
 

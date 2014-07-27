@@ -10,11 +10,11 @@ using Seed.Security;
 namespace Seed.Data
 {
     public class SeedUserStore : 
-        IUserLoginStore<User, int>,
-        IUserClaimStore<User, int>,
-        IUserRoleStore<User, int>,
-        IUserPasswordStore<User, int>,
-        IUserSecurityStampStore<User, int>
+        IUserLoginStore<User, Guid>,
+        IUserClaimStore<User, Guid>,
+        IUserRoleStore<User, Guid>,
+        IUserPasswordStore<User, Guid>,
+        IUserSecurityStampStore<User, Guid>
     {
         private readonly ISeedDbContext _dbContext;
 
@@ -41,7 +41,7 @@ namespace Seed.Data
             user.Deactivate();
         }
 
-        public Task<User> FindByIdAsync(int userId)
+        public Task<User> FindByIdAsync(Guid userId)
         {
             return _dbContext.Users.FindAsync(userId);
         }

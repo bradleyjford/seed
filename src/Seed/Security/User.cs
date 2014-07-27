@@ -11,7 +11,7 @@ using IPasswordHasher = Seed.Common.Security.IPasswordHasher;
 
 namespace Seed.Security
 {
-    public class User : AggregateRoot<int>, IUser<int>
+    public class User : AggregateRoot<Guid, Guid>, IUser<Guid>
     {
         internal enum UserState
         {
@@ -102,7 +102,7 @@ namespace Seed.Security
 
         private UserState State { get; set; }
 
-        string IUser<int>.UserName
+        string IUser<Guid>.UserName
         {
             get { return UserName; }
             set { UserName = value; }

@@ -45,7 +45,7 @@ namespace Seed.Infrastructure.CommandHandlerDecorators
         {
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
-                var inlineAudited = entry.Entity as IInlineAudited;
+                var inlineAudited = entry.Entity as IInlineAudited<Guid>;
 
                 if (inlineAudited == null)
                 {

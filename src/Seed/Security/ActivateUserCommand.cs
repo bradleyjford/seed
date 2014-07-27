@@ -6,12 +6,12 @@ namespace Seed.Security
 {
     public class ActivateUserCommand : ICommand<CommandResult>
     {
-        public ActivateUserCommand(int userId)
+        public ActivateUserCommand(Guid userId)
         {
             UserId = userId;
         }
 
-        public int UserId { get; protected set; }
+        public Guid UserId { get; protected set; }
     }
 
     public class ActivateUserCommandHandler : ICommandHandler<ActivateUserCommand, CommandResult>

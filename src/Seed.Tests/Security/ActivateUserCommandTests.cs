@@ -9,6 +9,8 @@ namespace Seed.Tests.Security
     [TestFixture]
     public class ActivateUserCommandTests
     {
+        private static readonly Guid User1Id = new Guid("00000000-0000-0000-0000-000000000001");
+
         private ActivateUserCommandHandler _commandHandler;
         private TestSeedDbContext _dbContext;
 
@@ -17,12 +19,12 @@ namespace Seed.Tests.Security
         {
             _dbContext = new TestSeedDbContext();
 
-            AddUser(1, "user1", "Test User 1", "user1@test.com", "password");
+            AddUser(User1Id, "user1", "Test User 1", "user1@test.com", "password");
 
             _commandHandler = new ActivateUserCommandHandler(_dbContext);
         }
 
-        private void AddUser(int id, string userName, string fullName, string emailAddress, string password)
+        private void AddUser(Guid id, string userName, string fullName, string emailAddress, string password)
         {
             var passwordHasher = new TestPasswordHasher();
 
@@ -39,13 +41,11 @@ namespace Seed.Tests.Security
         [Test]
         public async Task Handle_ActivatingAnActiveUser_Succeeds()
         {
-            var userId = 1;
-
-            var command = new ActivateUserCommand(userId);
+            var command = new ActivateUserCommand(User1Id);
 
             var result = await _commandHandler.Handle(command);
 
-            var user = await _dbContext.Users.FindAsync(userId);
+            var user = await _dbContext.Users.FindAsync(User1Id);
 
             Assert.True(result.Success);
             Assert.True(user.IsActive);
@@ -54,12 +54,11 @@ namespace Seed.Tests.Security
         [Test]
         public async Task Handle_ActivatingAnInactiveUser_Succeeds()
         {
-            var userId = 1;
-            var user = await _dbContext.Users.FindAsync(userId);
+            var user = await _dbContext.Users.FindAsync(User1Id);
 
             user.Deactivate();
 
-            var command = new ActivateUserCommand(userId);
+            var command = new ActivateUserCommand(User1Id);
 
             var result = await _commandHandler.Handle(command);
 
