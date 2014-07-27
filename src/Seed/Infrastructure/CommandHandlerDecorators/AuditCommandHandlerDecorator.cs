@@ -31,7 +31,6 @@ namespace Seed.Infrastructure.CommandHandlerDecorators
         {
             var result = await _decorated.Handle(command);
 
-            // inject DbContext and enumerate over ChangeTracker entities.
             var entry = AuditEvent.Create(_userContext, command);
 
             _dbContext.AuditEvents.Add(entry);

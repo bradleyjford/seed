@@ -6,7 +6,6 @@ using AutoMapper.QueryableExtensions;
 using Seed.Admin.Users;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;
-using Seed.Data;
 using Seed.Security;
 
 namespace Seed.Api.Admin.Users
@@ -15,14 +14,14 @@ namespace Seed.Api.Admin.Users
     [Authorize]
     public class UsersController : ApiCommandController
     {
-        private readonly ICommandBus _bus;
+        private readonly ICommandBus _mediator;
         private readonly ISeedDbContext _dbContext;
 
         public UsersController(
-            ICommandBus bus, 
+            ICommandBus mediator, 
             ISeedDbContext dbContext)
         {
-            _bus = bus;
+            _mediator = mediator;
             _dbContext = dbContext;
         }
 
@@ -39,7 +38,7 @@ namespace Seed.Api.Admin.Users
             return Ok(users);
         }
 
-        [Route("{id:int}")]
+        [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Get([FromUri] Guid id)
         {
             var user = await _dbContext.Users.FindAsync(id);
@@ -49,36 +48,36 @@ namespace Seed.Api.Admin.Users
             return Ok(response);
         }
 
-        [Route("{id:int}")]
+        [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Post([FromUri] Guid id, [FromBody] EditUserRequest request)
         {
             var command = Mapper.Map<EditUserCommand>(request);
 
             command.UserId = id;
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
 
-        [Route("{id:int}/activate")]
+        [Route("{id:Guid}/activate")]
         [HttpPost]
         public async Task<IHttpActionResult> Activate([FromUri] Guid id)
         {
             var command = new ActivateUserCommand(id);
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
         
-        [Route("{id:int}/deactivate")]
+        [Route("{id:Guid}/deactivate")]
         [HttpPost]
         public async Task<IHttpActionResult> Deactivate([FromUri] Guid id)
         {
             var command = new DeactivateUserCommand(id);
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
