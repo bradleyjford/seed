@@ -6,7 +6,6 @@ using AutoMapper;
 using Seed.Admin.Lookups;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;
-using Seed.Data;
 using Seed.Lookups;
 
 namespace Seed.Api.Admin.Lookups
@@ -21,14 +20,14 @@ namespace Seed.Api.Admin.Lookups
                 { "countries", typeof(Country) }
             };
 
-        private readonly ICommandBus _bus;
+        private readonly ICommandBus _mediator;
         private readonly ISeedDbContext _dbContext;
 
         public LookupsController(
-            ICommandBus bus,
+            ICommandBus mediator,
             ISeedDbContext dbContext)
         {
-            _bus = bus;
+            _mediator = mediator;
             _dbContext = dbContext;
         }
 
@@ -36,6 +35,7 @@ namespace Seed.Api.Admin.Lookups
         [HttpGet]
         public async Task<IHttpActionResult> Get(
             [FromUri] string type, 
+//            [FromUri] LookupQueryFilter filter,
             [FromUri] PagingOptions pagingOptions)
         {
             var entityType = ResolveEntityType(type);
@@ -46,6 +46,7 @@ namespace Seed.Api.Admin.Lookups
             }
 
             var items = await _dbContext.Set(entityType)
+                //.ApplyFilter(filter)
                 // TODO: .Project().To<LookupSummaryResponse>()
                 .ToPagedResultAsync(entityType, pagingOptions, new SortDescriptor("Name"));
 
@@ -85,7 +86,7 @@ namespace Seed.Api.Admin.Lookups
 
         [Route("")]
         [HttpPut]
-        public async Task<IHttpActionResult> Add(
+        public async Task<IHttpActionResult> Put(
             [FromUri] string type,
             [FromBody] CreateLookupRequest request)
         {
@@ -98,7 +99,7 @@ namespace Seed.Api.Admin.Lookups
 
             var command = MapRequestToCommand(request, typeof(CreateLookupCommand<>), entityType);
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
@@ -119,7 +120,7 @@ namespace Seed.Api.Admin.Lookups
 
             var command = MapRequestToCommand(request, typeof(EditLookupCommand<>), entityType);
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
@@ -137,7 +138,7 @@ namespace Seed.Api.Admin.Lookups
 
             var command = MapRequestToCommand(new { Id = id }, typeof(ActivateLookupCommand<>), entityType);
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
@@ -155,7 +156,7 @@ namespace Seed.Api.Admin.Lookups
 
             var command = MapRequestToCommand(new { Id = id }, typeof(DeactivateLookupCommand<>), entityType);
 
-            var result = await _bus.Send(command);
+            var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }

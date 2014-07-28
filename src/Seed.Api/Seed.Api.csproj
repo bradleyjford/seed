@@ -165,6 +165,7 @@
     <Compile Include="Admin\Lookups\CreateLookupRequest.cs" />
     <Compile Include="Admin\Lookups\EditLookupRequest.cs" />
     <Compile Include="Admin\Lookups\LookupsController.cs" />
+    <Compile Include="Admin\Lookups\LookupQueryFilter.cs" />
     <Compile Include="Admin\Users\UserDetailResponse.cs" />
     <Compile Include="Admin\Users\EditUserRequest.cs" />
     <Compile Include="Admin\Users\UserQueryFilter.cs" />
