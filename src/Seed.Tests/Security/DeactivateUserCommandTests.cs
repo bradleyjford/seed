@@ -1,47 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using Seed.Security;
-using Seed.Tests.Data;
+using Xunit;
 
 namespace Seed.Tests.Security
 {
-    [TestFixture]
-    public class DectivateUserCommandTests
+    public class DectivateUserCommandTests : UserCommandTests
     {
         private static readonly Guid User1Id = new Guid("00000000-0000-0000-0000-000000000001");
 
-        private DeactivateUserCommandHandler _commandHandler;
-        private TestSeedDbContext _dbContext;
+        private readonly DeactivateUserCommandHandler _commandHandler;
 
-        [SetUp]
-        public void SetUp()
+        public DectivateUserCommandTests()
         {
-            _dbContext = new TestSeedDbContext();
+            AddUser(User1Id, "user1", "Test User 1", "user1@test.com", "password", true);
 
-            AddUser(User1Id, "user1", "Test User 1", "user1@test.com", "password");
-
-            _commandHandler = new DeactivateUserCommandHandler(_dbContext);
+            _commandHandler = new DeactivateUserCommandHandler(DbContext);
         }
 
-        private void AddUser(Guid id, string userName, string fullName, string emailAddress, string password)
-        {
-            var passwordHasher = new TestPasswordHasher();
-
-            var user = new User(userName, fullName, emailAddress, passwordHasher, password)
-            {
-                Id = id
-            };
-
-            user.Confirm();
-
-            _dbContext.Users.Add(user);
-        }
-
-        [Test]
+        [Fact]
         public async Task Handle_DeactivatingAnInactiveUser_Succeeds()
         {
-            var user = await  _dbContext.Users.FindAsync(User1Id);;
+            var user = await DbContext.Users.FindAsync(User1Id);;
 
             user.Deactivate();
 
@@ -53,10 +33,10 @@ namespace Seed.Tests.Security
             Assert.False(user.IsActive);
         }
 
-        [Test]
+        [Fact]
         public async Task Handle_DeactivatingAnActiveUser_Succeeds()
         {
-            var user = await _dbContext.Users.FindAsync(User1Id);
+            var user = await DbContext.Users.FindAsync(User1Id);
 
             var command = new DeactivateUserCommand(User1Id);
 

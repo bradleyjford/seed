@@ -1,47 +1,25 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Seed.Common.Domain;
 using Seed.Common.Testing;
 using Seed.Security;
-using Seed.Tests.Data;
 using Xunit;
 
 namespace Seed.Tests.Security
 {
-    public class SignInCommandTests
+    public class SignInCommandTests : UserCommandTests
     {
         private static readonly Guid User1Id = new Guid("00000000-0000-0000-0000-000000000001");
         private static readonly Guid User2Id = new Guid("00000000-0000-0000-0000-000000000002");
 
         private readonly SignInCommandHandler _commandHandler;
-        private readonly TestSeedDbContext _dbContext;
 
         public SignInCommandTests()
         {
-            _dbContext = new TestSeedDbContext();
-
             AddUser(User1Id, "user1", "Test User 1", "user1@test.com", "password", true);
-            AddUser(User2Id, "unconfirmed", "Unconfirmed User", "unconfirmed@test.com", "password", false);
+            AddUser(User2Id, "user2", "Unconfirmed User", "unconfirmed@test.com", "password", false);
 
-            _commandHandler = new SignInCommandHandler(_dbContext, new TestPasswordHasher());
-        }
-
-        private void AddUser(Guid id, string userName, string fullName, string emailAddress, string password, bool confirm)
-        {
-            var passwordHasher = new TestPasswordHasher();
-
-            var user = new User(userName, fullName, emailAddress, passwordHasher, password)
-            {
-                Id = id
-            };
-
-            if (confirm)
-            {
-                user.Confirm();
-            }
-
-            _dbContext.Users.Add(user);
+            _commandHandler = new SignInCommandHandler(DbContext, new TestPasswordHasher());
         }
 
         private async Task LockUserAccount(User user)
@@ -78,6 +56,16 @@ namespace Seed.Tests.Security
         }
 
         [Fact]
+        public async Task Handle_UnconfirmedEmailAddress_ReturnsFailure()
+        {
+            var command = new SignInCommand("user2", "password");
+
+            var result = await _commandHandler.Handle(command);
+
+            Assert.False(result.Success);
+        }
+
+        [Fact]
         public async Task Handle_SiginingInWithInvalidCredentialsFiveTimes_LocksAccount()
         {
             var command = new SignInCommand("user1", "incorrect-password");
@@ -88,7 +76,7 @@ namespace Seed.Tests.Security
             await _commandHandler.Handle(command);
             await _commandHandler.Handle(command);
 
-            var user = _dbContext.Users.Single();
+            var user = await DbContext.Users.FindAsync(User1Id);
 
             Console.WriteLine(user.LockedUtcDate);
 
@@ -105,7 +93,7 @@ namespace Seed.Tests.Security
             await _commandHandler.Handle(command);
             await _commandHandler.Handle(command);
 
-            var user = _dbContext.Users.Single();
+            var user = await DbContext.Users.FindAsync(User1Id);
 
             Console.WriteLine(user.LockedUtcDate);
 
@@ -117,7 +105,7 @@ namespace Seed.Tests.Security
         {
             var lockUtcDate = new DateTime(2014, 01, 01, 10, 0, 0);
 
-            var user = _dbContext.Users.Single();
+            var user = await DbContext.Users.FindAsync(User1Id);
 
             ClockProvider.SetClock(new StaticClock(lockUtcDate));
 

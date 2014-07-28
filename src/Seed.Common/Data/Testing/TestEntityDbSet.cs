@@ -11,7 +11,7 @@ namespace Seed.Common.Data.Testing
     {
         public override TEntity Find(params object[] keyValues)
         {
-            var id = (int)keyValues.Single();
+            var id = (TId)keyValues.Single();
 
             return this.SingleOrDefault(e => e.Id.Equals(id));
         }
