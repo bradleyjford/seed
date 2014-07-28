@@ -11,7 +11,6 @@ namespace Seed.Tests.Security
         protected UserCommandTests()
         {
             _dbContext = new TestSeedDbContext();
-
         }
 
         public ISeedDbContext DbContext
