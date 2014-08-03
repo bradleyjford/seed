@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
+using Seed.Infrastructure.Data;
 
 namespace Seed.Security
 {

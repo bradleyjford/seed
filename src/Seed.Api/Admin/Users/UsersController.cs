@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using Seed.Admin.Users;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;
+using Seed.Infrastructure.Data;
 using Seed.Security;
 
 namespace Seed.Api.Admin.Users

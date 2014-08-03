@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
+using Seed.Infrastructure.Data;
 
 namespace Seed.Infrastructure.CommandHandlerDecorators
 {

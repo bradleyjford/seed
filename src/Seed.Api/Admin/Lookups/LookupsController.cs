@@ -6,6 +6,7 @@ using AutoMapper;
 using Seed.Admin.Lookups;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;
+using Seed.Infrastructure.Data;
 using Seed.Lookups;
 
 namespace Seed.Api.Admin.Lookups

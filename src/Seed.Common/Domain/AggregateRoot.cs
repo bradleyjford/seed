@@ -2,7 +2,7 @@
 
 namespace Seed.Common.Domain
 {
-    public abstract class AggregateRoot<TId, TUserId> : Entity<TId>,  IInlineAudited<TUserId>
+    public abstract class AggregateRoot<TId, TUserId> : Entity<TId>, IInlineAudited<TUserId>
     {
         public TUserId CreatedByUserId { get; protected set; }
         public DateTime CreatedUtcDate { get; protected set; }

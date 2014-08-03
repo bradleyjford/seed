@@ -2,7 +2,7 @@
 
 namespace Seed.Common.Domain
 {
-    public interface IInlineAudited<TUserId>
+    public interface IInlineAudited<out TUserId>
     {
         TUserId CreatedByUserId { get; }
         DateTime CreatedUtcDate { get; }

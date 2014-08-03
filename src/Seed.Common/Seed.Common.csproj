@@ -58,16 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auditing\AuditEntryContractResolver.cs" />
-    <Compile Include="Auditing\AuditIgnore.cs" />
-    <Compile Include="Auditing\AuditSensitive.cs" />
-    <Compile Include="Auditing\MaskedStringJsonConverter.cs" />
-    <Compile Include="Data\IPagedResult.cs" />
+    <Compile Include="Auditing\Serialization\AuditEntryContractResolver.cs" />
+    <Compile Include="Auditing\Serialization\AuditIgnore.cs" />
+    <Compile Include="Auditing\Serialization\AuditSensitive.cs" />
+    <Compile Include="Auditing\Serialization\MaskedStringJsonConverter.cs" />
+    <Compile Include="Data\PagedResult.cs" />
     <Compile Include="Data\QueryableFilterExtensions.cs" />
     <Compile Include="Data\QueryablePagingExtensions.cs" />
-    <Compile Include="Data\IPagingOptions.cs" />
     <Compile Include="Data\IQueryFilter.cs" />
-    <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Data\SortDescriptor.cs" />
     <Compile Include="Data\PagingOptions.cs" />
     <Compile Include="Data\QueryableOrderByExtensions.cs" />
@@ -108,7 +106,7 @@
     <Compile Include="Specifications\NotSpecification.cs" />
     <Compile Include="Specifications\OrSpecification.cs" />
     <Compile Include="Specifications\SpecificationExtensionMethods.cs" />
-    <Compile Include="Testing\StaticClock.cs" />
+    <Compile Include="Domain\Testing\StaticClock.cs" />
     <Compile Include="Text\Base32Decoder.cs" />
     <Compile Include="Text\Base32Encoder.cs" />
     <Compile Include="Text\Base32Encoding.cs" />

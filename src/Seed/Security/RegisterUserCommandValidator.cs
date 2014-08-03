@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
+using Seed.Infrastructure.Data;
 
 namespace Seed.Security
 {

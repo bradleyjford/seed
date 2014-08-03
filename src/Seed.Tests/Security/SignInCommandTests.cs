@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Seed.Common.Domain;
-using Seed.Common.Testing;
+using Seed.Common.Domain.Testing;
 using Seed.Security;
 using Xunit;
 

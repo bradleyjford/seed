@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Domain;
+using Seed.Infrastructure.Data;
 
 namespace Seed.Admin.Lookups
 {

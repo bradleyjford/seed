@@ -2,14 +2,14 @@
 
 namespace Seed.Security
 {
-    public interface IUserContext
+    public interface IUserContext<out TUserId>
     {
-        int UserId { get; }
+        TUserId UserId { get; }
 
         string DisplayName { get; }
 
         string UserName { get; }
-        string EmailAddress { get; }
+        string Email { get; }
 
         bool IsInRole(string role);
     }

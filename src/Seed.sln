@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web.SpaHost", "Seed.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed", "Seed\Seed.csproj", "{EC2E4390-36CE-443C-BECE-416AB548D68F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Data", "Seed.Data\Seed.Data.csproj", "{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Tests", "Seed.Tests\Seed.Tests.csproj", "{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Common", "Seed.Common\Seed.Common.csproj", "{F1E65D85-F22E-486C-A2E8-20C682B2B3EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{3F579F66-9FE9-4057-B378-41BE03930132}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{EC2E4390-36CE-443C-BECE-416AB548D68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC2E4390-36CE-443C-BECE-416AB548D68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC2E4390-36CE-443C-BECE-416AB548D68F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B0D87D5-12F5-4F8E-8A5E-0B74D55355A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C252AE4D-DBD7-4B2F-B168-38B2E8151DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +44,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C9EDA708-2690-4E50-903D-00387BB25BAC} = {3F579F66-9FE9-4057-B378-41BE03930132}
+		{F1E65D85-F22E-486C-A2E8-20C682B2B3EF} = {3F579F66-9FE9-4057-B378-41BE03930132}
 	EndGlobalSection
 EndGlobal

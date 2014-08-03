@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Seed.Common.Auditing;
+using Seed.Common.Auditing.Serialization;
 using Seed.Common.CommandHandling;
+using Seed.Infrastructure.Data;
 
 namespace Seed.Admin.Users
 {

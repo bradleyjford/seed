@@ -1,4 +1,5 @@
 ﻿using System;
+using Seed.Infrastructure.Data;
 using Seed.Security;
 using Seed.Tests.Data;
 

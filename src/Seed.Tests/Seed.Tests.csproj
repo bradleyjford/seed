@@ -57,6 +57,9 @@
   <ItemGroup>
     <Compile Include="Data\QueryableOrderByTests.cs" />
     <Compile Include="Data\TestSeedDbContext.cs" />
+    <Compile Include="Infrastructure\Auditing\AuditCommandHandlerDecoratorTests.cs" />
+    <Compile Include="Infrastructure\Auditing\TestCommandHandler.cs" />
+    <Compile Include="Infrastructure\TestUserContext.cs" />
     <Compile Include="Security\DeactivateUserCommandTests.cs" />
     <Compile Include="Security\SignInCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,10 +75,6 @@
     <ProjectReference Include="..\Seed.Common\Seed.Common.csproj">
       <Project>{F1E65D85-F22E-486C-A2E8-20C682B2B3EF}</Project>
       <Name>Seed.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Seed.Data\Seed.Data.csproj">
-      <Project>{7b0d87d5-12f5-4f8e-8a5e-0b74d55355a7}</Project>
-      <Name>Seed.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Seed\Seed.csproj">
       <Project>{ec2e4390-36ce-443c-bece-416ab548d68f}</Project>

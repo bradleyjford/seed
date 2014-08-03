@@ -71,13 +71,23 @@
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
+    <Compile Include="Infrastructure\Data\GuidCombIdGenerator.cs" />
+    <Compile Include="Infrastructure\Data\MappingHelpers.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Infrastructure\Data\SeedDatabaseConfiguration.cs" />
+    <Compile Include="Infrastructure\Data\SeedDbContext.cs" />
+    <Compile Include="Infrastructure\Data\SeedUserStore.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\UnitOfWorkCommandHandlerDecorator.cs" />
-    <Compile Include="ISeedDbContext.cs" />
+    <Compile Include="Infrastructure\Data\ISeedDbContext.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
+    <Compile Include="Migrations\201408032001045_Initial schema.cs" />
+    <Compile Include="Migrations\201408032001045_Initial schema.Designer.cs">
+      <DependentUpon>201408032001045_Initial schema.cs</DependentUpon>
+    </Compile>
     <Compile Include="Security\AccountLockoutPolicy.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
     <Compile Include="Security\ConfirmUserCommand.cs" />
@@ -103,6 +113,12 @@
       <Project>{f1e65d85-f22e-486c-a2e8-20c682b2b3ef}</Project>
       <Name>Seed.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408032001045_Initial schema.resx">
+      <DependentUpon>201408032001045_Initial schema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

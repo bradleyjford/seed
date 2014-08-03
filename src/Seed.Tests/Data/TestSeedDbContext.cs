@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using Seed.Common.Data.Testing;
 using Seed.Infrastructure.Auditing;
+using Seed.Infrastructure.Data;
 using Seed.Lookups;
 using Seed.Security;
 

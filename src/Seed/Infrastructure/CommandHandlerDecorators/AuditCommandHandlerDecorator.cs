@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Domain;
 using Seed.Infrastructure.Auditing;
+using Seed.Infrastructure.Data;
 using Seed.Security;
 
 namespace Seed.Infrastructure.CommandHandlerDecorators
@@ -15,12 +16,12 @@ namespace Seed.Infrastructure.CommandHandlerDecorators
     {
         private readonly ICommandHandler<TCommand, TResult> _decorated;
         private readonly ISeedDbContext _dbContext;
-        private readonly IUserContext _userContext;
+        private readonly IUserContext<Guid> _userContext;
 
         public AuditCommandHandlerDecorator(
             ICommandHandler<TCommand, TResult> decorated,
             ISeedDbContext dbContext,
-            IUserContext userContext)
+            IUserContext<Guid> userContext)
         {
             _decorated = decorated;
             _dbContext = dbContext;
@@ -40,7 +41,7 @@ namespace Seed.Infrastructure.CommandHandlerDecorators
             return result;
         }
 
-        private void ApplyInlineAuditValues(IUserContext userContext)
+        private void ApplyInlineAuditValues(IUserContext<Guid> userContext)
         {
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
@@ -63,13 +64,13 @@ namespace Seed.Infrastructure.CommandHandlerDecorators
             }
         }
 
-        private void SetCreated(DbEntityEntry entry, IUserContext userContext)
+        private void SetCreated(DbEntityEntry entry, IUserContext<Guid> userContext)
         {
             entry.CurrentValues["CreatedUtcDate"] = ClockProvider.GetUtcNow();
             entry.CurrentValues["CreatedByUserId"] = userContext.UserId;
         }
 
-        private void SetModified(DbEntityEntry entry, IUserContext userContext)
+        private void SetModified(DbEntityEntry entry, IUserContext<Guid> userContext)
         {
             entry.CurrentValues["ModifiedUtcDate"] = ClockProvider.GetUtcNow();
             entry.CurrentValues["ModifiedByUserId"] = userContext.UserId;

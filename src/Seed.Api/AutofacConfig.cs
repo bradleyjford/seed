@@ -7,8 +7,8 @@ using Autofac.Integration.WebApi;
 using Seed.Api.Infrastructure.Security;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;
-using Seed.Data;
 using Seed.Infrastructure.CommandHandlerDecorators;
+using Seed.Infrastructure.Data;
 using Seed.Lookups;
 using Seed.Security;
 
@@ -19,7 +19,7 @@ namespace Seed.Api
         public static IContainer Initialize()
         {
             var domainAssembly = typeof(LookupEntity).Assembly;
-            var dataAssembly = typeof(SeedDbContext).Assembly;
+            //var dataAssembly = typeof(SeedDbContext).Assembly;
 
             var builder = new ContainerBuilder();
 
@@ -28,7 +28,7 @@ namespace Seed.Api
                 .InstancePerLifetimeScope();
 
             // Domain Services
-            builder.RegisterType<SeedUserContext>().As<IUserContext>()
+            builder.RegisterType<SeedUserContext>().As<IUserContext<Guid>>()
                 .InstancePerLifetimeScope();
 
             // Data Services
