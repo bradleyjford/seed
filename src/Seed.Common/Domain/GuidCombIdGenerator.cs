@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seed.Infrastructure.Data
+namespace Seed.Common.Domain
 {
     public class GuidCombIdGenerator
     {

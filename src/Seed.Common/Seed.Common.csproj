@@ -62,6 +62,7 @@
     <Compile Include="Auditing\Serialization\AuditIgnore.cs" />
     <Compile Include="Auditing\Serialization\AuditSensitive.cs" />
     <Compile Include="Auditing\Serialization\MaskedStringJsonConverter.cs" />
+    <Compile Include="Data\MappingHelpers.cs" />
     <Compile Include="Data\PagedResult.cs" />
     <Compile Include="Data\QueryableFilterExtensions.cs" />
     <Compile Include="Data\QueryablePagingExtensions.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\ClockProvider.cs" />
     <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\GuidCombIdGenerator.cs" />
     <Compile Include="Domain\IClock.cs" />
     <Compile Include="Domain\IInlineAudited.cs" />
     <Compile Include="Domain\ILookupEntity.cs" />

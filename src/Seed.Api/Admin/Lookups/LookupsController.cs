@@ -54,16 +54,6 @@ namespace Seed.Api.Admin.Lookups
             return Ok(items);
         }
 
-        private Type ResolveEntityType(string type)
-        {
-            if (LookupEntityTypeMap.ContainsKey(type))
-            {
-                return LookupEntityTypeMap[type];
-            }
-
-            return null;
-        }
-
         [Route("{id:int}")]
         [HttpGet]
         public async Task<IHttpActionResult> Get([FromUri] string type, [FromUri] int id)
@@ -86,8 +76,8 @@ namespace Seed.Api.Admin.Lookups
         }
 
         [Route("")]
-        [HttpPut]
-        public async Task<IHttpActionResult> Put(
+        [HttpPost]
+        public async Task<IHttpActionResult> Create(
             [FromUri] string type,
             [FromBody] CreateLookupRequest request)
         {
@@ -107,7 +97,7 @@ namespace Seed.Api.Admin.Lookups
 
         [Route("{id:int}")]
         [HttpPost]
-        public async Task<IHttpActionResult> Post(
+        public async Task<IHttpActionResult> Edit(
             [FromUri] string type,
             [FromUri] int id,
             [FromBody] EditLookupRequest request)
@@ -160,6 +150,16 @@ namespace Seed.Api.Admin.Lookups
             var result = await _mediator.Send(command);
 
             return CommandResult(result);
+        }
+
+        private Type ResolveEntityType(string type)
+        {
+            if (LookupEntityTypeMap.ContainsKey(type))
+            {
+                return LookupEntityTypeMap[type];
+            }
+
+            return null;
         }
 
         private static ICommand<CommandResult> MapRequestToCommand(object request, Type commandType, Type entityType)

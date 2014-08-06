@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Seed.Infrastructure.Data
+namespace Seed.Common.Data
 {
     public static class MappingHelpers
     {

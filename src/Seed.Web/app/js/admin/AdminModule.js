@@ -56,6 +56,19 @@
                 }
             })
 
+            .state('app.admin.lookups.list.create', {
+                url: '/create',
+                views: {
+                    'content@app.admin': {
+                        templateUrl: 'admin/lookups/LookupCreate.html',
+                        controller: 'LookupCreateController'
+                    }
+                },
+                data: {
+                    title: 'Create {{ model.typeName }}'
+                }
+            })
+
             .state('app.admin.lookups.list.edit', {
                 url: '/:id/edit',
                 views: {

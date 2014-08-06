@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Integration.WebApi;
+using Seed.Admin.Lookups;
 using Seed.Api.Infrastructure.Security;
 using Seed.Common.CommandHandling;
+using Seed.Common.Domain;
 using Seed.Common.Security;
 using Seed.Infrastructure.CommandHandlerDecorators;
 using Seed.Infrastructure.Data;
@@ -55,6 +58,8 @@ namespace Seed.Api
                     .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
                     .Select(i => new KeyedService("commandHandler", i)));
 
+            RegisterLookupCommandHandlers(builder, domainAssembly);
+
             // Command Handler Decorators
             builder.RegisterGenericDecorator(
                 typeof(AuditCommandHandlerDecorator<,>),
@@ -75,32 +80,34 @@ namespace Seed.Api
             return builder.Build();
         }
 
-        //private static void RegisterLookupCommandHandlers(ContainerBuilder builder, Assembly domainAssembly)
-        //{
-        //    var lookupEntityTypes = domainAssembly.GetTypes()
-        //        .Where(t => t.IsAssignableFrom(typeof(ILookupEntity)));
+        private static void RegisterLookupCommandHandlers(ContainerBuilder builder, Assembly domainAssembly)
+        {
+            var lookupEntityTypes = domainAssembly.GetTypes()
+                .Where(t => typeof(ILookupEntity).IsAssignableFrom(t) && !t.IsAbstract);
 
-        //    foreach (var lookupEntityType in lookupEntityTypes)
-        //    {
-        //        var createCommandType = typeof(CreateLookupCommand<>).MakeGenericType(lookupEntityType);
-        //        var editCommandType = typeof(EditLookupCommand<>).MakeGenericType(lookupEntityType);
-        //        var activateCommandType = typeof(ActivateLookupCommand<>).MakeGenericType(lookupEntityType);
-        //        var deactivateCommandType = typeof(DeactivateLookupCommand<>).MakeGenericType(lookupEntityType);
+            foreach (var lookupEntityType in lookupEntityTypes)
+            {
+                var createCommandType = typeof(CreateLookupCommand<>).MakeGenericType(lookupEntityType);
+                var editCommandType = typeof(EditLookupCommand<>).MakeGenericType(lookupEntityType);
+                var activateCommandType = typeof(ActivateLookupCommand<>).MakeGenericType(lookupEntityType);
+                var deactivateCommandType = typeof(DeactivateLookupCommand<>).MakeGenericType(lookupEntityType);
 
-        //        RegisterLookupCommandHandler(builder, createCommandType);
-        //        RegisterLookupCommandHandler(builder, editCommandType);
-        //        RegisterLookupCommandHandler(builder, activateCommandType);
-        //        RegisterLookupCommandHandler(builder, deactivateCommandType);
-        //    }
-        //}
+                RegisterLookupCommandHandler(builder, createCommandType, lookupEntityType);
+                RegisterLookupCommandHandler(builder, editCommandType, lookupEntityType);
+                RegisterLookupCommandHandler(builder, activateCommandType, lookupEntityType);
+                RegisterLookupCommandHandler(builder, deactivateCommandType, lookupEntityType);
+            }
+        }
 
-        //private static void RegisterLookupCommandHandler(ContainerBuilder builder, Type commandType)
-        //{
-        //    //var handlerType = typeof(LookupEntityCommandHandlers<>).MakeGenericType(commandType);
+        private static void RegisterLookupCommandHandler(
+            ContainerBuilder builder, 
+            Type commandType, 
+            Type lookupEntityType)
+        {
+            var handlerType = typeof(LookupEntityCommandHandlers<>).MakeGenericType(lookupEntityType);
+            var serviceType = typeof(ICommandHandler<,>).MakeGenericType(commandType, typeof(CommandResult));
 
-        //    //new KeyedService("commandHandler", handlerType);
-
-        //    //builder.RegisterType(handlerType).AsImplementedInterfaces().Keyed("commandHandler");
-        //}
+            builder.RegisterType(handlerType).As(serviceType).Keyed("commandHandler", handlerType);
+        }
     }
 }

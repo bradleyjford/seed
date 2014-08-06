@@ -71,8 +71,6 @@
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
-    <Compile Include="Infrastructure\Data\GuidCombIdGenerator.cs" />
-    <Compile Include="Infrastructure\Data\MappingHelpers.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Infrastructure\Data\SeedDatabaseConfiguration.cs" />
     <Compile Include="Infrastructure\Data\SeedDbContext.cs" />
