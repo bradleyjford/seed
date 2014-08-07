@@ -1,4 +1,25 @@
-<button ng-click="add()">+ New</button>
+
+<div class="row">
+    <div class="col-md-6">
+        <form name="filterForm" class="form-inline" role="form" no-validate>
+            <div class="input-group">
+                <label for="filterText" class="sr-only">User name</label>
+                <input type="text" id="filterText" class="form-control" ng-model="search.query" placeholder="Search">
+
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sm" ng-click="search()"><span class="fa fa-search"></span></button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="input-group-btn">
+            <button ng-click="add()" class="btn btn-primary">+ New</button>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-sm-12">

@@ -111,6 +111,8 @@ namespace Seed.Api.Admin.Lookups
 
             var command = MapRequestToCommand(request, typeof(EditLookupCommand<>), entityType);
 
+            command.Id = id;
+
             var result = await _mediator.Send(command);
 
             return CommandResult(result);
@@ -162,7 +164,10 @@ namespace Seed.Api.Admin.Lookups
             return null;
         }
 
-        private static ICommand<CommandResult> MapRequestToCommand(object request, Type commandType, Type entityType)
+        private static ILookupCommand MapRequestToCommand(
+            object request, 
+            Type commandType, 
+            Type entityType)
         {
             var closedCommandType = commandType.MakeGenericType(entityType);
 
@@ -170,7 +175,7 @@ namespace Seed.Api.Admin.Lookups
 
             Mapper.DynamicMap(request, commandInstance, request.GetType(), closedCommandType);
 
-            return (ICommand<CommandResult>)commandInstance;
+            return (ILookupCommand)commandInstance;
         }
     }
 }

@@ -35,7 +35,7 @@
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        LookupsApi.activate({ id: $scope.model.id }, null, function () {
+                        LookupsApi.activate({ id: $scope.model.id, type: 'countries' }, null, function () {
                             $scope.model.isActive = true;
                         });
                     });
@@ -52,7 +52,7 @@
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        LookupsApi.deactivate({ id: $scope.model.id }, null, function () {
+                        LookupsApi.deactivate({ id: $scope.model.id, type: 'countries' }, null, function () {
                             $scope.model.isActive = false;
                         });
                     });

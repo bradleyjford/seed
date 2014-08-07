@@ -107,7 +107,7 @@ namespace Seed.Api
             var handlerType = typeof(LookupEntityCommandHandlers<>).MakeGenericType(lookupEntityType);
             var serviceType = typeof(ICommandHandler<,>).MakeGenericType(commandType, typeof(CommandResult));
 
-            builder.RegisterType(handlerType).As(serviceType).Keyed("commandHandler", handlerType);
+            builder.RegisterType(handlerType).Keyed("commandHandler", serviceType);
         }
     }
 }
