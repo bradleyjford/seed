@@ -57,7 +57,7 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Create([FromBody] CreateLookupRequest request)
         {
-            var command = MapRequestToCommand(request, typeof(CreateLookupCommand<>));
+            var command = MapRequestToCommand<CreateLookupCommand<TLookup>>(request);
 
             var result = await _mediator.Send(command);
 
@@ -70,7 +70,7 @@ namespace Seed.Api.Admin.Lookups
             [FromUri] int id,
             [FromBody] EditLookupRequest request)
         {
-            var command = MapRequestToCommand(request, typeof(EditLookupCommand<>));
+            var command = MapRequestToCommand<EditLookupCommand<TLookup>>(request);
 
             command.Id = id;
 
@@ -83,7 +83,7 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Activate([FromUri] int id)
         {
-            var command = MapRequestToCommand(new { Id = id }, typeof(ActivateLookupCommand<>));
+            var command = MapRequestToCommand<ActivateLookupCommand<TLookup>>(new { Id = id });
 
             var result = await _mediator.Send(command);
 
@@ -94,20 +94,19 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Deactivate([FromUri] int id)
         {
-            var command = MapRequestToCommand(new { Id = id }, typeof(DeactivateLookupCommand<>));
+            var command = MapRequestToCommand<DeactivateLookupCommand<TLookup>>(new { Id = id });
 
             var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
 
-        private static ILookupCommand MapRequestToCommand(object request, Type commandType)
+        private static ILookupCommand MapRequestToCommand<TCommand>(object request) 
+            where TCommand : new()
         {
-            var closedCommandType = commandType.MakeGenericType(typeof(TLookup));
+            var commandInstance = new TCommand();
 
-            var commandInstance = Activator.CreateInstance(closedCommandType);
-
-            Mapper.DynamicMap(request, commandInstance, request.GetType(), closedCommandType);
+            Mapper.DynamicMap(request, commandInstance, request.GetType(), typeof(TCommand));
 
             return (ILookupCommand)commandInstance;
         }
