@@ -1,30 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Seed.Admin.Lookups;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;
+using Seed.Common.Domain;
 using Seed.Infrastructure.Data;
-using Seed.Lookups;
 
 namespace Seed.Api.Admin.Lookups
 {
-    [RoutePrefix("admin/lookups/{type}")]
-    [Authorize]
-    public class LookupsController : ApiCommandController
+    public abstract class LookupsController<TLookup> : ApiCommandController
+        where TLookup : class, ILookupEntity
     {
-        private static readonly IDictionary<string, Type> LookupEntityTypeMap =
-            new Dictionary<string, Type>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "countries", typeof(Country) }
-            };
-
         private readonly ICommandBus _mediator;
         private readonly ISeedDbContext _dbContext;
 
-        public LookupsController(
+        protected LookupsController(
             ICommandBus mediator,
             ISeedDbContext dbContext)
         {
@@ -35,37 +28,22 @@ namespace Seed.Api.Admin.Lookups
         [Route("")]
         [HttpGet]
         public async Task<IHttpActionResult> Get(
-            [FromUri] string type, 
-//            [FromUri] LookupQueryFilter filter,
+            [FromUri] LookupQueryFilter filter,
             [FromUri] PagingOptions pagingOptions)
         {
-            var entityType = ResolveEntityType(type);
-
-            if (entityType == null)
-            {
-                return NotFound();
-            }
-
-            var items = await _dbContext.Set(entityType)
-                //.ApplyFilter(filter)
-                // TODO: .Project().To<LookupSummaryResponse>()
-                .ToPagedResultAsync(entityType, pagingOptions, new SortDescriptor("Name"));
+            var items = await _dbContext.Set<TLookup>()
+                .ApplyFilter(filter)
+                .Project().To<LookupSummaryResponse>()
+                .ToPagedResultAsync(pagingOptions, new SortDescriptor("Name"));
 
             return Ok(items);
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public async Task<IHttpActionResult> Get([FromUri] string type, [FromUri] int id)
+        public async Task<IHttpActionResult> Get([FromUri] int id)
         {
-            var entityType = ResolveEntityType(type);
-
-            if (entityType == null)
-            {
-                return NotFound();
-            }
-
-            var item = await _dbContext.Set(entityType).FindAsync(id);
+            var item = await _dbContext.Set<TLookup>().FindAsync(id);
 
             if (item == null)
             {
@@ -77,18 +55,9 @@ namespace Seed.Api.Admin.Lookups
 
         [Route("")]
         [HttpPost]
-        public async Task<IHttpActionResult> Create(
-            [FromUri] string type,
-            [FromBody] CreateLookupRequest request)
+        public async Task<IHttpActionResult> Create([FromBody] CreateLookupRequest request)
         {
-            var entityType = ResolveEntityType(type);
-
-            if (entityType == null)
-            {
-                return NotFound();
-            }
-
-            var command = MapRequestToCommand(request, typeof(CreateLookupCommand<>), entityType);
+            var command = MapRequestToCommand(request, typeof(CreateLookupCommand<>));
 
             var result = await _mediator.Send(command);
 
@@ -98,18 +67,10 @@ namespace Seed.Api.Admin.Lookups
         [Route("{id:int}")]
         [HttpPost]
         public async Task<IHttpActionResult> Edit(
-            [FromUri] string type,
             [FromUri] int id,
             [FromBody] EditLookupRequest request)
         {
-            var entityType = ResolveEntityType(type);
-
-            if (entityType == null)
-            {
-                return NotFound();
-            }
-
-            var command = MapRequestToCommand(request, typeof(EditLookupCommand<>), entityType);
+            var command = MapRequestToCommand(request, typeof(EditLookupCommand<>));
 
             command.Id = id;
 
@@ -120,16 +81,9 @@ namespace Seed.Api.Admin.Lookups
 
         [Route("{id:int}/activate")]
         [HttpPost]
-        public async Task<IHttpActionResult> Activate([FromUri] string type, [FromUri] int id)
+        public async Task<IHttpActionResult> Activate([FromUri] int id)
         {
-            var entityType = ResolveEntityType(type);
-
-            if (entityType == null)
-            {
-                return NotFound();
-            }
-
-            var command = MapRequestToCommand(new { Id = id }, typeof(ActivateLookupCommand<>), entityType);
+            var command = MapRequestToCommand(new { Id = id }, typeof(ActivateLookupCommand<>));
 
             var result = await _mediator.Send(command);
 
@@ -138,38 +92,18 @@ namespace Seed.Api.Admin.Lookups
 
         [Route("{id:int}/deactivate")]
         [HttpPost]
-        public async Task<IHttpActionResult> Deactivate([FromUri] string type, [FromUri] int id)
+        public async Task<IHttpActionResult> Deactivate([FromUri] int id)
         {
-            var entityType = ResolveEntityType(type);
-
-            if (entityType == null)
-            {
-                return NotFound();
-            }
-
-            var command = MapRequestToCommand(new { Id = id }, typeof(DeactivateLookupCommand<>), entityType);
+            var command = MapRequestToCommand(new { Id = id }, typeof(DeactivateLookupCommand<>));
 
             var result = await _mediator.Send(command);
 
             return CommandResult(result);
         }
 
-        private Type ResolveEntityType(string type)
+        private static ILookupCommand MapRequestToCommand(object request, Type commandType)
         {
-            if (LookupEntityTypeMap.ContainsKey(type))
-            {
-                return LookupEntityTypeMap[type];
-            }
-
-            return null;
-        }
-
-        private static ILookupCommand MapRequestToCommand(
-            object request, 
-            Type commandType, 
-            Type entityType)
-        {
-            var closedCommandType = commandType.MakeGenericType(entityType);
+            var closedCommandType = commandType.MakeGenericType(typeof(TLookup));
 
             var commandInstance = Activator.CreateInstance(closedCommandType);
 

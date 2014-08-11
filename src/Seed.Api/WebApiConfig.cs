@@ -2,6 +2,7 @@
 using System.Web.Http;
 using FluentValidation.WebApi;
 using Newtonsoft.Json.Serialization;
+using Seed.Api.Infrastructure;
 using Seed.Api.Infrastructure.Filters;
 
 namespace Seed.Api
@@ -10,7 +11,7 @@ namespace Seed.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            config.MapHttpAttributeRoutes();
+            config.MapHttpAttributeRoutes(new SeedDirectRouteProvider());
 
             var formatters = config.Formatters;
             

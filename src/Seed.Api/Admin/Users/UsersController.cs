@@ -19,7 +19,7 @@ namespace Seed.Api.Admin.Users
         private readonly ISeedDbContext _dbContext;
 
         public UsersController(
-            ICommandBus mediator, 
+            ICommandBus mediator,
             ISeedDbContext dbContext)
         {
             _mediator = mediator;
@@ -28,7 +28,7 @@ namespace Seed.Api.Admin.Users
 
         [Route("")]
         public async Task<IHttpActionResult> Get(
-            [FromUri] UserQueryFilter filter, 
+            [FromUri] UserQueryFilter filter,
             [FromUri] PagingOptions pagingOptions)
         {
             var users = await _dbContext.Users
@@ -71,7 +71,7 @@ namespace Seed.Api.Admin.Users
 
             return CommandResult(result);
         }
-        
+
         [Route("{id:Guid}/deactivate")]
         [HttpPost]
         public async Task<IHttpActionResult> Deactivate([FromUri] Guid id)

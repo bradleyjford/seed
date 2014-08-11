@@ -162,10 +162,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Lookups\CountriesController.cs" />
     <Compile Include="Admin\Lookups\CreateLookupRequest.cs" />
     <Compile Include="Admin\Lookups\EditLookupRequest.cs" />
     <Compile Include="Admin\Lookups\LookupsController.cs" />
     <Compile Include="Admin\Lookups\LookupQueryFilter.cs" />
+    <Compile Include="Admin\Lookups\LookupSummaryResponse.cs" />
     <Compile Include="Admin\Users\UserDetailResponse.cs" />
     <Compile Include="Admin\Users\EditUserRequest.cs" />
     <Compile Include="Admin\Users\UserQueryFilter.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Infrastructure\Middleware\OAuth2\SeedAuthorizationServerProvider.cs" />
     <Compile Include="Infrastructure\Middleware\WindowsAuthentication\WindowsAuthenticationExtensions.cs" />
     <Compile Include="Infrastructure\Security\SeedUserContext.cs" />
+    <Compile Include="Infrastructure\SeedDirectRouteProvider.cs" />
     <Compile Include="Infrastructure\ThirdParty\Gravatar.cs" />
     <Compile Include="Security\IdentityController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

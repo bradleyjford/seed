@@ -5,20 +5,18 @@ using Seed.Common.Domain;
 
 namespace Seed.Api.Admin.Lookups
 {
-    //public class LookupQueryFilter : IQueryFilter
-    //{
-    //    public string FilterText { get; set; }
+    public class LookupQueryFilter : IQueryFilter<ILookupEntity>
+    {
+        public string FilterText { get; set; }
 
-    //    public IQueryable<ILookupEntity> Apply(IQueryable queryable)
-    //    {
-    //        var set = (IQueryable<ILookupEntity>)queryable;
+        public IQueryable<ILookupEntity> Apply(IQueryable<ILookupEntity> source)
+        {
+            if (!String.IsNullOrEmpty(FilterText))
+            {
+                source = source.Where(l => l.Name.StartsWith(FilterText));
+            }
 
-    //        if (!String.IsNullOrEmpty(FilterText))
-    //        {
-    //            set = set.Where(l => l.Name.StartsWith(FilterText));
-    //        }
-
-    //        return set;
-    //    }
-    //}
+            return source;
+        }
+    }
 }
