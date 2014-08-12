@@ -4,34 +4,49 @@ using Seed.Common.Domain;
 
 namespace Seed.Admin.Lookups
 {
-    public interface ILookupCommand : ICommand<CommandResult>
-    {
-        int Id { get; set; }
-    }
-
-    public class CreateLookupCommand<TLookupEntity> : ILookupCommand
+    public class CreateLookupCommand<TLookupEntity> : ICommand<CommandResult>
         where TLookupEntity : ILookupEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public CreateLookupCommand(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; private set; }
     }
 
-    public class EditLookupCommand<TLookupEntity> : ILookupCommand
+    public class EditLookupCommand<TLookupEntity> : ICommand<CommandResult>
         where TLookupEntity : ILookupEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public EditLookupCommand(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public int Id { get; private set; }
+        public string Name { get; private set; }
     }
 
-    public class ActivateLookupCommand<TLookupEntity> : ILookupCommand
+    public class ActivateLookupCommand<TLookupEntity> : ICommand<CommandResult>
         where TLookupEntity : ILookupEntity
     {
-        public int Id { get; set; }
+        public ActivateLookupCommand(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; private set; }
     }
 
-    public class DeactivateLookupCommand<TLookupEntity> : ILookupCommand
+    public class DeactivateLookupCommand<TLookupEntity> : ICommand<CommandResult>
         where TLookupEntity : ILookupEntity
     {
-        public int Id { get; set; }
+        public DeactivateLookupCommand(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; private set; }
     }
 }

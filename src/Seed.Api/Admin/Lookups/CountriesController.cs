@@ -6,8 +6,8 @@ using Seed.Lookups;
 
 namespace Seed.Api.Admin.Lookups
 {
-    [RoutePrefix("admin/lookups/countries")]
     [Authorize]
+    [RoutePrefix("admin/lookups/countries")]
     public class CountriesController : LookupsController<Country>
     {
         public CountriesController(

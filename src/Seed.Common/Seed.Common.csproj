@@ -104,11 +104,15 @@
     <Compile Include="Enforce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\IPasswordHasher.cs" />
+    <Compile Include="Security\OneTimePasswordGenerator.cs" />
     <Compile Include="Security\PasswordComplexityRequirement.cs" />
     <Compile Include="Security\PasswordLengthRequirement.cs" />
     <Compile Include="Security\RandomNumberGenerator.cs" />
     <Compile Include="Security\Rfc2898PasswordHasher.cs" />
     <Compile Include="Security\Rfc2898PasswordHashParameters.cs" />
+    <Compile Include="Security\TimeBasedOneTimePasswordGenerator.cs" />
+    <Compile Include="Security\TimeBasedOneTimePasswordValidator.cs" />
+    <Compile Include="Security\TimeBasedSequenceGenerator.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
     <Compile Include="Specifications\ISpecification.cs" />
     <Compile Include="Specifications\NotSpecification.cs" />

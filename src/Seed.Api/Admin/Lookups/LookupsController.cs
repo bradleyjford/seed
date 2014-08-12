@@ -57,7 +57,7 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Create([FromBody] CreateLookupRequest request)
         {
-            var command = MapRequestToCommand<CreateLookupCommand<TLookup>>(request);
+            var command = new CreateLookupCommand<TLookup>(request.Name);
 
             var result = await _mediator.Send(command);
 
@@ -70,9 +70,7 @@ namespace Seed.Api.Admin.Lookups
             [FromUri] int id,
             [FromBody] EditLookupRequest request)
         {
-            var command = MapRequestToCommand<EditLookupCommand<TLookup>>(request);
-
-            command.Id = id;
+            var command = new EditLookupCommand<TLookup>(id, request.Name);
 
             var result = await _mediator.Send(command);
 
@@ -83,7 +81,7 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Activate([FromUri] int id)
         {
-            var command = MapRequestToCommand<ActivateLookupCommand<TLookup>>(new { Id = id });
+            var command = new ActivateLookupCommand<TLookup>(id);
 
             var result = await _mediator.Send(command);
 
@@ -94,21 +92,11 @@ namespace Seed.Api.Admin.Lookups
         [HttpPost]
         public async Task<IHttpActionResult> Deactivate([FromUri] int id)
         {
-            var command = MapRequestToCommand<DeactivateLookupCommand<TLookup>>(new { Id = id });
+            var command = new DeactivateLookupCommand<TLookup>(id);
 
             var result = await _mediator.Send(command);
 
             return CommandResult(result);
-        }
-
-        private static ILookupCommand MapRequestToCommand<TCommand>(object request) 
-            where TCommand : new()
-        {
-            var commandInstance = new TCommand();
-
-            Mapper.DynamicMap(request, commandInstance, request.GetType(), typeof(TCommand));
-
-            return (ILookupCommand)commandInstance;
         }
     }
 }
