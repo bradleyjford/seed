@@ -9,9 +9,9 @@ namespace Seed.Common.Security
 
         private readonly int _windowSeconds;
 
-        public TimeBasedSequenceGenerator(int windowSeconds)
+        public TimeBasedSequenceGenerator(TimeSpan windowSeconds)
         {
-            _windowSeconds = windowSeconds;
+            _windowSeconds = windowSeconds.Seconds;
         }
 
         public long GetSequence(DateTime utcDateTime)

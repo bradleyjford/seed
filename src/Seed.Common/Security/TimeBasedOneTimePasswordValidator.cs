@@ -20,7 +20,7 @@ namespace Seed.Common.Security
                 new OneTimePasswordGenerator(passwordLength);
 
             _sequenceGenerator =
-                new TimeBasedSequenceGenerator(TimeBasedOneTimePasswordGenerator.ValidityWindowSeconds);
+                new TimeBasedSequenceGenerator(TimeBasedOneTimePasswordGenerator.ValidityWindow);
         }
 
         public bool IsValid(byte[] secret, DateTime utcDateTime, string password)
