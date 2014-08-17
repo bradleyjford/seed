@@ -5,8 +5,12 @@ namespace Seed.Common.Domain
 {
     public abstract class Entity<TId> : IEquatable<Entity<TId>>
     {
+        private readonly object _hashCodeLock = new object();
+        private int? _hashCode;
+
         public TId Id { get; protected internal set; }
 
+        // TODO: Refactor data annotations into EF convention
         [Timestamp]
         [ConcurrencyCheck]
         public byte[] RowVersion { get; set; }
@@ -33,12 +37,18 @@ namespace Seed.Common.Domain
 
         public override int GetHashCode()
         {
-            var result = HashCodeUtility.Seed;
+            if (!_hashCode.HasValue)
+            {
+                lock (_hashCodeLock)
+                {
+                    if (!_hashCode.HasValue)
+                    {
+                        _hashCode = EntityHashCodeCalculator.CalculateHashCode(this);
+                    }
+                }
+            }
 
-            result = HashCodeUtility.Hash(result, GetType());
-            result = HashCodeUtility.Hash(result, Id);
-
-            return result;
+            return _hashCode.Value;
         }
 
         public static bool operator ==(Entity<TId> left, Entity<TId> right)

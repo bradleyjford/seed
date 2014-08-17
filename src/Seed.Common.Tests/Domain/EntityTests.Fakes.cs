@@ -11,6 +11,11 @@ namespace Seed.Common.Tests.Domain
             {
                 Id = id;
             }
+
+            public void SetId(int id)
+            {
+                Id = id;
+            }
         }
 
         public class Dog : Entity<int>

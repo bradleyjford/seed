@@ -85,6 +85,7 @@
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\ClockProvider.cs" />
     <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\EntityHashCodeCalculator.cs" />
     <Compile Include="Domain\GuidCombIdGenerator.cs" />
     <Compile Include="Domain\HashCodeUtility.cs" />
     <Compile Include="Domain\IClock.cs" />
