@@ -36,7 +36,7 @@ namespace Seed.Admin.Users
             }
 
             user.FullName = command.FullName;
-            user.EmailAddress = command.EmailAddress;
+            user.Email = command.EmailAddress;
             user.Notes = command.Notes;
             user.RowVersion = command.RowVersion;
 

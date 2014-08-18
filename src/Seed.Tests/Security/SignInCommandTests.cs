@@ -56,7 +56,7 @@ namespace Seed.Tests.Security
         }
 
         [Fact]
-        public async Task Handle_UnconfirmedEmailAddress_ReturnsFailure()
+        public async Task Handle_UnconfirmedEmail_ReturnsFailure()
         {
             var command = new SignInCommand("user2", "password");
 

@@ -71,10 +71,13 @@
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201408172030521_Unknown.cs" />
+    <Compile Include="Migrations\201408172030521_Unknown.Designer.cs">
+      <DependentUpon>201408172030521_Unknown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\MigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\Data\SeedDatabaseConfiguration.cs" />
     <Compile Include="Infrastructure\Data\SeedDbContext.cs" />
-    <Compile Include="Infrastructure\Data\SeedUserStore.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
@@ -116,6 +119,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201408032001045_Initial schema.resx">
       <DependentUpon>201408032001045_Initial schema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408172030521_Unknown.resx">
+      <DependentUpon>201408172030521_Unknown.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

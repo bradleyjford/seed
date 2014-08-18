@@ -81,21 +81,21 @@ namespace Seed.Security
         public User(
             string userName, 
             string fullName, 
-            string emailAddress, 
+            string email, 
             IPasswordHasher passwordHasher, 
             string password)
             : this()
         {
             Enforce.ArgumentNotNull("userName", userName);
             Enforce.ArgumentNotNull("fullName", fullName);
-            Enforce.ArgumentNotNull("emailAddress", emailAddress);
+            Enforce.ArgumentNotNull("emailAddress", email);
             Enforce.ArgumentNotNull("hashedPassword", password);
 
             Id = GuidCombIdGenerator.GenerateId();
 
             UserName = userName;
             FullName = fullName;
-            EmailAddress = emailAddress;
+            Email = email;
             HashedPassword = passwordHasher.ComputeHash(password);
 
             LoginProviders = new List<LoginProvider>();
@@ -121,7 +121,7 @@ namespace Seed.Security
         public string FullName { get; set; }
 
         [StringLength(150)]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets any notes that may have been entered by an administrator of the application.

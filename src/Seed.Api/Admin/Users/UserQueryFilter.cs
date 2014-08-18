@@ -14,9 +14,8 @@ namespace Seed.Api.Admin.Users
             if (!String.IsNullOrEmpty(FilterText))
             {
                 queryable = queryable.Where(u =>
-                    u.UserName.StartsWith(FilterText) ||
                     u.FullName.StartsWith(FilterText) ||
-                    u.EmailAddress.StartsWith(FilterText)
+                    u.Email.StartsWith(FilterText)
                 );
             }
 

@@ -6,9 +6,9 @@ using Seed.Security;
 
 namespace Seed.Infrastructure.Data.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<SeedDbContext>
+    internal sealed class MigrationsConfiguration : DbMigrationsConfiguration<SeedDbContext>
     {
-        public Configuration()
+        public MigrationsConfiguration()
         {
             AutomaticMigrationsEnabled = false;
         }
@@ -32,7 +32,7 @@ namespace Seed.Infrastructure.Data.Migrations
             }
 
             context.Users.AddOrUpdate(
-               u => u.UserName,
+               u => u.Email,
                users.ToArray());
 
             context.SaveChanges();

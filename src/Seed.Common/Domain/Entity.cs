@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Seed.Common.Domain
 {
@@ -10,9 +9,6 @@ namespace Seed.Common.Domain
 
         public TId Id { get; protected internal set; }
 
-        // TODO: Refactor data annotations into EF convention
-        [Timestamp]
-        [ConcurrencyCheck]
         public byte[] RowVersion { get; set; }
 
         public override bool Equals(object obj)
@@ -35,6 +31,7 @@ namespace Seed.Common.Domain
             return Id.Equals(other.Id);
         }
 
+// ReSharper disable NonReadonlyFieldInGetHashCode
         public override int GetHashCode()
         {
             if (!_hashCode.HasValue)
@@ -50,6 +47,7 @@ namespace Seed.Common.Domain
 
             return _hashCode.Value;
         }
+// ReSharper restore NonReadonlyFieldInGetHashCode
 
         public static bool operator ==(Entity<TId> left, Entity<TId> right)
         {

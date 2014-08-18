@@ -23,13 +23,13 @@ namespace Seed.Tests.Security
             Guid id,
             string userName,
             string fullName,
-            string emailAddress,
+            string email,
             string password,
             bool confirm)
         {
             var passwordHasher = new TestPasswordHasher();
 
-            var user = new User(userName, fullName, emailAddress, passwordHasher, password)
+            var user = new User(userName, fullName, email, passwordHasher, password)
             {
                 Id = id
             };
