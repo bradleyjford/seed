@@ -12,8 +12,8 @@
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li ui-sref-active="active"><a ui-sref="app.home">Dashboard</a></li>
-            <li ui-sref-active="active" sa-authorize><a ui-sref="app.home.subscriptions">Subscriptions</a></li>
-            <li ui-sref-active="active" sa-authorize><a ui-sref="app.home.users">Users</a></li>
+            <li ui-sref-active="active" sa-authorize><a href="#">Subscriptions</a></li>
+            <li ui-sref-active="active" sa-authorize><a href="#">Users</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -22,7 +22,7 @@
             <li class="dropdown" role="menu" sa-authorize>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> {{ user.identity.displayName }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li ui-sref-active="active"><a ui-sref="home.profile"><span class="fa fa-cog"></span> My account</a></li>
+                    <li ui-sref-active="active"><a href="#"><span class="fa fa-cog"></span> My account</a></li>
                     <li class="divider"></li>
                     <li><a ui-sref="app.sign-out"><span class="fa fa-power-off"></span> Sign out</a></li>
                 </ul>

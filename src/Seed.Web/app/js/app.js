@@ -58,6 +58,13 @@ var seedApp = (function (angular) {
                     }
                 });
 
+            $provide.decorator('$state', function($delegate) {
+                $delegate.reinit = function() {
+                    this.transitionTo(this.current, this.$current.params, { reload: true, inherit: true, notify: true });
+                };
+                return $delegate;
+            });
+
             $provide.factory('AuthorizationHttpInterceptor', ['$q', '$injector',
                 function ($q, $injector) {
                     function responseError (rejection) {

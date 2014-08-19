@@ -88,7 +88,7 @@
             })
 
             .state('app.admin.users', {
-                url: '/users?p',
+                url: '/users?p&c',
                 views: {
                     'content@app.admin': {
                         templateUrl: 'admin/users/UserList.html',
@@ -96,8 +96,27 @@
                     }
                 },
                 resolve: {
-                    users: ['UsersApi', function (UsersApi) {
-                        return UsersApi.query({ pageNumber: 1, pageSize: 10 }).$promise;
+                    users: ['$stateParams', 'UsersApi', function ($stateParams, UsersApi) {
+                        var pageNumber = 1;
+                        var pageSize = 10;
+
+                        if ($stateParams.p) {
+                            pageNumber = $stateParams.p;
+
+                            if (pageNumber <= 0) {
+                                pageNumber = 1;
+                            }
+                        }
+
+                        if ($stateParams.c) {
+                            pageSize = $stateParams.c;
+
+                            if (c <= 0 || c > 500) {
+                                pageSize = 10;
+                            }
+                        }
+
+                        return UsersApi.query({ pageNumber: pageNumber, pageSize: pageSize }).$promise;
                     }]
                 },
                 data: {
@@ -110,7 +129,7 @@
                 views: {
                     'content@app.admin': {
                         templateUrl: 'admin/users/UserEdit.html',
-                        controller: 'UserEditController'
+                        controller: 'UserEditController as editCtrl'
                     }
                 },
                 resolve: {
@@ -123,4 +142,5 @@
                 }
             });
     }]);
-})(angular);
+})(angular)
+;

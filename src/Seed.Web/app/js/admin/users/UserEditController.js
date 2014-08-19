@@ -7,9 +7,11 @@
         '$scope', '$state', 'confirm', 'UsersApi', 'model',
 
         function ($scope, $state, confirm, UsersApi, model) {
-            $scope.model = model;
+            var self = this;
 
-            $scope.save = function (model) {
+            this.model = model;
+
+            this.save = function (model) {
                 if ($scope.editForm.$valid) {
                     model.$save({ userId: model.id }, function () {
                         $scope.editForm.$setPristine();
@@ -19,13 +21,13 @@
                 }
             };
 
-            $scope.cancel = function() {
+            this.cancel = function() {
                 $scope.editForm.$setPristine();
 
                 $state.go('^');
             };
 
-            $scope.enable = function (model) {
+            this.enable = function (model) {
                 confirm.show(
                     model,
                     'Enable {{ fullName }}?',
@@ -35,13 +37,13 @@
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        UsersApi.activate({ userId: $scope.model.id }, null, function () {
-                            $scope.model.isActive = true;
+                        UsersApi.activate({ userId: self.model.id }, null, function () {
+                            $state.reinit();
                         });
                     });
             };
 
-            $scope.disable = function (model) {
+            this.disable = function (model) {
                 confirm.show(
                     model,
                     'Disable user "{{ fullName }}"?',
@@ -52,8 +54,8 @@
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        UsersApi.deactivate({ userId: $scope.model.id }, null, function () {
-                            $scope.model.isActive = false;
+                        UsersApi.deactivate({ userId: self.model.id }, null, function () {
+                            $state.reinit();
                         });
                     });
             };

@@ -1,0 +1,19 @@
+<div class="container">
+
+    <form name="registerForm" ng-submit="register()" novalidate>
+        <div class="alert alert-danger animated bounceIn" ng-show="model.error !== ''">{{ model.error }}</div>
+
+        <h2>Register</h2>
+
+        <input type="text" class="form-control" placeholder="Full name" ng-model="model.fullName" required sa-focus>
+
+        <input type="email" class="form-control" placeholder="Email" ng-model="model.email" ng-required>
+
+        <input type="text" class="form-control" placeholder="Username" ng-model="model.username" ng--required>
+
+        <input type="password" class="form-control" placeholder="Password" ng-model="model.password" ng-required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    </form>
+
+</div>
