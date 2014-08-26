@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Infrastructure.Data;
-using Seed.Security;
 
 namespace Seed.Tests.Infrastructure.Auditing
 {

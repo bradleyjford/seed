@@ -1,8 +1,10 @@
+using System;
+using System.Data.Entity.Migrations;
+
 namespace Seed.Infrastructure.Data.Migrations
 {
     using System;
-    using System.Data.Entity.Migrations;
-    
+
     public partial class Initialschema : DbMigration
     {
         public override void Up()

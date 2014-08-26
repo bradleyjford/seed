@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Seed.Admin.Lookups;
 using Seed.Common.CommandHandling;

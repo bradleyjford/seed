@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="Data\QueryableOrderByTests.cs" />
     <Compile Include="Data\TestSeedDbContext.cs" />
-    <Compile Include="Infrastructure\Auditing\AuditCommandHandlerDecoratorTests.cs" />
     <Compile Include="Infrastructure\Auditing\TestCommandHandler.cs" />
     <Compile Include="Infrastructure\TestUserContext.cs" />
     <Compile Include="Security\DeactivateUserCommandTests.cs" />

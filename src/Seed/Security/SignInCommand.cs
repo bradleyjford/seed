@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Seed.Common.Auditing;
 using Seed.Common.Auditing.Serialization;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;

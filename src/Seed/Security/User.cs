@@ -5,9 +5,7 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using Seed.Common;
 using Seed.Common.Domain;
-using Seed.Infrastructure.Data;
 using Stateless;
-
 using IPasswordHasher = Seed.Common.Security.IPasswordHasher;
 
 namespace Seed.Security
