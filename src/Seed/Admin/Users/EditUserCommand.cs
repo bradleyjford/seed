@@ -10,7 +10,7 @@ namespace Seed.Admin.Users
     {
         public Guid UserId { get; set; }
         public string FullName { get; set; }
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
         public string Notes { get; set; }
 
         [AuditIgnore]
@@ -36,7 +36,7 @@ namespace Seed.Admin.Users
             }
 
             user.FullName = command.FullName;
-            user.Email = command.EmailAddress;
+            user.Email = command.Email;
             user.Notes = command.Notes;
             user.RowVersion = command.RowVersion;
 

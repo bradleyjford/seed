@@ -71,9 +71,9 @@
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
-    <Compile Include="Migrations\201408172030521_Unknown.cs" />
-    <Compile Include="Migrations\201408172030521_Unknown.Designer.cs">
-      <DependentUpon>201408172030521_Unknown.cs</DependentUpon>
+    <Compile Include="Migrations\201408182023416_Initial schema.cs" />
+    <Compile Include="Migrations\201408182023416_Initial schema.Designer.cs">
+      <DependentUpon>201408182023416_Initial schema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\Data\SeedDatabaseConfiguration.cs" />
@@ -85,10 +85,6 @@
     <Compile Include="Infrastructure\Data\ISeedDbContext.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
-    <Compile Include="Migrations\201408032001045_Initial schema.cs" />
-    <Compile Include="Migrations\201408032001045_Initial schema.Designer.cs">
-      <DependentUpon>201408032001045_Initial schema.cs</DependentUpon>
-    </Compile>
     <Compile Include="Security\AccountLockoutPolicy.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
     <Compile Include="Security\ConfirmUserCommand.cs" />
@@ -115,13 +111,9 @@
       <Name>Seed.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408032001045_Initial schema.resx">
-      <DependentUpon>201408032001045_Initial schema.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408172030521_Unknown.resx">
-      <DependentUpon>201408172030521_Unknown.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408182023416_Initial schema.resx">
+      <DependentUpon>201408182023416_Initial schema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

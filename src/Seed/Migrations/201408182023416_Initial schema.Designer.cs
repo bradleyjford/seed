@@ -13,7 +13,7 @@ namespace Seed.Infrastructure.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201408032001045_Initial schema"; }
+            get { return "201408182023416_Initial schema"; }
         }
         
         string IMigrationMetadata.Source
