@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Seed</RootNamespace>
     <AssemblyName>Seed</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -81,7 +81,6 @@
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
-    <Compile Include="Infrastructure\CommandHandlerDecorators\UnitOfWorkCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Data\ISeedDbContext.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />

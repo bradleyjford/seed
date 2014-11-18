@@ -2,21 +2,19 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Seed.Common.CommandHandling;
-using Seed.Infrastructure.Data;
 
-namespace Seed.Infrastructure.CommandHandlerDecorators
+namespace Seed.Common.CommandHandling.Decorators
 {
     public class UnitOfWorkCommandHandlerDecorator<TCommand, TResult> : ICommandHandler<TCommand, TResult>
         where TCommand : ICommand<TResult>
         where TResult : class
     {
         private readonly ICommandHandler<TCommand, TResult> _decorated;
-        private readonly ISeedDbContext _dbContext;
+        private readonly DbContext _dbContext;
 
         public UnitOfWorkCommandHandlerDecorator(
             ICommandHandler<TCommand, TResult> decorated,
-            ISeedDbContext dbContext)
+            DbContext dbContext)
         {
             _decorated = decorated;
             _dbContext = dbContext;

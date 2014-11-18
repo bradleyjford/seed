@@ -55,7 +55,6 @@ namespace Seed.Tests.Security
             Assert.False(result.Success);
         }
 
-        [Fact]
         public async Task Handle_UnconfirmedEmail_ReturnsFailure()
         {
             var command = new SignInCommand("user2", "password");

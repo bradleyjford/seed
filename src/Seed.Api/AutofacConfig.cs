@@ -7,6 +7,7 @@ using Autofac.Integration.WebApi;
 using Seed.Admin.Lookups;
 using Seed.Api.Infrastructure.Security;
 using Seed.Common.CommandHandling;
+using Seed.Common.CommandHandling.Decorators;
 using Seed.Common.Domain;
 using Seed.Common.Security;
 using Seed.Infrastructure.CommandHandlerDecorators;

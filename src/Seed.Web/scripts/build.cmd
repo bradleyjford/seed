@@ -1,2 +1,2 @@
 msbuild.exe ..\..\Seed.Api\Seed.Api.csproj /t:Build /p:Configuration=Debug /p:Platform="Any CPU"
-msbuild.exe ..\..\Seed.Web.SpaHost\Seed.Web.SpaHost.csproj /t:Build /p:Configuration=Debug /p:Platform="Any CPU" /p:DeployOnBuild=true;PublishProfile="SpaHost Dev"
+msbuild.exe ..\..\Seed.Web.SpaHost\Seed.Web.SpaHost.csproj /t:Build /p:Configuration=Release /p:Platform="Any CPU" /p:DeployOnBuild=true;PublishProfile="SpaHost Dev"
