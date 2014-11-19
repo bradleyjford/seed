@@ -18,8 +18,8 @@ namespace Seed.Web
             formatters.Remove(formatters.XmlFormatter);
             formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            //config.SuppressDefaultHostAuthentication();
-            //config.Filters.Add(new HostAuthenticationFilter("Bearer"));
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter("Bearer"));
             config.Filters.Add(new ValidationFilter());
 
             FluentValidationModelValidatorProvider.Configure(config);
