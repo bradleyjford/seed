@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Seed.Common.Data;
+using Seed.Common.Domain;
 using Xunit;
 
 namespace Seed.Tests.Data
@@ -109,6 +110,11 @@ namespace Seed.Tests.Data
                 var other = (OrderableEntity)obj;
 
                 return other.Value == Value && other.Name == Name;
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCodeUtility.Hash(Name.GetHashCode(), Value);
             }
         }
 

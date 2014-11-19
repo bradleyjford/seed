@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Api", "Seed.Api\Seed.Api.csproj", "{FFBE6D09-317D-48D7-B068-5164BDDA0B70}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{3F579F66-9FE9-4057-B378-41BE03930132}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Common.Tests", "Seed.Common.Tests\Seed.Common.Tests.csproj", "{3DA44CD9-698B-4665-8644-F87A9BBC2837}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web", "Seed.Web\Seed.Web.csproj", "{A6CA6996-5002-4154-8790-E0BCF6369410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{3DA44CD9-698B-4665-8644-F87A9BBC2837}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DA44CD9-698B-4665-8644-F87A9BBC2837}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DA44CD9-698B-4665-8644-F87A9BBC2837}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6CA6996-5002-4154-8790-E0BCF6369410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6CA6996-5002-4154-8790-E0BCF6369410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6CA6996-5002-4154-8790-E0BCF6369410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6CA6996-5002-4154-8790-E0BCF6369410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
