@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace Seed.Web.Controllers
+namespace Seed.Web.Handlers._Default.Home
 {
     public class HomeController : Controller
     {

@@ -9,7 +9,7 @@ using System.Web.Http.Results;
 
 namespace Seed.Web.Infrastructure.Filters
 {
-    public class ValidationFilter : IActionFilter
+    public class WebApiValidationFilter : IActionFilter
     {
         public bool AllowMultiple
         {

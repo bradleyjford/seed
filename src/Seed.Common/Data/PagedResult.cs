@@ -47,7 +47,7 @@ namespace Seed.Common.Data
         }
     }
 
-    public class PagedResult : PagedResult<object>, IPagedResult
+    public class PagedResult : PagedResult<object>
     {
         public PagedResult(int pageNumber, int pageSize, List<object> items, int itemCount) 
             : base(pageNumber, pageSize, items, itemCount)

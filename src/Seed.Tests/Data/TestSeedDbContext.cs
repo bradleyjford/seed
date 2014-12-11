@@ -25,7 +25,7 @@ namespace Seed.Tests.Data
 
         public DbChangeTracker ChangeTracker
         {
-            get { throw new NotImplementedException(); }
+            get { throw new InvalidOperationException(); }
         }
 
         public int SaveChangesCount { get; private set; }
