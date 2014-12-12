@@ -12,7 +12,10 @@ namespace Seed.Web
     {
         protected void Application_Start()
         {
-            MvcConfig.Configure();
+            var container = AutofacConfig.Initialize();
+
+            MvcConfig.Configure(container);
+            
             GlobalConfiguration.Configure(WebApiConfig.Configure);
         }
     }

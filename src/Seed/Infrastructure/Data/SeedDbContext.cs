@@ -20,10 +20,7 @@ namespace Seed.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .Property(MappingHelpers.GetMember<User, User.UserState>("State"))
-                .HasColumnName("State")
-                .IsRequired();
+            modelBuilder.Configurations.AddFromAssembly(typeof(SeedDbContext).Assembly);
         
             base.OnModelCreating(modelBuilder);
         }

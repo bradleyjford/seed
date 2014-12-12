@@ -43,6 +43,9 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac.Integration.Owin">
       <HintPath>..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
     </Reference>
@@ -175,19 +178,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\MvcConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\Admin\Home\HomeController.cs" />
+    <Compile Include="Handlers\Admin\Users\HomeController.cs" />
+    <Compile Include="Handlers\Areas.cs" />
     <Compile Include="Handlers\_Default\Home\HomeController.cs" />
     <Compile Include="Infrastructure\AppViewEngine.cs" />
     <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
     <Compile Include="Infrastructure\Filters\WebApiValidationFilter.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationExtensions.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationHandler.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationMiddleware.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationOptions.cs" />
     <Compile Include="Infrastructure\Middleware\OAuth2\SeedAuthorizationServerProvider.cs" />
     <Compile Include="Infrastructure\Middleware\WindowsAuthentication\WindowsAuthenticationExtensions.cs" />
     <Compile Include="Infrastructure\Security\SeedUserContext.cs" />
@@ -215,12 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Security\Identity\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Handlers\_Default\Home\Test.cshtml" />
     <Content Include="Handlers\_ViewStart.cshtml" />
     <Content Include="Handlers\Web.config" />
   </ItemGroup>
@@ -233,6 +236,12 @@
       <Project>{ec2e4390-36ce-443c-bece-416ab548d68f}</Project>
       <Name>Seed</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\Admin\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\Admin\Home\ManageUsers.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -74,6 +74,7 @@
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\UserMapping.cs" />
     <Compile Include="Migrations\201408182023416_Initial schema.cs" />
     <Compile Include="Migrations\201408182023416_Initial schema.Designer.cs">
       <DependentUpon>201408182023416_Initial schema.cs</DependentUpon>

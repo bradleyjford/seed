@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using Autofac;
+using Autofac.Integration.Mvc;
 using Seed.Web.Infrastructure;
 
 namespace Seed.Web.App_Start
 {
     public static class MvcConfig
     {
-        public static void Configure()
+        public static void Configure(IContainer container)
         {
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new AppViewEngine());
-
-            AreaRegistration.RegisterAllAreas();
 
             RegisterFilters(GlobalFilters.Filters);            
             RegisterRoutes(RouteTable.Routes);
@@ -26,11 +24,7 @@ namespace Seed.Web.App_Start
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            routes.MapMvcAttributeRoutes();
         }
 
         public static void RegisterFilters(GlobalFilterCollection filters)
