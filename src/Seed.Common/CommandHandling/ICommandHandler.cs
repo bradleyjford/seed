@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 
 namespace Seed.Common.CommandHandling
 {
-    public interface ICommandHandler<in TCommand, TResult>
-        where TCommand : ICommand<TResult> 
-        where TResult : class
+    public interface ICommandHandler<in TMessage, TResponse>
+        where TMessage : ICommand<TResponse> 
+        where TResponse : class
     {
-        Task<TResult> Handle(TCommand command);
+        Task<TResponse> Handle(TMessage command);
     }
 }

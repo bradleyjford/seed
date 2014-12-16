@@ -11,20 +11,20 @@ namespace Seed.Common.CommandHandling
             Task<TResult> Handle(ICommand<TResult> command);
         }
 
-        private class CommandHandlerWrapper<TCommand, TResult> : ICommandHandlerWrapper<TResult> 
-            where TCommand : ICommand<TResult>
-            where TResult : class
+        private class CommandHandlerWrapper<TMessage, TResponse> : ICommandHandlerWrapper<TResponse> 
+            where TMessage : ICommand<TResponse>
+            where TResponse : class
         {
-            private readonly ICommandHandler<TCommand, TResult> _decorated;
+            private readonly ICommandHandler<TMessage, TResponse> _decorated;
 
-            public CommandHandlerWrapper(ICommandHandler<TCommand, TResult> decorated)
+            public CommandHandlerWrapper(ICommandHandler<TMessage, TResponse> decorated)
             {
                 _decorated = decorated;
             }
 
-            public Task<TResult> Handle(ICommand<TResult> command)
+            public Task<TResponse> Handle(ICommand<TResponse> command)
             {
-                var typedCommand = (TCommand)command;
+                var typedCommand = (TMessage)command;
 
                 return _decorated.Handle(typedCommand);
             }

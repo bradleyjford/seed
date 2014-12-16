@@ -2,20 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Autofac;
 
 namespace Seed.Common.CommandHandling
 {
-    public partial class CommandBus : ICommandBus
+    public abstract partial class CommandBus : ICommandBus
     {
-        private readonly IComponentContext _componentContext;
-
-        public CommandBus(IComponentContext container)
-        {
-            _componentContext = container;
-        }
-
-        public virtual Task<TResult> Send<TResult>(ICommand<TResult> command)
+        public virtual Task<TResult> Invoke<TResult>(ICommand<TResult> command)
             where TResult : class
         {
             var commandType = command.GetType();
@@ -23,7 +15,7 @@ namespace Seed.Common.CommandHandling
 
             var commandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(commandType, resultType);
 
-            var handler = _componentContext.ResolveOptional(commandHandlerType);
+            var handler = GetHandler(commandHandlerType);
 
             if (handler == null)
             {
@@ -32,14 +24,16 @@ namespace Seed.Common.CommandHandling
 
             var wrappedType = typeof(CommandHandlerWrapper<,>).MakeGenericType(commandType, resultType);
             var wrapped = (ICommandHandlerWrapper<TResult>)Activator.CreateInstance(wrappedType, handler);
-
+                
             return wrapped.Handle(command);
         }
+
+        protected abstract object GetHandler(Type commandHandlerType);
 
         public virtual async Task<IEnumerable<ValidationResult>> Validate<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
-            var handler = _componentContext.Resolve<ICommandValidator<TCommand>>();
+            var handler = (ICommandValidator<TCommand>)GetHandler(typeof(ICommandValidator<TCommand>));
 
             if (handler == null)
             {

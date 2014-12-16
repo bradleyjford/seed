@@ -7,7 +7,7 @@ namespace Seed.Common.CommandHandling
 {
     public interface ICommandBus
     {
-        Task<TResult> Send<TResult>(ICommand<TResult> command)
+        Task<TResult> Invoke<TResult>(ICommand<TResult> command)
            where TResult : class;
 
         Task<IEnumerable<ValidationResult>> Validate<TCommand>(TCommand command)
