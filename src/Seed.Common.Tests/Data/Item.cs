@@ -10,6 +10,12 @@ namespace Seed.Common.Tests.Data
             Id = id;
         }
 
+        public Item(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
         public string Name { get; set; }
     }
 }

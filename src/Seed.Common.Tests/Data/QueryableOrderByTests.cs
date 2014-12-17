@@ -22,6 +22,13 @@ namespace Seed.Common.Tests.Data
             new OrderableEntity(9, "Betty")
         };
 
+        private IQueryable<OrderableEntity> CreateQueryable(params int[] index)
+        {
+            var result = index.Select(value => Items.ElementAt(value)).ToList();
+
+            return result.AsQueryable();
+        }
+
         [Fact]
         public void OrderByProperty_GivenAnUnorderedSet_OrdersSetAscendinglyByInteger()
         {
@@ -69,13 +76,6 @@ namespace Seed.Common.Tests.Data
 
             Assert.Equal(expected, actual);
         }   
-
-        private IQueryable<OrderableEntity> CreateQueryable(params int[] index)
-        {
-            var result = index.Select(value => Items.ElementAt(value)).ToList();
-
-            return result.AsQueryable();
-        }
 
         [Fact]
         public void OrderByProperty_GivenAnUnorderedSet_OrdersSetAscendinglyByNestedProperty()

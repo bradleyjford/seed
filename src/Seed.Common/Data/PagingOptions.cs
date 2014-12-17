@@ -36,11 +36,11 @@ namespace Seed.Common.Data
                 return result;
             }
 
-            var sortSpecifications = sortOrder.Split(',');
+            var sortSpecifications = sortOrder.Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var sortSpecification in sortSpecifications)
             {
-                var parts = sortSpecification.Split(' ');
+                var parts = sortSpecification.Trim().Split(new [] { ' ' } , StringSplitOptions.RemoveEmptyEntries);
 
                 if (parts.Length == 1)
                 {

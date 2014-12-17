@@ -70,7 +70,9 @@
     <Compile Include="Auditing\Serialization\AuditIgnore.cs" />
     <Compile Include="Auditing\Serialization\AuditSensitive.cs" />
     <Compile Include="Auditing\Serialization\MaskedStringJsonConverter.cs" />
+    <Compile Include="CommandHandling\AutofacCommandBus.cs" />
     <Compile Include="CommandHandling\Decorators\UnitOfWorkCommandHandlerDecorator.cs" />
+    <Compile Include="CommandHandling\IQuery.cs" />
     <Compile Include="Data\MappingHelpers.cs" />
     <Compile Include="Data\PagedResult.cs" />
     <Compile Include="Data\QueryableFilterExtensions.cs" />

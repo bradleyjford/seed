@@ -14,7 +14,7 @@ namespace Seed.Common.Data
                 method.Name == "ToPagedResultAsync" && 
                 method.GetParameters()[2].ParameterType == typeof(SortDescriptor[]));
 
-        public static Task<PagedResult<T>> ToPagedResultAsync<T>(
+        public static Task<IPagedResult<T>> ToPagedResultAsync<T>(
             this IQueryable<T> source, 
             IPagingOptions options, 
             SortDescriptor defaultSort) 
@@ -23,7 +23,7 @@ namespace Seed.Common.Data
             return ToPagedResultAsync(source, options, new[] { defaultSort });
         }
 
-        public static async Task<PagedResult<T>> ToPagedResultAsync<T>(
+        public static async Task<IPagedResult<T>> ToPagedResultAsync<T>(
             this IQueryable<T> source, 
             IPagingOptions options, 
             SortDescriptor[] defaultSort) 
