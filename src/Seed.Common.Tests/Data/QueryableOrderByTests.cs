@@ -4,7 +4,7 @@ using Seed.Common.Data;
 using Seed.Common.Domain;
 using Xunit;
 
-namespace Seed.Tests.Data
+namespace Seed.Common.Tests.Data
 {
     public class QueryableOrderByTests
     {

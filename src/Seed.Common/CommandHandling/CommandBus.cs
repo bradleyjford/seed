@@ -7,7 +7,7 @@ namespace Seed.Common.CommandHandling
 {
     public abstract partial class CommandBus : ICommandBus
     {
-        public virtual Task<TResult> Invoke<TResult>(ICommand<TResult> command)
+        public virtual Task<TResult> Execute<TResult>(ICommand<TResult> command)
             where TResult : class
         {
             var commandType = command.GetType();

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Seed.Common.CommandHandling
 {
-    public partial class CommandBus
+    partial class CommandBus
     {
         private interface ICommandHandlerWrapper<TResult>
             where TResult : class
@@ -11,20 +11,20 @@ namespace Seed.Common.CommandHandling
             Task<TResult> Handle(ICommand<TResult> command);
         }
 
-        private class CommandHandlerWrapper<TMessage, TResponse> : ICommandHandlerWrapper<TResponse> 
-            where TMessage : ICommand<TResponse>
-            where TResponse : class
+        private class CommandHandlerWrapper<TCommand, TResult> : ICommandHandlerWrapper<TResult> 
+            where TCommand : ICommand<TResult>
+            where TResult : class
         {
-            private readonly ICommandHandler<TMessage, TResponse> _decorated;
+            private readonly ICommandHandler<TCommand, TResult> _decorated;
 
-            public CommandHandlerWrapper(ICommandHandler<TMessage, TResponse> decorated)
+            public CommandHandlerWrapper(ICommandHandler<TCommand, TResult> decorated)
             {
                 _decorated = decorated;
             }
 
-            public Task<TResponse> Handle(ICommand<TResponse> command)
+            public Task<TResult> Handle(ICommand<TResult> command)
             {
-                var typedCommand = (TMessage)command;
+                var typedCommand = (TCommand)command;
 
                 return _decorated.Handle(typedCommand);
             }

@@ -3,7 +3,7 @@ using Autofac;
 
 namespace Seed.Common.CommandHandling
 {
-    internal class AutofacCommandBus : CommandBus
+    public class AutofacCommandBus : CommandBus
     {
         private readonly IComponentContext _container;
 
