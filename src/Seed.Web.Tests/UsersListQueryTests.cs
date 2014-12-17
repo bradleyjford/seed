@@ -18,7 +18,7 @@ namespace Seed.Web.Tests
         {
             _dbContext = new TestSeedDbContext();
 
-            _firstPagePagingOptions = new PagingOptionsInputModel
+            _firstPagePagingOptions = new PagingOptions
             {
                 PageNumber = 1,
                 PageSize = 20,

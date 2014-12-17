@@ -15,14 +15,14 @@ namespace Seed.Api.Admin.Users
     [Authorize]
     public class UsersController : ApiCommandController
     {
-        private readonly ICommandBus _mediator;
+        private readonly ICommandBus _commandBus;
         private readonly ISeedDbContext _dbContext;
 
         public UsersController(
-            ICommandBus mediator,
+            ICommandBus commandBus,
             ISeedDbContext dbContext)
         {
-            _mediator = mediator;
+            _commandBus = commandBus;
             _dbContext = dbContext;
         }
 
@@ -56,7 +56,7 @@ namespace Seed.Api.Admin.Users
 
             command.UserId = id;
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }
@@ -67,7 +67,7 @@ namespace Seed.Api.Admin.Users
         {
             var command = new ActivateUserCommand(id);
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }
@@ -78,7 +78,7 @@ namespace Seed.Api.Admin.Users
         {
             var command = new DeactivateUserCommand(id);
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Common.Tests", "Seed.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web", "Seed.Web\Seed.Web.csproj", "{A6CA6996-5002-4154-8790-E0BCF6369410}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Web.Tests", "Seed.Web.Tests\Seed.Web.Tests.csproj", "{E56F7272-E8C3-4F2A-A4EA-57F6F73CDCBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{A6CA6996-5002-4154-8790-E0BCF6369410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6CA6996-5002-4154-8790-E0BCF6369410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6CA6996-5002-4154-8790-E0BCF6369410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56F7272-E8C3-4F2A-A4EA-57F6F73CDCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56F7272-E8C3-4F2A-A4EA-57F6F73CDCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56F7272-E8C3-4F2A-A4EA-57F6F73CDCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56F7272-E8C3-4F2A-A4EA-57F6F73CDCBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

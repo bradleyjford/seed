@@ -15,11 +15,5 @@ namespace Seed.Web.Handlers.Admin
         {
             return View();
         }
-
-        [Route("manage-users")]
-        public ActionResult ManageUsers()
-        {
-            return View();
-        }
     }
 }

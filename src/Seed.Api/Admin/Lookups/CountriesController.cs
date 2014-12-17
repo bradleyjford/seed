@@ -11,9 +11,9 @@ namespace Seed.Api.Admin.Lookups
     public class CountriesController : LookupsController<Country>
     {
         public CountriesController(
-            ICommandBus mediator,
+            ICommandBus commandBus,
             ISeedDbContext dbContext)
-            : base(mediator, dbContext)
+            : base(commandBus, dbContext)
         {
         }
     }

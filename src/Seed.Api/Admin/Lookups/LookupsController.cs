@@ -13,14 +13,14 @@ namespace Seed.Api.Admin.Lookups
     public abstract class LookupsController<TLookup> : ApiCommandController
         where TLookup : class, ILookupEntity
     {
-        private readonly ICommandBus _mediator;
+        private readonly ICommandBus _commandBus;
         private readonly ISeedDbContext _dbContext;
 
         protected LookupsController(
-            ICommandBus mediator,
+            ICommandBus commandBus,
             ISeedDbContext dbContext)
         {
-            _mediator = mediator;
+            _commandBus = commandBus;
             _dbContext = dbContext;
         }
 
@@ -58,7 +58,7 @@ namespace Seed.Api.Admin.Lookups
         {
             var command = new CreateLookupCommand<TLookup>(request.Name);
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }
@@ -71,7 +71,7 @@ namespace Seed.Api.Admin.Lookups
         {
             var command = new EditLookupCommand<TLookup>(id, request.Name);
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }
@@ -82,7 +82,7 @@ namespace Seed.Api.Admin.Lookups
         {
             var command = new ActivateLookupCommand<TLookup>(id);
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }
@@ -93,7 +93,7 @@ namespace Seed.Api.Admin.Lookups
         {
             var command = new DeactivateLookupCommand<TLookup>(id);
 
-            var result = await _mediator.Send(command);
+            var result = await _commandBus.Execute(command);
 
             return CommandResult(result);
         }

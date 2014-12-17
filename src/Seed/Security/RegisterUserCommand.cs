@@ -27,7 +27,7 @@ namespace Seed.Security
 
         public Task<User> Handle(RegisterUserCommand command)
         {
-            // Re-validate
+            // Re-validate and throw?
 
             var user = new User(
                 command.UserName, 

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using FluentValidation.Mvc;
 using Seed.Web.Infrastructure;
 
 namespace Seed.Web.App_Start
@@ -18,6 +19,8 @@ namespace Seed.Web.App_Start
 
             RegisterFilters(GlobalFilters.Filters);            
             RegisterRoutes(RouteTable.Routes);
+
+            FluentValidationModelValidatorProvider.Configure();
         }
 
         public static void RegisterRoutes(RouteCollection routes)

@@ -26,7 +26,7 @@ namespace Seed.Web.Infrastructure.Middleware.OAuth2
             
             var command = new SignInCommand(context.UserName, context.Password);
 
-            var result = await bus.Send(command);
+            var result = await bus.Execute(command);
 
             if (result.Success)
             {

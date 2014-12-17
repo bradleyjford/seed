@@ -67,6 +67,9 @@
     <Reference Include="FluentValidation">
       <HintPath>..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\packages\FluentValidation.MVC5.5.5.0.0\lib\Net45\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation.WebApi">
       <HintPath>..\packages\FluentValidation.WebAPI.5.5.0.0\lib\Net45\FluentValidation.WebApi.dll</HintPath>
     </Reference>
@@ -185,7 +188,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\Admin\Home\HomeController.cs" />
-    <Compile Include="Handlers\Admin\Users\HomeController.cs" />
+    <Compile Include="Handlers\Admin\Users\EditUserInputModel.cs" />
+    <Compile Include="Handlers\Admin\Users\EditUserQueryHandler.cs" />
+    <Compile Include="Handlers\Admin\Users\UsersController.cs" />
+    <Compile Include="Handlers\Admin\Users\EditUserViewModel.cs" />
+    <Compile Include="Handlers\Admin\Users\UserQueryFilter.cs" />
+    <Compile Include="Handlers\Admin\Users\UsersListQuery.cs" />
+    <Compile Include="Handlers\Admin\Users\UserSummaryViewModel.cs" />
     <Compile Include="Handlers\Areas.cs" />
     <Compile Include="Handlers\_Default\Home\HomeController.cs" />
     <Compile Include="Infrastructure\AppViewEngine.cs" />
@@ -241,7 +250,10 @@
     <Content Include="Handlers\Admin\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Handlers\Admin\Home\ManageUsers.cshtml" />
+    <Content Include="Handlers\Admin\Users\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\Admin\Users\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
