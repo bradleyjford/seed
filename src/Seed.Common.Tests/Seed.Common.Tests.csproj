@@ -50,6 +50,7 @@
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\QueryableOrderByTests.cs" />
     <Compile Include="Data\QueryablePagingOptionsTests.cs" />
+    <Compile Include="Data\SortDescriptorParserTests.cs" />
     <Compile Include="Data\TestDbContext.cs" />
     <Compile Include="Domain\EntityTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

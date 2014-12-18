@@ -47,7 +47,7 @@ namespace Seed.Web
                 .SingleInstance();
 
             // Commanding
-            builder.RegisterType<CommandBus>().As<ICommandBus>()
+            builder.RegisterType<AutofacCommandBus>().As<ICommandBus>()
                 .InstancePerLifetimeScope();
 
             // Command Handlers

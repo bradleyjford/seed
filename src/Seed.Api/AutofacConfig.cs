@@ -49,7 +49,7 @@ namespace Seed.Api
                 .SingleInstance();
 
             // Commanding
-            builder.RegisterType<CommandBus>().As<ICommandBus>()
+            builder.RegisterType<AutofacCommandBus>().As<ICommandBus>()
                 .InstancePerLifetimeScope();
 
             // Command Handlers

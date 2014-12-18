@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Seed.Admin.Users;
 using Seed.Common.CommandHandling;
 using Seed.Common.Data;

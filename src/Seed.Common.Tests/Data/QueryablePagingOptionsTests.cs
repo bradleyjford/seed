@@ -135,7 +135,7 @@ namespace Seed.Common.Tests.Data
 
             var result = await items.ToPagedResultAsync(pagingOptions, new SortDescriptor("Id"));
 
-            Assert.Equal(false, result.Items.Any());
+            Assert.False(result.Items.Any());
         }
 
         [Fact]
@@ -189,23 +189,6 @@ namespace Seed.Common.Tests.Data
 
             Assert.Equal(107, result.Items[0].Id);
             Assert.Equal(8, result.Items.Last().Id);
-        }
-
-        [Fact]
-        public async Task SortDescriptors_GivenMultipleSortParamters_SortDescriptorsAreParsedSuccessfully()
-        {
-            var pagingOptions = new PagingOptions
-            {
-                SortOrder = "Name desc, Id asc"
-            };
-
-            Assert.Equal(2, pagingOptions.SortDescriptors.Count());
-
-            Assert.Equal("Name", pagingOptions.SortDescriptors.First().PropertyName);
-            Assert.Equal(SortDirection.Descending, pagingOptions.SortDescriptors.First().Direction);
-            
-            Assert.Equal("Id", pagingOptions.SortDescriptors.Last().PropertyName);
-            Assert.Equal(SortDirection.Ascending, pagingOptions.SortDescriptors.Last().Direction);
         }
     }
 }
