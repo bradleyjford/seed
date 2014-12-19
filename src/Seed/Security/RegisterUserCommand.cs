@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
 using Seed.Common.Security;
+using Seed.Infrastructure;
 using Seed.Infrastructure.Data;
+using Seed.Infrastructure.Net;
 
 namespace Seed.Security
 {
@@ -18,11 +21,16 @@ namespace Seed.Security
     {
         private readonly ISeedDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly ISmtpContext _smtpContext;
 
-        public RegisterUserCommandHandler(ISeedDbContext dbContext, IPasswordHasher passwordHasher)
+        public RegisterUserCommandHandler(
+            ISeedDbContext dbContext, 
+            IPasswordHasher passwordHasher,
+            ISmtpContext smtpContext)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
+            _smtpContext = smtpContext;
         }
 
         public Task<User> Handle(RegisterUserCommand command)
@@ -39,6 +47,11 @@ namespace Seed.Security
             _dbContext.Users.Add(user);
 
             return Task.FromResult(user);
+        }
+
+        private MailMessage PrepareEmailConfirmationMessage(RegisterUserCommand command)
+        {
+            return new MailMessage();
         }
     }
 }

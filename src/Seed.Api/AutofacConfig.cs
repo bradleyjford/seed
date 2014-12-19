@@ -9,6 +9,7 @@ using Seed.Api.Infrastructure.Security;
 using Seed.Common.CommandHandling;
 using Seed.Common.CommandHandling.Decorators;
 using Seed.Common.Domain;
+using Seed.Common.Net;
 using Seed.Common.Security;
 using Seed.Infrastructure.CommandHandlerDecorators;
 using Seed.Infrastructure.Data;
@@ -36,6 +37,10 @@ namespace Seed.Api
 
             // Data Services
             builder.RegisterType<SeedDbContext>().As<ISeedDbContext>()
+                .InstancePerLifetimeScope();
+
+            // Infrastructure Services
+            builder.RegisterType<SmtpContext>().As<ISmtpContext>()
                 .InstancePerLifetimeScope();
 
             // Security Services
@@ -70,7 +75,13 @@ namespace Seed.Api
             builder.RegisterGenericDecorator(
                 typeof(UnitOfWorkCommandHandlerDecorator<,>),
                 typeof(ICommandHandler<,>),
-                "auditDecoratedCommandHandler");
+                "auditDecoratedCommandHandler")
+                .Keyed("unitOfWorkDecoratedCommandHandler", typeof(ICommandHandler<,>));
+
+            builder.RegisterGenericDecorator(
+                typeof(SmtpContextCommandHandlerDecorator<,>),
+                typeof(ICommandHandler<,>),
+                "smtpContextDecoratedCommandHandler");
 
             // Command Validators
             builder.RegisterAssemblyTypes(domainAssembly)

@@ -16,10 +16,10 @@ namespace Seed.Security
             Password = password;
         }
 
-        public string UserName { get; set; }
+        public string UserName { get; private set; }
 
         [AuditSensitive]
-        public string Password { get; set; }
+        public string Password { get; private set; }
     }
 
     public class SignInCommandResult : ICommandResult
