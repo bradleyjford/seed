@@ -7,12 +7,13 @@ using Seed.Tests.Security;
 using Seed.Web.Handlers.Admin.Users;
 using Xunit;
 
-namespace Seed.Web.Tests
+namespace Seed.Tests.Admin.Users
 {
     public class UsersListQueryTests
     {
         private readonly TestSeedDbContext _dbContext;
         private readonly IPagingOptions _firstPagePagingOptions;
+        private readonly UsersListQueryHandler _queryHandler;
 
         public UsersListQueryTests()
         {
@@ -26,6 +27,8 @@ namespace Seed.Web.Tests
             };
 
             AddTestUsers();
+
+            _queryHandler = new UsersListQueryHandler(_dbContext);
         }
 
         private void AddTestUsers()
@@ -42,21 +45,21 @@ namespace Seed.Web.Tests
         }
 
         [Fact]
-        public async Task Execute_NotFiltered_ReturnsAllUsers()
+        public async Task Handle_NotFiltered_ReturnsAllUsers()
         {
-            var query = new UsersListQuery(_dbContext, String.Empty, _firstPagePagingOptions);
+            var query = new UsersListQuery(String.Empty, _firstPagePagingOptions);
 
-            var users = await query.Execute();
+            var users = await _queryHandler.Handle(query);
 
             Assert.Equal(100, users.ItemCount);
         }
 
         [Fact]
-        public async Task Execute_FilteringByUserName_ReturnsExpectedResults()
+        public async Task Handle_FilteringByUserName_ReturnsExpectedResults()
         {
-            var query = new UsersListQuery(_dbContext, "User 5", _firstPagePagingOptions);
+            var query = new UsersListQuery( "User 5", _firstPagePagingOptions);
 
-            var users = await query.Execute();
+            var users = await _queryHandler.Handle(query);
 
             Assert.Equal(11, users.ItemCount);
         }

@@ -26,9 +26,11 @@ namespace Seed.Web.Handlers.Admin.Users
             _dbContext = dbContext;
         }
 
-        public async Task<EditUserViewModel> Handle(EditUserQuery message)
+        public async Task<EditUserViewModel> Handle(EditUserQuery query)
         {
-            return new EditUserViewModel();
+            var user = await _dbContext.Users.FindAsync(query.UserId);
+
+            return new EditUserViewModel(user, query.InputModel);
         }
     }
 }

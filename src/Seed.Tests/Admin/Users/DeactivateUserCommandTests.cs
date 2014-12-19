@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Seed.Security;
 using Xunit;
 
-namespace Seed.Tests.Security
+namespace Seed.Tests.Admin.Users
 {
     public class DectivateUserCommandTests : UserCommandTests
     {

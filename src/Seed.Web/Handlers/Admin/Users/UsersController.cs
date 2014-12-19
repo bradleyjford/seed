@@ -15,6 +15,15 @@ namespace Seed.Web.Handlers.Admin.Users
     [Route("{ action = Index }")]
     public class UsersController : Controller
     {
+        static UsersController()
+        {
+            // Input model to command mappings
+            Mapper.CreateMap<EditUserInputModel, EditUserCommand>();
+
+            // Query to response mappings
+
+        }
+
         private readonly ICommandBus _mediator;
         private readonly ISeedDbContext _dbContext;
 
@@ -33,16 +42,16 @@ namespace Seed.Web.Handlers.Admin.Users
         }
 
         [Route("items")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult> GetItems(
             string filterText,
             PagingOptions pagingOptions)
         {
-            var usersListQuery = new UsersListQuery(_dbContext, filterText, pagingOptions);
+            var usersListQuery = new UsersListQuery(filterText, pagingOptions);
 
-            //var users = _mediator.Execute(usersListQuery);
+            var users = await _mediator.Execute(usersListQuery);
 
-            return Json("");
+            return Json(users);
         }
 
         [Route("{id:Guid}")]

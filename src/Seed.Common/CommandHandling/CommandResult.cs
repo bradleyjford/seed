@@ -4,8 +4,8 @@ namespace Seed.Common.CommandHandling
 {
     public class CommandResult : ICommandResult
     {
-        public static CommandResult Ok = new CommandResult(true, null);
-        public static CommandResult Fail = new CommandResult(false, null);
+        public static readonly CommandResult Ok = new CommandResult(true, null);
+        public static readonly CommandResult Fail = new CommandResult(false, null);
 
         public static ICommandResult CreateFailureWithException(Exception error)
         {

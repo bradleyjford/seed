@@ -10,39 +10,47 @@ using Seed.Security;
 
 namespace Seed.Web.Handlers.Admin.Users
 {
-    public class UsersListQuery : IQuery<IPagedResult<UserSummaryViewModel>>
+    public class UsersListQuery : ICommand<IPagedResult<UserSummaryViewModel>>
     {
-        static UsersListQuery()
+        public UsersListQuery(string filterText, IPagingOptions pagingOptions)
+        {
+            FilterText = filterText;
+            PagingOptions = pagingOptions;
+        }
+
+        public string FilterText { get; private set; }
+        public IPagingOptions PagingOptions { get; private set; }
+    }
+
+    public class UsersListQueryHandler : ICommandHandler<UsersListQuery, IPagedResult<UserSummaryViewModel>>
+    {
+        static UsersListQueryHandler()
         {
             Mapper.CreateMap<User, UserSummaryViewModel>();
         }
 
         private readonly ISeedDbContext _dbContext;
-        private readonly string _filterText;
-        private readonly IPagingOptions _pagingOptions;
 
-        public UsersListQuery(ISeedDbContext dbContext, string filterText, IPagingOptions pagingOptions)
+        public UsersListQueryHandler(ISeedDbContext dbContext)
         {
             _dbContext = dbContext;
-            _filterText = filterText;
-            _pagingOptions = pagingOptions;
         }
 
-        public async Task<IPagedResult<UserSummaryViewModel>> Execute()
+        public async Task<IPagedResult<UserSummaryViewModel>> Handle(UsersListQuery query)
         {
             var users = _dbContext.Users.AsQueryable();
 
-            if (!String.IsNullOrEmpty(_filterText))
+            if (!String.IsNullOrEmpty(query.FilterText))
             {
                 users = users.Where(u =>
-                    u.FullName.StartsWith(_filterText) ||
-                    u.Email.StartsWith(_filterText)
+                    u.FullName.StartsWith(query.FilterText) ||
+                    u.Email.StartsWith(query.FilterText)
                 );
             }
 
             return await users
                 .Project().To<UserSummaryViewModel>()
-                .ToPagedResultAsync(_pagingOptions, new SortDescriptor("FullName"));
+                .ToPagedResultAsync(query.PagingOptions, new SortDescriptor("FullName"));
         }
     }
 }

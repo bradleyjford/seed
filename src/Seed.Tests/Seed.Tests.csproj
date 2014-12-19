@@ -62,12 +62,12 @@
     <Compile Include="Data\TestSeedDbContext.cs" />
     <Compile Include="Infrastructure\Auditing\TestCommandHandler.cs" />
     <Compile Include="Infrastructure\TestUserContext.cs" />
-    <Compile Include="Security\DeactivateUserCommandTests.cs" />
+    <Compile Include="Admin\Users\DeactivateUserCommandTests.cs" />
     <Compile Include="Security\SignInCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\ActivateUserCommandTests.cs" />
+    <Compile Include="Admin\Users\ActivateUserCommandTests.cs" />
     <Compile Include="Security\TestPasswordHasher.cs" />
-    <Compile Include="Security\UserCommandTests.cs" />
+    <Compile Include="Admin\Users\UserCommandTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

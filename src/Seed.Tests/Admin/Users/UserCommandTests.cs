@@ -2,8 +2,9 @@
 using Seed.Infrastructure.Data;
 using Seed.Security;
 using Seed.Tests.Data;
+using Seed.Tests.Security;
 
-namespace Seed.Tests.Security
+namespace Seed.Tests.Admin.Users
 {
     public abstract class UserCommandTests
     {
@@ -14,7 +15,7 @@ namespace Seed.Tests.Security
             _dbContext = new TestSeedDbContext();
         }
 
-        public ISeedDbContext DbContext
+        protected ISeedDbContext DbContext
         {
             get { return _dbContext; }
         }
