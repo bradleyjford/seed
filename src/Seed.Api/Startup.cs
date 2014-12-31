@@ -3,10 +3,9 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Seed.Api;
 using Seed.Api.Infrastructure.Middleware.OAuth2;
 
-[assembly: OwinStartup(typeof(Startup))]
+[assembly: OwinStartup(typeof(Seed.Api.Startup))]
 
 namespace Seed.Api
 {
@@ -38,7 +37,6 @@ namespace Seed.Api
             config.EnsureInitialized();
 
             AutoMapperConfig.Configure();
-            
         }
     }
 }

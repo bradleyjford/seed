@@ -27,6 +27,7 @@ namespace Seed.Security
         public SignInCommandResult(LoginResult result, User user)
         {
             Success = result.IsSuccessful();
+            Result = result;
             User = user;
         }
 
@@ -36,6 +37,7 @@ namespace Seed.Security
             Error = error;
         }
 
+        public LoginResult Result { get; private set; }
         public User User { get; private set; }
         public bool Success { get; private set; }
         public Exception Error { get; private set; }
@@ -54,8 +56,9 @@ namespace Seed.Security
 
         public async Task<SignInCommandResult> Handle(SignInCommand command)
         {
-            var user = await _dbContext.Users.SingleOrDefaultAsync(
-                 u => String.Compare(u.UserName, command.UserName, StringComparison.OrdinalIgnoreCase) == 0);
+            var user = await _dbContext.Users
+                .Include("UserClaims")
+                .SingleOrDefaultAsync(u => String.Compare(u.UserName, command.UserName, StringComparison.OrdinalIgnoreCase) == 0);
 
             if (user == null)
             {

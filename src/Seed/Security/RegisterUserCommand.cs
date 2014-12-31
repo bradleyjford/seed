@@ -2,10 +2,10 @@
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
+using Seed.Common.Net;
 using Seed.Common.Security;
 using Seed.Infrastructure;
 using Seed.Infrastructure.Data;
-using Seed.Infrastructure.Net;
 
 namespace Seed.Security
 {

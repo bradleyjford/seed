@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using Seed.Common.Data;
 using Seed.Infrastructure.Auditing;
 using Seed.Lookups;
 using Seed.Security;

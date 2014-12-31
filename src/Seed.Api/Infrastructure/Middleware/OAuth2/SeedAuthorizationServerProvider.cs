@@ -32,11 +32,16 @@ namespace Seed.Api.Infrastructure.Middleware.OAuth2
             {
                 var user = result.User;
 
-                var identity = new ClaimsIdentity("Seed");
+                var identity = new ClaimsIdentity("Seed", ClaimTypes.NameIdentifier, ClaimTypes.Role);
 
-                identity.AddClaim(new Claim("SeedUserId", user.Id.ToString(), ClaimValueTypes.Integer32));
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserName));
-                identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+                foreach (var claim in user.Claims)
+                {
+                    identity.AddClaim(new Claim(claim.Type, claim.Value, claim.ValueType, claim.Issuer, claim.OriginalIssuer, identity));
+                }
+
+                identity.AddClaim(new Claim("SeedUserId", user.Id.ToString(), ClaimValueTypes.HexBinary));
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
 
                 context.Validated(identity);
 

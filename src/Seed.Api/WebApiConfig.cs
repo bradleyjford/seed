@@ -18,6 +18,8 @@ namespace Seed.Api
             formatters.Remove(formatters.XmlFormatter);
             formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.LocalOnly;
+
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
             config.Filters.Add(new ValidationFilter());

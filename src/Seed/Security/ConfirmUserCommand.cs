@@ -3,7 +3,7 @@ using Seed.Common.CommandHandling;
 
 namespace Seed.Security
 {
-    public class ConfirmUserCommand : ICommand
+    public class ConfirmUserCommand : ICommand<CommandResult>
     {
         public int UserId { get; set; }
     }

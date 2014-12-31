@@ -11,7 +11,7 @@ namespace Seed.Common.Data.Testing
     public class TestDbSet<TEntity> : DbSet<TEntity>, IQueryable, IEnumerable<TEntity>, IDbAsyncEnumerable<TEntity>
         where TEntity : class
     {
-        private ObservableCollection<TEntity> _data;
+        private readonly ObservableCollection<TEntity> _data;
         private readonly IQueryable _query;
 
         public TestDbSet()

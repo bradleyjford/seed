@@ -15,6 +15,7 @@ namespace Seed.Common.Data
 
     public interface IPagedResult<T>
     {
+        int PageNumber { get; }
         int PageSize { get; }
         int ItemCount { get; }
         int PageCount { get; }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -12,9 +14,17 @@ using Seed.Security;
 namespace Seed.Api.Admin.Users
 {
     [RoutePrefix("admin/users")]
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class UsersController : ApiCommandController
     {
+        static UsersController()
+        {
+            Mapper.CreateMap<User, UserSummaryResponse>();
+            Mapper.CreateMap<User, UserDetailResponse>();
+
+            Mapper.CreateMap<EditUserRequest, EditUserCommand>();
+        }
+
         private readonly ICommandBus _commandBus;
         private readonly ISeedDbContext _dbContext;
 
@@ -32,6 +42,7 @@ namespace Seed.Api.Admin.Users
             [FromUri] PagingOptions pagingOptions)
         {
             var users = await _dbContext.Users
+                .AsNoTracking()
                 .ApplyFilter(filter)
                 .Project().To<UserSummaryResponse>()
                 .ToPagedResultAsync(pagingOptions, new SortDescriptor("Id"));
@@ -42,7 +53,8 @@ namespace Seed.Api.Admin.Users
         [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Get([FromUri] Guid id)
         {
-            var user = await _dbContext.Users.FindAsync(id);
+            var user = await _dbContext.Users
+                .FindAsync(id);
 
             var response = Mapper.Map<UserDetailResponse>(user);
 

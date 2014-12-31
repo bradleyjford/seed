@@ -3,7 +3,6 @@ var seedApp = (function (angular) {
 
     var app = angular.module('seedApp', [
         'ui.router',
-        'ngAnimate',
         'ngResource',
 
         'LocalStorageModule',

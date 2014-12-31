@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Seed.Common.Net;
 
 namespace Seed.Common.CommandHandling.Decorators
 {

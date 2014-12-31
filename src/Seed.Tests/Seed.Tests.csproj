@@ -64,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Seed.Common.Tests\Seed.Common.Tests.csproj">
+      <Project>{3DA44CD9-698B-4665-8644-F87A9BBC2837}</Project>
+      <Name>Seed.Common.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Seed.Common\Seed.Common.csproj">
       <Project>{F1E65D85-F22E-486C-A2E8-20C682B2B3EF}</Project>
       <Name>Seed.Common</Name>

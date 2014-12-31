@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -60,10 +61,6 @@
     <ProjectReference Include="..\Seed.Tests\Seed.Tests.csproj">
       <Project>{c252ae4d-dbd7-4b2f-b168-38b2e8151dbf}</Project>
       <Name>Seed.Tests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Seed.Web\Seed.Web.csproj">
-      <Project>{a6ca6996-5002-4154-8790-e0bcf6369410}</Project>
-      <Name>Seed.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Seed\Seed.csproj">
       <Project>{ec2e4390-36ce-443c-bece-416ab548d68f}</Project>

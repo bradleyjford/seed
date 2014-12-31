@@ -17,6 +17,8 @@ build/
 [Oo]bj/
 [Dd]ist/
 
+!lib/*/[Bb]in
+
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
 
@@ -118,6 +120,8 @@ ClientBin/
 *.dbmdl
 *.[Pp]ublish.xml
 *.pfx
+*.pvk
+*.cer
 *.publishsettings
 
 # RIA/Silverlight projects

@@ -25,12 +25,12 @@ namespace Seed.Security
 
             if (!isUserNameUnique)
             {
-                results.Add(new ValidationResult("The user name specified is already in use. Please choose another."));
+                results.Add(new ValidationResult("The user name specified is already in use. Please choose another.", new [] { "UserName" }));
             }
 
             if (!PasswordMeetsComplexityRequirements(command.Password))
             {
-                results.Add(new ValidationResult("The password specified does not meet the minimum complexity requirements."));
+                results.Add(new ValidationResult("The password specified does not meet the minimum complexity requirements.", new [] { "Password" }));
             }
 
             return results;
@@ -38,14 +38,12 @@ namespace Seed.Security
 
         private async Task<bool> IsUserNameUnique(string userName)
         {
-            var isUsed = await _dbContext.Users.AnyAsync(u => u.UserName == userName);
-
-            return !isUsed;
+            return await _dbContext.Users.AsNoTracking().AnyAsync(u => u.UserName == userName);
         }
 
         private bool PasswordMeetsComplexityRequirements(string password)
         {
-            return false;
+            return PasswordRequirements.Instance.IsSatisfiedBy(password);
         }
     }
 }

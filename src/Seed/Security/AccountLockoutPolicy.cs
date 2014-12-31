@@ -5,11 +5,11 @@ namespace Seed.Security
 {
     internal static class AccountLockoutPolicy
     {
-        private static readonly int MaxFailedLoginAtteptCount = 5;
-        private static readonly TimeSpan FailedLoginAttemptWindowPeriod = TimeSpan.FromMinutes(5);
+        public static int MaxFailedLoginAtteptCount = 5;
+        public static TimeSpan FailedLoginAttemptWindowPeriod = TimeSpan.FromMinutes(5);
 
-        private static readonly bool AutomaticallyUnlockAccount = true;
-        private static readonly TimeSpan AutomaticallyUnlockAccountAfter = TimeSpan.FromMinutes(10);
+        public static bool AutomaticallyUnlockAccount = true;
+        public static TimeSpan AutomaticallyUnlockAccountAfter = TimeSpan.FromMinutes(10);
 
         public static bool IsAccountLocked(User user)
         {

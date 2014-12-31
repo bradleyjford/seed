@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
 
@@ -17,7 +18,7 @@ namespace Seed.Api.Security
 
             var user = (ClaimsPrincipal)User;
 
-            var response = new IdentityResponse(user.Identity.Name, "Testing User", new[] { "admin" });
+            var response = new IdentityResponse(user.Identity.Name, "Testing User", user.Claims);
 
             return Ok(response);
         }

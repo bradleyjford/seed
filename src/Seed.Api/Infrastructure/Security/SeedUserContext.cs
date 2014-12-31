@@ -16,7 +16,6 @@ namespace Seed.Api.Infrastructure.Security
             Email = "admin1@bjf.io";
 
             _roles = new[] { "admin" };
-
         }
 
         public Guid UserId { get; private set; }

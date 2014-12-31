@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using System.Web.Http.Results;
+using Seed.Api.Infrastructure.ActionResults;
 
 namespace Seed.Api.Infrastructure.Filters
 {
@@ -33,7 +33,7 @@ namespace Seed.Api.Infrastructure.Filters
                 return continuation();
             }
 
-            var result = new InvalidModelStateResult(actionContext.ModelState, apiController);
+            var result = new ValidationFailureResponse(actionContext, actionContext.ModelState);
 
             return result.ExecuteAsync(cancellationToken);
         }

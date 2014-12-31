@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -36,7 +37,7 @@ namespace Seed.Api
                 .InstancePerLifetimeScope();
 
             // Data Services
-            builder.RegisterType<SeedDbContext>().As<ISeedDbContext>()
+            builder.RegisterType<SeedDbContext>().As<ISeedDbContext>().As<DbContext>()
                 .InstancePerLifetimeScope();
 
             // Infrastructure Services
@@ -81,7 +82,7 @@ namespace Seed.Api
             builder.RegisterGenericDecorator(
                 typeof(SmtpContextCommandHandlerDecorator<,>),
                 typeof(ICommandHandler<,>),
-                "smtpContextDecoratedCommandHandler");
+                "unitOfWorkDecoratedCommandHandler");
 
             // Command Validators
             builder.RegisterAssemblyTypes(domainAssembly)

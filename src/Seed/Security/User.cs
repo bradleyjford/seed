@@ -1,79 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Microsoft.AspNet.Identity;
 using Seed.Common;
 using Seed.Common.Domain;
-using Stateless;
-using IPasswordHasher = Seed.Common.Security.IPasswordHasher;
+using Seed.Common.Security;
 
 namespace Seed.Security
 {
-    public class User : AggregateRoot<Guid, Guid>, IUser<Guid>
+    public partial class User : AggregateRoot<Guid, Guid>
     {
-        internal enum UserState
-        {
-            New,
-            Confirmed,
-            Activated,
-            Deactivated,
-            Locked,
-            PasswordChangeRequired
-        }
-
-        private enum Trigger
-        {
-            ConfirmEmail,
-            Activate,
-            Deactivate,
-            Lock,
-            UnlockAccount,
-            RequireChangePassword,
-            PasswordChanged
-        }
-
-        private readonly StateMachine<UserState, Trigger> _stateMachine;
+        private readonly UserStateMachine _stateMachine;
 
         protected User()
         {
             State = UserState.New;
+            UserClaims = new List<UserClaim>();
 
-            _stateMachine = new StateMachine<UserState, Trigger>(() => State, s => State = s);
-
-            _stateMachine.Configure(UserState.New)
-                .Permit(Trigger.ConfirmEmail, UserState.Confirmed);
+            _stateMachine = new UserStateMachine(() => State, s => State = s);
 
             _stateMachine.Configure(UserState.Confirmed)
-                .OnEntry(() => IsConfirmed = true)
-                .Permit(Trigger.Activate, UserState.Activated);
+                .OnEntry(() => IsConfirmed = true);
 
             _stateMachine.Configure(UserState.Activated)
                 .OnEntry(() => IsActive = true)
-                .OnExit(() => IsActive = false)
-                .SubstateOf(UserState.Confirmed)
-                .Permit(Trigger.Deactivate, UserState.Deactivated)
-                .Permit(Trigger.Lock, UserState.Locked)
-                .Permit(Trigger.RequireChangePassword, UserState.PasswordChangeRequired);
-
-            _stateMachine.Configure(UserState.Deactivated)
-                .SubstateOf(UserState.Confirmed)
-                .Permit(Trigger.Activate, UserState.Activated)
-                .Ignore(Trigger.Deactivate);
+                .OnExit(() => IsActive = false);
 
             _stateMachine.Configure(UserState.Locked)
                 .OnEntry(() => LockedUtcDate = ClockProvider.GetUtcNow())
-                .OnExit(() => LockedUtcDate = null)
-                .SubstateOf(UserState.Activated)
-                .SubstateOf(UserState.Deactivated)
-                .Permit(Trigger.UnlockAccount, UserState.Activated)
-                .Ignore(Trigger.PasswordChanged)
-                .Ignore(Trigger.Lock);
+                .OnExit(() => LockedUtcDate = null);
 
             _stateMachine.Configure(UserState.PasswordChangeRequired)
                 .OnEntry(() => IsPasswordChangeRequired = true)
-                .OnExit(() => IsPasswordChangeRequired = false)
-                .SubstateOf(UserState.Confirmed);
+                .OnExit(() => IsPasswordChangeRequired = false);
         }
 
         public User(
@@ -84,47 +41,40 @@ namespace Seed.Security
             string password)
             : this()
         {
-            Enforce.ArgumentNotNull("userName", userName);
-            Enforce.ArgumentNotNull("fullName", fullName);
-            Enforce.ArgumentNotNull("emailAddress", email);
-            Enforce.ArgumentNotNull("hashedPassword", password);
+            UserName = Enforce.ArgumentNotNull("userName", userName);
+            FullName = Enforce.ArgumentNotNull("fullName", fullName);
+            Email = Enforce.ArgumentNotNull("emailAddress", email);
+            Enforce.ArgumentNotNull("password", password);
 
             Id = GuidCombIdGenerator.GenerateId();
 
-            UserName = userName;
-            FullName = fullName;
-            Email = email;
             HashedPassword = passwordHasher.ComputeHash(password);
-
-            LoginProviders = new List<LoginProvider>();
 
             CreatedUtcDate = ModifiedUtcDate = LastPasswordChangeUtcDate = ClockProvider.GetUtcNow();
         }
 
         private UserState State { get; set; }
 
-        string IUser<Guid>.UserName
-        {
-            get { return UserName; }
-            set { UserName = value; }
-        }
-
-        [StringLength(100)]
         public string UserName { get; private set; }
 
-        [StringLength(150)]
         public string HashedPassword { get; private set; }
 
-        [StringLength(100)]
         public string FullName { get; set; }
 
-        [StringLength(150)]
+        /// <summary>
+        /// Gets or sets the email address associated with the user.
+        /// </summary>
         public string Email { get; set; }
 
+        private ICollection<UserClaim> UserClaims { get; set; }
+
         /// <summary>
-        /// Gets or sets any notes that may have been entered by an administrator of the application.
+        /// Gets the security claims attributed to the user.
         /// </summary>
-        public string Notes { get; set; }
+        public IEnumerable<UserClaim> Claims
+        {
+            get { return UserClaims; }
+        }
 
         /// <summary>
         /// Gets the date and time of the last successful login by the user in UTC.
@@ -141,8 +91,6 @@ namespace Seed.Security
         public int FailedLoginAttemptCount { get; internal set; }
 
         public DateTime? LockedUtcDate { get; private set; }
-
-        public List<LoginProvider> LoginProviders { get; private set; }
 
         public void Activate()
         {
@@ -173,7 +121,7 @@ namespace Seed.Security
 
         /// <summary>
         /// Gets a value indicating if the user is required to change their password before
-        /// being able to signin to the application.
+        /// being able to login to the application.
         /// </summary>
         public bool IsPasswordChangeRequired { get; private set; }
 
@@ -189,17 +137,17 @@ namespace Seed.Security
         /// Changes the password used by the user to signin to the application using the specfied password hasher.
         /// </summary>
         /// <param name="hasher"><see cref="Seed.Common.Security.IPasswordHasher"/></param>
-        /// <param name="newPassword"></param>
+        /// <param name="newPassword">The new password to be set</param>
         public void ChangePassword(IPasswordHasher hasher, string newPassword)
         {
             Enforce.ArgumentNotNull("hasher", hasher);
             Enforce.ArgumentNotNull("newPassword", hasher);
 
+            _stateMachine.Fire(Trigger.PasswordChanged);
+
             HashedPassword = hasher.ComputeHash(newPassword);
 
             LastPasswordChangeUtcDate = ClockProvider.GetUtcNow();
-
-            _stateMachine.Fire(Trigger.PasswordChanged);
         }
 
         public LoginResult Login(IPasswordHasher passwordHasher, string password)
@@ -233,36 +181,32 @@ namespace Seed.Security
             return LoginResult.InvalidUserNameOrPassword;
         }
 
-        public void AddLoginProvider(string name, string userKey)
+        public void AddClaim(UserClaim claim)
         {
-            Enforce.ArgumentNotNull("name", name);
-            Enforce.ArgumentNotNull("userKey", userKey);
+            Enforce.ArgumentNotNull("claim", claim);
 
-            LoginProviders.Add(new LoginProvider(name, userKey));
+            UserClaims.Add(claim);
         }
 
-        public void RemoveLoginProvider(string name, string userKey)
+        public void RemoveClaim(UserClaim claim)
         {
-            Enforce.ArgumentNotNull("name", name);
-            Enforce.ArgumentNotNull("userKey", userKey);
+            Enforce.ArgumentNotNull("claim", claim);
 
-            var loginProvider = 
-                LoginProviders.FirstOrDefault(lp => lp.Name == name && lp.UserKey == userKey);
-
-            if (loginProvider != null)
-            {
-                LoginProviders.Remove(loginProvider);
-            }
+            UserClaims.Remove(claim);
         }
 
         internal void Lock()
         {
             _stateMachine.Fire(Trigger.Lock);
+
+            LockedUtcDate = ClockProvider.GetUtcNow();
         }
 
         public void Unlock()
         {
             _stateMachine.Fire(Trigger.UnlockAccount);
+
+            LockedUtcDate = null;
         }
     }
 }

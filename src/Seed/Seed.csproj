@@ -61,15 +61,11 @@
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
-    <Compile Include="Infrastructure\CommandHandlerDecorators\SmtpContextCommandHandlerDecorator.cs" />
-    <Compile Include="Infrastructure\Data\Mappings\UserMapping.cs" />
-    <Compile Include="Infrastructure\ITemplateService.cs" />
-    <Compile Include="Infrastructure\Net\SmtpContext.cs" />
-    <Compile Include="Migrations\201408182023416_Initial schema.cs" />
-    <Compile Include="Migrations\201408182023416_Initial schema.Designer.cs">
-      <DependentUpon>201408182023416_Initial schema.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\MigrationsConfiguration.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\Auditing\AuditEventMapping.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\CountryMapping.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\LookupEntityMapping.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\Security\UserClaimMapping.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\Security\UserMapping.cs" />
     <Compile Include="Infrastructure\Data\SeedDatabaseConfiguration.cs" />
     <Compile Include="Infrastructure\Data\SeedDbContext.cs" />
     <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
@@ -80,19 +76,19 @@
     <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\AccountLockoutPolicy.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
+    <Compile Include="Security\UserClaim.cs" />
     <Compile Include="Security\ConfirmUserCommand.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />
     <Compile Include="Security\PasswordRequirements.cs" />
     <Compile Include="Security\IUserContext.cs" />
-    <Compile Include="Security\LoginProvider.cs" />
     <Compile Include="Admin\Users\EditUserCommand.cs" />
     <Compile Include="Security\RegisterUserCommand.cs" />
     <Compile Include="Security\RegisterUserCommandValidator.cs" />
-    <Compile Include="Security\SeedLoginProvider.cs" />
     <Compile Include="Security\LoginResult.cs" />
     <Compile Include="Security\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SignInCommand.cs" />
+    <Compile Include="Security\User.UserStateMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -105,9 +101,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408182023416_Initial schema.resx">
-      <DependentUpon>201408182023416_Initial schema.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Infrastructure\Net\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

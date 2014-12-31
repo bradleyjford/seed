@@ -11,13 +11,11 @@ namespace Seed.Common.Data.Testing
         public TestDbAsyncEnumerable(IEnumerable<T> enumerable)
             : base(enumerable)
         {
-            
         }
 
         public TestDbAsyncEnumerable(Expression expression)
             : base(expression)
         {
-            
         }
 
         public IDbAsyncEnumerator<T> GetAsyncEnumerator()
