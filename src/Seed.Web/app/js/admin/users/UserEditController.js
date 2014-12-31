@@ -21,7 +21,7 @@
                 }
             };
 
-            this.cancel = function() {
+            this.cancel = function () {
                 $scope.editForm.$setPristine();
 
                 $state.go('^');
@@ -54,7 +54,7 @@
                         cancelButtonText: 'No, cancel'
                     })
                     .then(function () {
-                        UsersApi.deactivate({ userId: self.model.id }, null, function () {
+                        UsersApi.deactivate({ userId: model.id }, null, function () {
                             $state.reinit();
                         });
                     });

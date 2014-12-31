@@ -2,11 +2,11 @@
     <div class="col-md-6">
         <form name="filterForm" class="form-inline" role="form" no-validate>
             <div class="input-group">
-                <label for="filterText" class="sr-only">User name</label>
-                <input type="text" id="filterText" class="form-control" ng-model="search.query" placeholder="Search">
+                <label for="filterText" class="sr-only">Search</label>
+                <input type="text" id="filterText" class="form-control" ng-model="listCtrl.filter" placeholder="Search">
 
                 <span class="input-group-btn">
-                    <button class="btn btn-default btn-sm" ng-click="search()"><span class="fa fa-search"></span></button>
+                    <button class="btn btn-default btn-sm" ng-click="listCtrl.search()"><span class="fa fa-search"></span></button>
                 </span>
             </div>
 
@@ -19,14 +19,14 @@
         <table class="table table-striped table-hover table-responsive">
             <thead>
                 <tr>
-                    <th ng-click="orderBy('userName')">User name</th>
-                    <th ng-click="orderBy('fullName')">Name</th>
-                    <th ng-click="orderBy('emailAddress')">Email address</th>
+                    <th ng-click="listCtrl.orderBy('userName')">User name</th>
+                    <th ng-click="listCtrl.orderBy('fullName')">Name</th>
+                    <th ng-click="listCtrl.orderBy('emailAddress')">Email address</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr ng-repeat="user in pagedItems.items">
+                <tr ng-repeat="user in listCtrl.pagedItems.items">
                     <td><a ui-sref="app.admin.users.edit({ userId: user.id })" ng-bind="user.userName"></a></td>
                     <td ng-bind="user.fullName"></td>
                     <td ng-bind="user.emailAddress"></td>
@@ -36,10 +36,10 @@
 
         <pagination boundary-links="true"
                     rotate="true"
-                    ng-model="pagedItems.pageNumber"
-                    ng-change="pageChanged()"
-                    total-items="pagedItems.itemCount"
-                    items-per-page="pagedItems.pageSize"
+                    ng-model="listCtrl.pagedItems.pageNumber"
+                    ng-change="listCtrl.pageChanged()"
+                    total-items="listCtrl.pagedItems.itemCount"
+                    items-per-page="listCtrl.pagedItems.pageSize"
                     max-size="5">
         </pagination>
     </div>

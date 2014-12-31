@@ -3,17 +3,29 @@
 
     var module = angular.module('seedApp.admin');
 
-    module.controller('UserListController', ['$scope', 'users', 'UsersApi', function ($scope, users, UsersApi) {
-        $scope.pagedItems = users;
+    module.controller('UserListController', ['users', '$state', '$stateParams', function (users, $state, $stateParams) {
+        var self = this;
 
-        $scope.sortOrder = {
-            property: 'Id',
-            ascending: true
-        };
+        this.pagedItems = users;
 
-        $scope.search = {
-            query: ''
-        };
+        this.filter = $stateParams.f;
+
+        function getSortOrder(sortOrderString) {
+            var parts = sortOrderString.split(' ');
+
+            var result = {
+                property: parts[0],
+                ascending: true
+            };
+
+            if (parts[1] === 'desc') {
+                result.ascending = false;
+            }
+
+            return result;
+        }
+
+        this.sortOrder = getSortOrder($stateParams.s || 'Id asc');
 
         function getSortOrderString (sortOrder) {
             var direction = sortOrder.ascending ? 'asc' : 'desc';
@@ -21,37 +33,28 @@
             return sortOrder.property + ' ' + direction;
         }
 
-        $scope.reloadData = function (page, pageSize, sortOrder, filter) {
-            var requestData = {
-                pageNumber: page,
-                pageSize: pageSize,
-                sortOrder: getSortOrderString(sortOrder),
-                filterText: filter
-            };
-
-            return UsersApi.query(requestData, function (data) {
-                $scope.pagedItems = data;
-            });
+        this.reloadData = function (page, pageSize, sortOrder, filter) {
+            $state.go('.', { p: page, c: pageSize, f: filter, s: getSortOrderString(sortOrder) });
         };
 
-        $scope.pageChanged = function() {
-            return $scope.reloadData($scope.pagedItems.pageNumber, $scope.pagedItems.pageSize, $scope.sortOrder, $scope.search.query);
+        this.pageChanged = function () {
+            return self.reloadData(self.pagedItems.pageNumber, self.pagedItems.pageSize, self.sortOrder, self.filter);
         };
 
-        $scope.orderBy = function (property) {
-            if ($scope.sortOrder.property === property) {
-                $scope.sortOrder.ascending = !$scope.sortOrder.ascending;
+        this.orderBy = function (property) {
+            if (self.sortOrder.property === property) {
+                self.sortOrder.ascending = !self.sortOrder.ascending;
             }
             else {
-                $scope.sortOrder.property = property;
-                $scope.sortOrder.ascending = true;
+                self.sortOrder.property = property;
+                self.sortOrder.ascending = true;
             }
 
-            return $scope.reloadData(1, $scope.pagedItems.pageSize, $scope.sortOrder, $scope.search.query);
+            return self.reloadData(1, self.pagedItems.pageSize, self.sortOrder, self.filter);
         };
 
-        $scope.search = function () {
-            return $scope.reloadData(1, $scope.pagedItems.pageSize, $scope.sortOrder, $scope.search.query);
+        this.search = function () {
+            return self.reloadData(1, self.pagedItems.pageSize, self.sortOrder, self.filter);
         };
     }]);
 })(angular);

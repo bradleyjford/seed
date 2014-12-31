@@ -88,35 +88,21 @@
             })
 
             .state('app.admin.users', {
-                url: '/users?p&c',
+                url: '/users?p&c&f&s',
                 views: {
                     'content@app.admin': {
                         templateUrl: 'admin/users/UserList.html',
-                        controller: 'UserListController'
+                        controller: 'UserListController as listCtrl'
                     }
                 },
                 resolve: {
                     users: ['$stateParams', 'UsersApi', function ($stateParams, UsersApi) {
-                        var pageNumber = 1;
-                        var pageSize = 10;
+                        var pageNumber = $stateParams.p || 1;
+                        var pageSize = $stateParams.c || 10;
+                        var filter = $stateParams.f || '';
+                        var sort = $stateParams.s || 'Id asc';
 
-                        if ($stateParams.p) {
-                            pageNumber = $stateParams.p;
-
-                            if (pageNumber <= 0) {
-                                pageNumber = 1;
-                            }
-                        }
-
-                        if ($stateParams.c) {
-                            pageSize = $stateParams.c;
-
-                            if (c <= 0 || c > 500) {
-                                pageSize = 10;
-                            }
-                        }
-
-                        return UsersApi.query({ pageNumber: pageNumber, pageSize: pageSize }).$promise;
+                        return UsersApi.query({ pageNumber: pageNumber, pageSize: pageSize, filterText: filter, sortOrder: sort }).$promise;
                     }]
                 },
                 data: {
@@ -142,5 +128,4 @@
                 }
             });
     }]);
-})(angular)
-;
+})(angular);
