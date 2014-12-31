@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Seed.Common;
 using Seed.Common.Domain;
 using Seed.Common.Security;
@@ -14,6 +15,7 @@ namespace Seed.Security
         {
             State = UserState.New;
             UserClaims = new List<UserClaim>();
+            UserAuthorizationTokens = new List<AuthorizationToken>();
 
             _stateMachine = new UserStateMachine(() => State, s => State = s);
 
@@ -76,6 +78,16 @@ namespace Seed.Security
             get { return UserClaims; }
         }
 
+        private ICollection<AuthorizationToken> UserAuthorizationTokens { get; set; }
+
+        /// <summary>
+        /// Gets the authorization tokens associated with the user.
+        /// </summary>
+        public IEnumerable<AuthorizationToken> AuthorizationTokens
+        {
+            get { return UserAuthorizationTokens; }
+        } 
+
         /// <summary>
         /// Gets the date and time of the last successful login by the user in UTC.
         /// </summary>
@@ -91,22 +103,6 @@ namespace Seed.Security
         public int FailedLoginAttemptCount { get; internal set; }
 
         public DateTime? LockedUtcDate { get; private set; }
-
-        public void Activate()
-        {
-            _stateMachine.Fire(Trigger.Activate);
-        }
-
-        public void Deactivate()
-        {
-            _stateMachine.Fire(Trigger.Deactivate);
-        }
-
-        public void Confirm()
-        {
-            _stateMachine.Fire(Trigger.ConfirmEmail);
-            _stateMachine.Fire(Trigger.Activate);
-        }
 
         /// <summary>
         /// Gets a value indicating if the user has been de-activated by an administrator of
@@ -137,11 +133,16 @@ namespace Seed.Security
         /// Changes the password used by the user to signin to the application using the specfied password hasher.
         /// </summary>
         /// <param name="hasher"><see cref="Seed.Common.Security.IPasswordHasher"/></param>
-        /// <param name="newPassword">The new password to be set</param>
+        /// <param name="newPassword">The new password to be set.</param>
         public void ChangePassword(IPasswordHasher hasher, string newPassword)
         {
             Enforce.ArgumentNotNull("hasher", hasher);
-            Enforce.ArgumentNotNull("newPassword", hasher);
+            Enforce.ArgumentNotNull("newPassword", newPassword);
+
+            if (!PasswordRequirements.Instance.IsSatisfiedBy(newPassword))
+            {
+                throw new ArgumentException("Specified password does not meet the minimum complexity requirements", "newPassword");
+            }
 
             _stateMachine.Fire(Trigger.PasswordChanged);
 
@@ -195,18 +196,45 @@ namespace Seed.Security
             UserClaims.Remove(claim);
         }
 
+        public void Activate()
+        {
+            _stateMachine.Fire(Trigger.Activate);
+        }
+
+        public void Deactivate()
+        {
+            _stateMachine.Fire(Trigger.Deactivate);
+        }
+
+        public void Confirm(IPasswordHasher passwordHasher, AuthorizationToken authorizationToken, string secret)
+        {
+            var result = authorizationToken.Validate(passwordHasher, secret);
+
+            if (result != AuthorizationTokenValidationResult.Success)
+            {
+                throw new InvalidOperationException(
+                    String.Format("Validation failed with result {0} when attempting to validate AuthorizationToken {1}", result, authorizationToken.Id));
+            }
+
+            authorizationToken.Consume();
+
+            _stateMachine.Fire(Trigger.ConfirmEmail);
+            _stateMachine.Fire(Trigger.Activate);
+        }
+
         internal void Lock()
         {
             _stateMachine.Fire(Trigger.Lock);
-
-            LockedUtcDate = ClockProvider.GetUtcNow();
         }
 
         public void Unlock()
         {
             _stateMachine.Fire(Trigger.UnlockAccount);
+        }
 
-            LockedUtcDate = null;
+        public void AddAuthorizationToken(AuthorizationToken authorizationToken)
+        {
+            UserAuthorizationTokens.Add(authorizationToken);
         }
     }
 }

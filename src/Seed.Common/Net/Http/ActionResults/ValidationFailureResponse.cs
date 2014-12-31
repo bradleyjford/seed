@@ -4,14 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
 
-namespace Seed.Api.Infrastructure.ActionResults
+namespace Seed.Common.Net.Http.ActionResults
 {
     public class ValidationFailureResponse : IHttpActionResult
     {

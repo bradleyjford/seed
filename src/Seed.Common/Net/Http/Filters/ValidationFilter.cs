@@ -2,18 +2,17 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Seed.Api.Infrastructure.ActionResults;
+using Seed.Common.Net.Http.ActionResults;
 
-namespace Seed.Api.Infrastructure.Filters
+namespace Seed.Common.Net.Http.Filters
 {
     public class ValidationFilter : IActionFilter
     {
         public bool AllowMultiple
         {
-            get { return true; }
+            get { return false; }
         }
 
         public Task<HttpResponseMessage> ExecuteActionFilterAsync(
@@ -22,13 +21,6 @@ namespace Seed.Api.Infrastructure.Filters
             Func<Task<HttpResponseMessage>> continuation)
         {
             if (actionContext.ModelState.IsValid)
-            {
-                return continuation();
-            }
-
-            var apiController = actionContext.ControllerContext.Controller as ApiController;
-
-            if (apiController == null)
             {
                 return continuation();
             }

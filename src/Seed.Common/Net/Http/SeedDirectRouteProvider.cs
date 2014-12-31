@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
-namespace Seed.Api.Infrastructure
+namespace Seed.Common.Net.Http
 {
     public class SeedDirectRouteProvider : DefaultDirectRouteProvider
     {

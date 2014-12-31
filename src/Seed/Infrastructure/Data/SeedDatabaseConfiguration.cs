@@ -21,10 +21,14 @@ namespace Seed.Infrastructure.Data
         {
             protected override void Seed(SeedDbContext context)
             {
+                var randomNumberGenerator = new RandomNumberGenerator();
+
                 var passwordHasher = new Rfc2898PasswordHasher(
                     Rfc2898PasswordHashParameters.Default,
                     Rfc2898PasswordHashParameters.AllVersions,
-                    new RandomNumberGenerator());
+                    randomNumberGenerator);
+
+                var authorizationTokenFactory = new AuthorizationTokenFactory(randomNumberGenerator, passwordHasher);
 
                 var users = new List<User>();
 
@@ -37,7 +41,11 @@ namespace Seed.Infrastructure.Data
                         user.AddClaim(new UserClaim(ClaimTypes.Role, "admin"));
                     }
 
-                    user.Confirm();
+                    string tokenSecret;
+
+                    var token = authorizationTokenFactory.Create(user, TimeSpan.FromDays(1), out tokenSecret);
+
+                    user.Confirm(passwordHasher, token, tokenSecret);
 
                     users.Add(user);
                 }

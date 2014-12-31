@@ -66,18 +66,20 @@
     <Compile Include="Infrastructure\Data\Mappings\LookupEntityMapping.cs" />
     <Compile Include="Infrastructure\Data\Mappings\Security\UserClaimMapping.cs" />
     <Compile Include="Infrastructure\Data\Mappings\Security\UserMapping.cs" />
+    <Compile Include="Infrastructure\Data\Mappings\Security\AuthorizationTokenMapping.cs" />
     <Compile Include="Infrastructure\Data\SeedDatabaseConfiguration.cs" />
     <Compile Include="Infrastructure\Data\SeedDbContext.cs" />
-    <Compile Include="Infrastructure\Security\AuthorizationToken.cs" />
-    <Compile Include="Infrastructure\Security\AuthorizationTokenFactory.cs" />
-    <Compile Include="Infrastructure\Security\IAuthorizationTokenFactory.cs" />
+    <Compile Include="Security\AuthorizationToken.cs" />
+    <Compile Include="Security\AuthorizationTokenFactory.cs" />
     <Compile Include="Infrastructure\Data\ISeedDbContext.cs" />
     <Compile Include="Lookups\Country.cs" />
     <Compile Include="Lookups\LookupEntity.cs" />
     <Compile Include="Security\AccountLockoutPolicy.cs" />
     <Compile Include="Security\ActivateUserCommand.cs" />
+    <Compile Include="Security\AuthorizationTokenValidationResult.cs" />
+    <Compile Include="Security\ConfirmRegistrationCommandValidator.cs" />
     <Compile Include="Security\UserClaim.cs" />
-    <Compile Include="Security\ConfirmUserCommand.cs" />
+    <Compile Include="Security\ConfirmRegistrationCommand.cs" />
     <Compile Include="Security\DeactivateUserCommand.cs" />
     <Compile Include="Security\PasswordRequirements.cs" />
     <Compile Include="Security\IUserContext.cs" />
@@ -100,9 +102,7 @@
       <Name>Seed.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\Net\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -14,7 +14,8 @@ namespace Seed.Infrastructure.Data
         }
 
         public DbSet<AuditEvent> AuditEvents { get; set; }
-        public DbSet<User> Users { get; set; }        
+        public DbSet<User> Users { get; set; }
+        public DbSet<AuthorizationToken> AuthorizationTokens { get; set; }
         public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

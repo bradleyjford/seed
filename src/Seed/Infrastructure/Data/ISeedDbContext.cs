@@ -12,6 +12,7 @@ namespace Seed.Infrastructure.Data
     {
         DbSet<AuditEvent> AuditEvents { get; }
         DbSet<User> Users { get; }
+        DbSet<AuthorizationToken> AuthorizationTokens { get; }
         DbSet<Country> Countries { get; }
 
         DbChangeTracker ChangeTracker { get; }

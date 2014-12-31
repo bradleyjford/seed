@@ -29,15 +29,20 @@ namespace Seed.Tests.Admin.Users
             bool confirm)
         {
             var passwordHasher = new TestPasswordHasher();
+            var authenticationTokenFactory = new AuthorizationTokenFactory(new TestRandomNumberGenerator(), passwordHasher);
 
             var user = new User(userName, fullName, email, passwordHasher, password)
             {
                 Id = id
             };
 
+            string tokenSecret;
+
+            var token = authenticationTokenFactory.Create(user, TimeSpan.FromDays(1), out tokenSecret);
+
             if (confirm)
             {
-                user.Confirm();
+                user.Confirm(passwordHasher, token, tokenSecret);
             }
 
             _dbContext.Users.Add(user);

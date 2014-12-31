@@ -16,11 +16,13 @@ namespace Seed.Tests.Data
         {            
             AuditEvents = new TestEntityDbSet<AuditEvent, int>();
             Users = new TestEntityDbSet<User, Guid>();
+            AuthorizationTokens = new TestDbSet<AuthorizationToken>();
             Countries = new TestEntityDbSet<Country, int>();
         }
         
         public DbSet<AuditEvent> AuditEvents { get; private set; }
         public DbSet<User> Users { get; private set; }
+        public DbSet<AuthorizationToken> AuthorizationTokens { get; private set; }
         public DbSet<Country> Countries { get; private set; }
 
         public DbChangeTracker ChangeTracker

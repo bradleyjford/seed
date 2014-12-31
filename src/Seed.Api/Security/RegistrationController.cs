@@ -14,7 +14,7 @@ namespace Seed.Api.Security
         static RegistrationController()
         {
             Mapper.CreateMap<RegisterUserRequest, RegisterUserCommand>();
-            Mapper.CreateMap<ConfirmUserRequest, ConfirmUserCommand>();
+            Mapper.CreateMap<ConfirmUserRequest, ConfirmRegistrationCommand>();
         }
 
         private readonly ICommandBus _mediator;
@@ -45,7 +45,14 @@ namespace Seed.Api.Security
         [HttpPost]
         public async Task<IHttpActionResult> Confirm(ConfirmUserRequest request)
         {
-            var command = Mapper.Map<ConfirmUserCommand>(request);
+            var command = Mapper.Map<ConfirmRegistrationCommand>(request);
+
+            var validationResult = await _mediator.Validate(command);
+
+            if (!validationResult.Success())
+            {
+                return ValidationFailure(validationResult);
+            }
 
             var result = await _mediator.Execute(command);
 

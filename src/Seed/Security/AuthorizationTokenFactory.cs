@@ -3,8 +3,13 @@ using Seed.Common.Domain;
 using Seed.Common.Security;
 using Seed.Common.Text;
 
-namespace Seed.Infrastructure.Security
+namespace Seed.Security
 {
+    public interface IAuthorizationTokenFactory
+    {
+        AuthorizationToken Create(User user, TimeSpan validityPeriod, out string secret);
+    }
+
     public class AuthorizationTokenFactory : IAuthorizationTokenFactory
     {
         public static int TokenSizeBytes = 256 / 8;
@@ -20,7 +25,7 @@ namespace Seed.Infrastructure.Security
             _passwordHasher = passwordHasher;
         }
 
-        public AuthorizationToken Create(TimeSpan validityPeriod, out string secret)
+        public AuthorizationToken Create(User user, TimeSpan validityPeriod, out string secret)
         {
             var secretBytes = _randomNumberGenerator.Generate(TokenSizeBytes);
 
@@ -29,7 +34,7 @@ namespace Seed.Infrastructure.Security
             var hashedSecret = _passwordHasher.ComputeHash(secret);
             var expiryUtcDate = ClockProvider.GetUtcNow().Add(validityPeriod);
 
-            return new AuthorizationToken(hashedSecret, expiryUtcDate);
+            return new AuthorizationToken(user, hashedSecret, expiryUtcDate);
         }
     }
 }

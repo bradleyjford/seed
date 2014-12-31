@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Seed.Api.Infrastructure.ThirdParty
+namespace Seed.Common.Web
 {
     public static class Gravatar
     {

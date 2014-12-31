@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using FluentValidation;
 using FluentValidation.Attributes;
 
@@ -17,10 +16,17 @@ namespace Seed.Api.Admin.Users
     {
         public EditUserRequestValidator()
         {
-            RuleFor(r => r.FullName).NotEmpty();
-            RuleFor(r => r.Email).NotEmpty().EmailAddress().WithName("Email");
+            RuleFor(r => r.FullName)
+                .NotEmpty()
+                .Length(1, 100);
+            
+            RuleFor(r => r.Email)
+                .NotEmpty()
+                .EmailAddress()
+                .Length(3, 200);
 
-            RuleFor(r => r.RowVersion).NotEmpty();
+            RuleFor(r => r.RowVersion)
+                .NotEmpty();
         }
     }
 }

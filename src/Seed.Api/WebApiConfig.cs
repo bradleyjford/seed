@@ -3,7 +3,8 @@ using System.Web.Http;
 using FluentValidation.WebApi;
 using Newtonsoft.Json.Serialization;
 using Seed.Api.Infrastructure;
-using Seed.Api.Infrastructure.Filters;
+using Seed.Common.Net.Http;
+using Seed.Common.Net.Http.Filters;
 
 namespace Seed.Api
 {
@@ -23,6 +24,7 @@ namespace Seed.Api
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
             config.Filters.Add(new ValidationFilter());
+            config.Filters.Add(new EntityNotFoundFilter());
 
             FluentValidationModelValidatorProvider.Configure(config);
 

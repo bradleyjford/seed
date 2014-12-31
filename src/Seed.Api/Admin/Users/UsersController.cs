@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -55,6 +53,11 @@ namespace Seed.Api.Admin.Users
         {
             var user = await _dbContext.Users
                 .FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
 
             var response = Mapper.Map<UserDetailResponse>(user);
 

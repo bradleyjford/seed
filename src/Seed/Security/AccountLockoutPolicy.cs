@@ -3,7 +3,7 @@ using Seed.Common.Domain;
 
 namespace Seed.Security
 {
-    internal static class AccountLockoutPolicy
+    public static class AccountLockoutPolicy
     {
         public static int MaxFailedLoginAtteptCount = 5;
         public static TimeSpan FailedLoginAttemptWindowPeriod = TimeSpan.FromMinutes(5);

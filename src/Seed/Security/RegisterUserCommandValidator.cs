@@ -21,9 +21,9 @@ namespace Seed.Security
         {
             var results = new List<ValidationResult>();
 
-            var isUserNameUnique = await IsUserNameUnique(command.UserName);
+            var isUserNameInuse = await IsUserNameInUse(command.UserName);
 
-            if (!isUserNameUnique)
+            if (isUserNameInuse)
             {
                 results.Add(new ValidationResult("The user name specified is already in use. Please choose another.", new [] { "UserName" }));
             }
@@ -36,7 +36,7 @@ namespace Seed.Security
             return results;
         }
 
-        private async Task<bool> IsUserNameUnique(string userName)
+        private async Task<bool> IsUserNameInUse(string userName)
         {
             return await _dbContext.Users.AsNoTracking().AnyAsync(u => u.UserName == userName);
         }

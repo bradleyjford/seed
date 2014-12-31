@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Http;
-using Seed.Api.Infrastructure.ActionResults;
 using Seed.Common.CommandHandling;
-using FluentValidationResult = FluentValidation.Results.ValidationResult;
-using SystemValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
+using Seed.Common.Net.Http.ActionResults;
 
 namespace Seed.Api
 {
@@ -21,7 +19,7 @@ namespace Seed.Api
             return InternalServerError(result.Error);
         }
 
-        protected IHttpActionResult ValidationFailure(IEnumerable<SystemValidationResult> results)
+        protected IHttpActionResult ValidationFailure(IEnumerable<ValidationResult> results)
         {
             return new ValidationFailureResponse(ActionContext, results);
         }

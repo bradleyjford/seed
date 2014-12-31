@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Seed.Common.CommandHandling;
+using Seed.Common.Domain;
 using Seed.Infrastructure.Data;
 
 namespace Seed.Security
@@ -30,7 +32,7 @@ namespace Seed.Security
 
             if (user == null)
             {
-                throw new IndexOutOfRangeException();
+                throw new EntityNotFoundException("Could not load User with Id " + command.UserId);
             }
 
             user.Activate();

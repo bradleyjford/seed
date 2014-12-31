@@ -3,7 +3,7 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Seed.Api.Infrastructure.Middleware.OAuth2;
+using Seed.Api.Infrastructure.Middleware;
 
 [assembly: OwinStartup(typeof(Seed.Api.Startup))]
 

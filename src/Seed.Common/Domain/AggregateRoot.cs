@@ -8,5 +8,7 @@ namespace Seed.Common.Domain
         public DateTime CreatedUtcDate { get; protected set; }
         public TUserId ModifiedByUserId { get; protected set; }
         public DateTime ModifiedUtcDate { get; protected set; }
+
+        public byte[] RowVersion { get; set; }
     }
 }

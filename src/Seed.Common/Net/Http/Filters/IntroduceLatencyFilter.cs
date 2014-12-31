@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace Seed.Api.Infrastructure.Filters
+namespace Seed.Common.Net.Http.Filters
 {
     public class IntroduceLatencyFilter : IActionFilter
     {

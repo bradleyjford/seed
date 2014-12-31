@@ -9,8 +9,6 @@ namespace Seed.Common.Domain
 
         public TId Id { get; protected internal set; }
 
-        public byte[] RowVersion { get; set; }
-
         public override bool Equals(object obj)
         {
             var other = obj as Entity<TId>;

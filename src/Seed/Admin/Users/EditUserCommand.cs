@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Seed.Common.Auditing.Serialization;
 using Seed.Common.CommandHandling;
+using Seed.Common.Domain;
 using Seed.Infrastructure.Data;
 
 namespace Seed.Admin.Users
@@ -31,7 +32,7 @@ namespace Seed.Admin.Users
 
             if (user == null)
             {
-                throw new IndexOutOfRangeException();
+                throw new EntityNotFoundException("Could not load User with Id " + command.UserId);
             }
 
             user.FullName = command.FullName;

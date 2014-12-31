@@ -25,17 +25,16 @@ namespace Seed.Infrastructure.Auditing
             return new AuditEvent(userId, date, commandName, data);
         }
 
+        protected AuditEvent()
+        {
+        }
+
         private AuditEvent(Guid userId, DateTime date, string command, string data)
         {
             UserId = userId;
             Date = date;
             Command = command;
             Data = data;
-        }
-
-        protected AuditEvent()
-        {
-            
         }
 
         public DateTime Date { get; protected set; }

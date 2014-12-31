@@ -36,6 +36,13 @@ namespace Seed.Infrastructure.Data.Mappings.Security
                 .WillCascadeOnDelete();
 
             Ignore(u => u.Claims);
+
+            HasMany(MappingHelpers.GetMember<User, ICollection<AuthorizationToken>>("UserAuthorizationTokens"))
+                .WithRequired(t => t.User)
+                .Map(c => c.MapKey("UserId"))
+                .WillCascadeOnDelete();
+
+            Ignore(u => u.AuthorizationTokens);
         }
     }
 }

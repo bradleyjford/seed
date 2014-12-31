@@ -141,18 +141,8 @@
     <Compile Include="ApiCommandController.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="AutoMapperConfig.cs" />
-    <Compile Include="Infrastructure\Filters\IntroduceLatencyFilter.cs" />
-    <Compile Include="Infrastructure\Filters\ValidationFilter.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationExtensions.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationHandler.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationMiddleware.cs" />
-    <Compile Include="Infrastructure\Middleware\BasicAuthentication\BasicAuthenticationOptions.cs" />
-    <Compile Include="Infrastructure\Middleware\OAuth2\SeedAuthorizationServerProvider.cs" />
-    <Compile Include="Infrastructure\Middleware\WindowsAuthentication\WindowsAuthenticationExtensions.cs" />
+    <Compile Include="Infrastructure\Middleware\SeedAuthorizationServerProvider.cs" />
     <Compile Include="Infrastructure\Security\SeedUserContext.cs" />
-    <Compile Include="Infrastructure\SeedDirectRouteProvider.cs" />
-    <Compile Include="Infrastructure\BufferNonStreamedContentHandler.cs" />
-    <Compile Include="Infrastructure\ThirdParty\Gravatar.cs" />
     <Compile Include="Security\ConfirmUserRequest.cs" />
     <Compile Include="Security\IdentityController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,7 +150,6 @@
     <Compile Include="Security\RegisterUserRequest.cs" />
     <Compile Include="Security\RegistrationController.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Infrastructure\ActionResults\ValidationFailureResponse.cs" />
     <Compile Include="WebApiConfig.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\ThirdParty\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

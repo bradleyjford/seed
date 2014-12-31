@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Seed.Common.CommandHandling;
 using Seed.Security;
 
-namespace Seed.Api.Infrastructure.Middleware.OAuth2
+namespace Seed.Api.Infrastructure.Middleware
 {
     public class SeedAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
