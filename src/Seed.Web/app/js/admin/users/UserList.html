@@ -19,17 +19,17 @@
         <table class="table table-striped table-hover table-responsive">
             <thead>
                 <tr>
-                    <th ng-click="listCtrl.orderBy('userName')">User name</th>
-                    <th ng-click="listCtrl.orderBy('fullName')">Name</th>
-                    <th ng-click="listCtrl.orderBy('emailAddress')">Email address</th>
+                    <th><a href="" ng-click="listCtrl.orderBy('userName')">User name</a</th>
+                    <th><a href="" ng-click="listCtrl.orderBy('fullName')">Name</a></th>
+                    <th><a href="" ng-click="listCtrl.orderBy('emailAddress')">Email address</a></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr ng-repeat="user in listCtrl.pagedItems.items">
-                    <td><a ui-sref="app.admin.users.edit({ userId: user.id })" ng-bind="user.userName"></a></td>
+                    <td><a ui-sref=".edit({ userId: user.id })" ng-bind="user.userName"></a></td>
                     <td ng-bind="user.fullName"></td>
-                    <td ng-bind="user.emailAddress"></td>
+                    <td ng-bind="user.email"></td>
                 </tr>
             </tbody>
         </table>

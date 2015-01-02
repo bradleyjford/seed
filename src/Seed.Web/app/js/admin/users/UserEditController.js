@@ -38,7 +38,7 @@
                     })
                     .then(function () {
                         UsersApi.activate({ userId: self.model.id }, null, function () {
-                            $state.reinit();
+                            $state.reload();
                         });
                     });
             };
@@ -55,7 +55,7 @@
                     })
                     .then(function () {
                         UsersApi.deactivate({ userId: model.id }, null, function () {
-                            $state.reinit();
+                            $state.reload();
                         });
                     });
             };
