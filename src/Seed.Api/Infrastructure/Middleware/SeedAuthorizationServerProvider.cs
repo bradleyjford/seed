@@ -41,6 +41,7 @@ namespace Seed.Api.Infrastructure.Middleware
 
                 identity.AddClaim(new Claim("SeedUserId", user.Id.ToString(), ClaimValueTypes.HexBinary));
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.FullName));
                 identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
 
                 context.Validated(identity);

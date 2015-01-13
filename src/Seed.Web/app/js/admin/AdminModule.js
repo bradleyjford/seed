@@ -88,25 +88,26 @@
             })
 
             .state('app.admin.users', {
-                url: '/users?p&c&f&s',
+                url: '/users?pn&ps&q&s',
                 views: {
                     'content@app.admin': {
                         templateUrl: 'admin/users/UserList.html',
-                        controller: 'UserListController as listCtrl'
+                        controller: 'ListController as listCtrl'
                     }
                 },
                 resolve: {
-                    users: ['$stateParams', 'UsersApi', function ($stateParams, UsersApi) {
-                        var pageNumber = $stateParams.p || 1;
-                        var pageSize = $stateParams.c || 10;
-                        var filter = $stateParams.f || '';
+                    pagedResult: ['$stateParams', 'UsersApi', function ($stateParams, UsersApi) {
+                        var pageNumber = $stateParams.pn || 1;
+                        var pageSize = $stateParams.ps || 10;
+                        var query = $stateParams.q || '';
                         var sort = $stateParams.s || 'Id asc';
 
-                        return UsersApi.query({ pageNumber: pageNumber, pageSize: pageSize, filterText: filter, sortOrder: sort }).$promise;
+                        return UsersApi.query({ pageNumber: pageNumber, pageSize: pageSize, filterText: query, sortOrder: sort }).$promise;
                     }]
                 },
                 data: {
-                    title: 'Manage Users'
+                    title: 'Manage Users',
+                    defaultSort: 'Id asc'
                 }
             })
 

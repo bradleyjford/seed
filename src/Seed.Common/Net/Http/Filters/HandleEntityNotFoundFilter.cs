@@ -9,7 +9,7 @@ using Seed.Common.Domain;
 
 namespace Seed.Common.Net.Http.Filters
 {
-    public class EntityNotFoundFilter : IActionFilter
+    public class HandleEntityNotFoundFilter : IActionFilter
     {
         public bool AllowMultiple
         {

@@ -3,9 +3,12 @@
     basePath : '../',
 
     files : [
-      'app/lib/angular/angular.js',
-      'app/lib/angular/angular-*.js',
-      'test/lib/angular-mocks.js',
+      'bower_components/angular/angular.js',
+      'bower_components/jquery/dist/jquery.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/angular-resource/angular-resource.js',
+      'bower_components/angular-local-storage/angular-local-storage.js',
+      'bower_components/angular-mocks/angular-mocks.js',
       'app/js/app.js',
       'app/js/**/*Module.js',
       'app/js/**/*.js',
@@ -13,9 +16,7 @@
     ],
 
     exclude : [
-      'app/lib/angular/angular-loader.js',
-      'app/lib/angular/*.min.js',
-      'test/lib/angular-scenario.js'
+
     ],
 
     autoWatch : true,
@@ -27,7 +28,6 @@
     plugins : [
       'karma-junit-reporter',
       'karma-chrome-launcher',
-      'karma-firefox-launcher',
       'karma-jasmine'
     ],
 

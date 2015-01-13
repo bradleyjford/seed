@@ -3,58 +3,35 @@
 
     var module = angular.module('seedApp.admin');
 
-    module.controller('UserListController', ['users', '$state', '$stateParams', function (users, $state, $stateParams) {
+    module.controller('ListController', ['$state', '$stateParams', 'pagedResult', function ($state, $stateParams, pagedResult) {
         var self = this;
 
-        this.pagedItems = users;
-
-        this.filter = $stateParams.f;
-
-        function getSortOrder(sortOrderString) {
-            var parts = sortOrderString.split(' ');
-
-            var result = {
-                property: parts[0],
-                ascending: true
-            };
-
-            if (parts[1] === 'desc') {
-                result.ascending = false;
-            }
-
-            return result;
+        function reload(page, pageSize, sortOrder, query) {
+            $state.go('.', { pn: page, ps: pageSize, q: query, s: sortOrder.toString() });
         }
 
-        this.sortOrder = getSortOrder($stateParams.s || 'Id asc');
-
-        function getSortOrderString (sortOrder) {
-            var direction = sortOrder.ascending ? 'asc' : 'desc';
-
-            return sortOrder.property + ' ' + direction;
-        }
-
-        this.reloadData = function (page, pageSize, sortOrder, filter) {
-            $state.go('.', { p: page, c: pageSize, f: filter, s: getSortOrderString(sortOrder) });
-        };
+        this.pagedResult = pagedResult;
+        this.query = $stateParams.q;
+        this.sortParams = SortParams.parseString($stateParams.s || $state.current.data.defaultSort);
 
         this.pageChanged = function () {
-            return self.reloadData(self.pagedItems.pageNumber, self.pagedItems.pageSize, self.sortOrder, self.filter);
+            return reload(self.pagedResult.pageNumber, self.pagedResult.pageSize, self.sortParams, self.query);
         };
 
-        this.orderBy = function (property) {
-            if (self.sortOrder.property === property) {
-                self.sortOrder.ascending = !self.sortOrder.ascending;
+        this.sort = function (property) {
+            if (self.sortParams.property === property) {
+                self.sortParams.ascending = !self.sortParams.ascending;
             }
             else {
-                self.sortOrder.property = property;
-                self.sortOrder.ascending = true;
+                self.sortParams.property = property;
+                self.sortParams.ascending = true;
             }
 
-            return self.reloadData(1, self.pagedItems.pageSize, self.sortOrder, self.filter);
+            return reload(1, self.pagedResult.pageSize, self.sortParams, self.query);
         };
 
         this.search = function () {
-            return self.reloadData(1, self.pagedItems.pageSize, self.sortOrder, self.filter);
+            return reload(1, self.pagedResult.pageSize, self.sortParams, self.query);
         };
     }]);
 })(angular);

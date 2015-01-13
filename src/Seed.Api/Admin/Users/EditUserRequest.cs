@@ -19,7 +19,7 @@ namespace Seed.Api.Admin.Users
             RuleFor(r => r.FullName)
                 .NotEmpty()
                 .Length(1, 100);
-            
+
             RuleFor(r => r.Email)
                 .NotEmpty()
                 .EmailAddress()

@@ -1,12 +1,12 @@
-describe('seedApp.security.Principal', function () {
+describe('seedApp.SecurityPrincipal', function () {
     'use strict';
 
     var principal;
 
-    beforeEach(module('seedApp.security'));
+    beforeEach(module('seedApp'));
 
-    beforeEach(inject(function () {
-        principal = new seedApp.security.Principal();
+    beforeEach(inject(function (SecurityPrincipal) {
+        principal = SecurityPrincipal;
     }));
 
     afterEach(function () {

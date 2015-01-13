@@ -24,7 +24,7 @@ namespace Seed.Api
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
             config.Filters.Add(new ValidationFilter());
-            config.Filters.Add(new EntityNotFoundFilter());
+            config.Filters.Add(new HandleEntityNotFoundFilter());
 
             FluentValidationModelValidatorProvider.Configure(config);
 

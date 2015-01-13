@@ -15,7 +15,7 @@ namespace Seed.Common.Domain
         }
 
         public EntityNotFoundException(string message, Exception inner) : base(message, inner)
-        {
+        { 
         }
 
         protected EntityNotFoundException(

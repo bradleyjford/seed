@@ -20,7 +20,7 @@ namespace Seed.Security
         public async Task<IEnumerable<ValidationResult>> Validate(RegisterUserCommand command)
         {
             var results = new List<ValidationResult>();
-
+            
             var isUserNameInuse = await IsUserNameInUse(command.UserName);
 
             if (isUserNameInuse)
