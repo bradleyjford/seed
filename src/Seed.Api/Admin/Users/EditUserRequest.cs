@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Web.Http;
 using FluentValidation;
 using FluentValidation.Attributes;
 
 namespace Seed.Api.Admin.Users
 {
+    [FromBody]
     [Validator(typeof(EditUserRequestValidator))]
     public class EditUserRequest
     {
