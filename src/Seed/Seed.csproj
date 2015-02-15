@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Admin\Lookups\LookupEntityCommands.cs" />
     <Compile Include="Admin\Lookups\LookupEntityCommandHandlers.cs" />
+    <Compile Include="Admin\Users\CreateUserCommand.cs" />
     <Compile Include="Infrastructure\CommandHandlerDecorators\AuditCommandHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Auditing\AuditEvent.cs" />
     <Compile Include="Infrastructure\Data\Mappings\Auditing\AuditEventMapping.cs" />

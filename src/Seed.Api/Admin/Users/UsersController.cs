@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Seed.Admin.Users;
@@ -20,6 +21,7 @@ namespace Seed.Api.Admin.Users
             Mapper.CreateMap<User, UserSummaryResponse>();
             Mapper.CreateMap<User, UserDetailResponse>();
 
+            Mapper.CreateMap<CreateUserRequest, CreateUserCommand>();
             Mapper.CreateMap<EditUserRequest, EditUserCommand>();
         }
 
@@ -48,11 +50,10 @@ namespace Seed.Api.Admin.Users
             return Ok(users);
         }
 
-        [Route("{id:Guid}")]
+        [Route("{id:Guid}", Name = "UserDetail")]
         public async Task<IHttpActionResult> Get([FromUri] Guid id)
         {
-            var user = await _dbContext.Users
-                .FindAsync(id);
+            var user = await _dbContext.Users.FindAsync(id);
 
             if (user == null)
             {
@@ -64,8 +65,20 @@ namespace Seed.Api.Admin.Users
             return Ok(response);
         }
 
+        [Route("")]
+        public async Task<IHttpActionResult> Post(CreateUserRequest request)
+        {
+            var command = Mapper.Map<CreateUserCommand>(request);
+
+            var result = await _commandBus.Execute(command);
+
+            var userDetailUrl = Url.Link("UserDetail", new { id = result.UserId });
+
+            return Created(userDetailUrl, result.UserId);
+        }
+
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Post([FromUri] Guid id, EditUserRequest request)
+        public async Task<IHttpActionResult> Put([FromUri] Guid id, EditUserRequest request)
         {
             var command = Mapper.Map<EditUserCommand>(request);
 
