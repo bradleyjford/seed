@@ -11,11 +11,6 @@ namespace Seed.Common.Net.Http.Filters
 {
     public class HandleEntityNotFoundFilter : IActionFilter
     {
-        public bool AllowMultiple
-        {
-            get { return false; }
-        }
-
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(
             HttpActionContext actionContext, 
             CancellationToken cancellationToken, 
@@ -31,6 +26,11 @@ namespace Seed.Common.Net.Http.Filters
 
                 return result.ExecuteAsync(cancellationToken).Result;
             }
+        }
+
+        public bool AllowMultiple
+        {
+            get { return false; }
         }
     }
 }

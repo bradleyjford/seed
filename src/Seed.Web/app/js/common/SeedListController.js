@@ -3,7 +3,7 @@
 
     var module = angular.module('seedApp.admin');
 
-    module.controller('UserListController', ['$state', '$stateParams', 'pagedResult', function ($state, $stateParams, pagedResult) {
+    module.controller('SeedListController', ['$state', '$stateParams', 'pagedResult', function ($state, $stateParams, pagedResult) {
         var self = this;
 
         function reload(page, pageSize, sortOrder, query) {

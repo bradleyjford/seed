@@ -14,5 +14,20 @@ namespace Seed.Common
 
             return value;
         }
+        
+        public static string ArgumentNotNullOrEmpty(string parameter, string value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(parameter);
+            }
+
+            if (String.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("Argument empty", parameter);
+            }
+
+            return value;
+        }
     }
 }

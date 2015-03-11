@@ -24,7 +24,6 @@ namespace Seed.Api
         public static IContainer Initialize()
         {
             var domainAssembly = typeof(LookupEntity).Assembly;
-            //var dataAssembly = typeof(SeedDbContext).Assembly;
 
             var builder = new ContainerBuilder();
 
@@ -62,7 +61,8 @@ namespace Seed.Api
             builder.RegisterAssemblyTypes(domainAssembly)
                 .As(t => t.GetInterfaces()
                     .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
-                    .Select(i => new KeyedService("commandHandler", i)));
+                    .Select(i => new KeyedService("commandHandler", i)))
+                    .InstancePerLifetimeScope();
 
             RegisterLookupCommandHandlers(builder, domainAssembly);
 
@@ -71,18 +71,21 @@ namespace Seed.Api
                 typeof(AuditCommandHandlerDecorator<,>),
                 typeof(ICommandHandler<,>),
                 "commandHandler")
-                .Keyed("auditDecoratedCommandHandler", typeof(ICommandHandler<,>));
+                .Keyed("auditDecoratedCommandHandler", typeof(ICommandHandler<,>))
+                .InstancePerLifetimeScope();
 
             builder.RegisterGenericDecorator(
                 typeof(UnitOfWorkCommandHandlerDecorator<,>),
                 typeof(ICommandHandler<,>),
                 "auditDecoratedCommandHandler")
-                .Keyed("unitOfWorkDecoratedCommandHandler", typeof(ICommandHandler<,>));
+                .Keyed("unitOfWorkDecoratedCommandHandler", typeof(ICommandHandler<,>))
+                .InstancePerLifetimeScope();
 
             builder.RegisterGenericDecorator(
                 typeof(SmtpContextCommandHandlerDecorator<,>),
                 typeof(ICommandHandler<,>),
-                "unitOfWorkDecoratedCommandHandler");
+                "unitOfWorkDecoratedCommandHandler")
+                .InstancePerLifetimeScope();
 
             // Command Validators
             builder.RegisterAssemblyTypes(domainAssembly)
@@ -119,7 +122,9 @@ namespace Seed.Api
             var handlerType = typeof(LookupEntityCommandHandlers<>).MakeGenericType(lookupEntityType);
             var serviceType = typeof(ICommandHandler<,>).MakeGenericType(commandType, typeof(CommandResult));
 
-            builder.RegisterType(handlerType).Keyed("commandHandler", serviceType);
+            builder.RegisterType(handlerType)
+                .Keyed("commandHandler", serviceType)
+                .InstancePerLifetimeScope();
         }
     }
 }

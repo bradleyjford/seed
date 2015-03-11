@@ -126,6 +126,7 @@
     <Compile Include="Security\IPasswordHasher.cs" />
     <Compile Include="Security\OneTimePasswordGenerator.cs" />
     <Compile Include="Security\PasswordComplexityRequirement.cs" />
+    <Compile Include="Security\PasswordGenerator.cs" />
     <Compile Include="Security\PasswordLengthRequirement.cs" />
     <Compile Include="Security\RandomNumberGenerator.cs" />
     <Compile Include="Security\Rfc2898PasswordHasher.cs" />

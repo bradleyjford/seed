@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Dispatcher;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Seed.Admin.Users;
@@ -66,7 +65,8 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("")]
-        public async Task<IHttpActionResult> Post(CreateUserRequest request)
+        [HttpPost]
+        public async Task<IHttpActionResult> Create(CreateUserRequest request)
         {
             var command = Mapper.Map<CreateUserCommand>(request);
 
@@ -78,7 +78,8 @@ namespace Seed.Api.Admin.Users
         }
 
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Put([FromUri] Guid id, EditUserRequest request)
+        [HttpPost]
+        public async Task<IHttpActionResult> Edit([FromUri] Guid id, EditUserRequest request)
         {
             var command = Mapper.Map<EditUserCommand>(request);
 

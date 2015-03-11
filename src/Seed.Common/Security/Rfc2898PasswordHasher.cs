@@ -23,10 +23,7 @@ namespace Seed.Common.Security
 
         public string ComputeHash(string password)
         {
-            if (password == null)
-            {
-                throw new ArgumentNullException("password");
-            }
+            Enforce.ArgumentNotNullOrEmpty("password", password);
 
             var saltBytes = _randomNumberGenerator.Generate(_computeParameters.SaltSize);
 
@@ -49,15 +46,8 @@ namespace Seed.Common.Security
 
         public bool ValidateHash(string hashedPassword, string password)
         {
-            if (hashedPassword == null)
-            {
-                throw new ArgumentNullException("hashedPassword");
-            }
-
-            if (password == null)
-            {
-                throw new ArgumentNullException("password");
-            }
+            Enforce.ArgumentNotNullOrEmpty("hashedPassword", hashedPassword);
+            Enforce.ArgumentNotNullOrEmpty("password", password);
 
             var hashedPasswordBytes = Convert.FromBase64String(hashedPassword);
 

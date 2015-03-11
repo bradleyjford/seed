@@ -92,7 +92,7 @@
                 views: {
                     'content@app.admin': {
                         templateUrl: 'admin/users/UserList.html',
-                        controller: 'ListController as listCtrl'
+                        controller: 'UserListController as listCtrl'
                     }
                 },
                 resolve: {

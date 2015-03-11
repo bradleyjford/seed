@@ -26,8 +26,11 @@ namespace Seed.Api
             {
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
-
                 Provider = new SeedAuthorizationServerProvider()
+
+#if DEBUG
+                , AllowInsecureHttp = true
+#endif
             });
 
             WebApiConfig.Register(config);
