@@ -52,7 +52,7 @@ namespace Seed.Common.Net.Http.ActionResults
             var contentNegotiator = config.Services.GetContentNegotiator();
             var content = contentNegotiator.Negotiate(_validationResults.GetType(), _context.Request, config.Formatters);
 
-            var response = new HttpResponseMessage(HttpStatusCode.Forbidden)
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
             {
                 ReasonPhrase = "Validation failure",
                 Content = new ObjectContent(_validationResults.GetType(), _validationResults, content.Formatter)

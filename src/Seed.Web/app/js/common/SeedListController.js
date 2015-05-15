@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    var module = angular.module('seedApp.admin');
+    var module = angular.module('seedApp');
 
     module.controller('SeedListController', ['$state', '$stateParams', 'pagedResult', function ($state, $stateParams, pagedResult) {
         var self = this;

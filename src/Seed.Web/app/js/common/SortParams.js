@@ -1,4 +1,3 @@
-
 SortParams = (function () {
     'use strict';
 

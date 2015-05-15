@@ -14,12 +14,12 @@
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
                     if (toState.data.authorize && !SecurityPrincipal.isInRole(toState.data.authorize)) {
                         event.preventDefault();
-
+/*
                         if (!SecurityPrincipal.isAuthenticated) {
-                            $state.go('sign-in');
+                            $state.go('sign-in', { returnUrl: toState.url });
                             return;
                         }
-
+*/
                         $state.go('403');
                     }
                 });

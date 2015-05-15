@@ -29,7 +29,7 @@
         function signIn(userName, password) {
             return $http.post('/api/token', jquery.param({
                     grant_type: 'password',
-                    username: userName,
+                    username: encodeUriComponent(userName),
                     password: password
                 }),
                 {

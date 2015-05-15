@@ -33,8 +33,8 @@ var seedApp = (function (angular) {
                         user: ['$state', 'SecurityPrincipal', function ($state, SecurityPrincipal) {
                             return SecurityPrincipal.getCurrent()
                                 .error(function (data, status) {
-                                    if (status === 404) {
-                                        $state.go('sign-in', { returnUrl: $state.url });
+                                    if (status === 404 && $state.current.name !== 'sign-in') {
+                                        $state.go('sign-in', { returnUrl: $state.$current.url });
                                     }
                                 }).$promise;
                         }]
@@ -70,7 +70,7 @@ var seedApp = (function (angular) {
                         var $state = $injector.get('$state');
 
                         if (rejection.status === 401 && $state.current.name !== 'sign-in') {
-                            $state.go('sign-in');
+                            $state.go('sign-in', { returnUrl: $state.current.url });
                         }
                         else if (rejection.status === 403) {
                             $state.go('403');
